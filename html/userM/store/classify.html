@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+		<title></title>
+		<link rel="stylesheet" href="../css/reset.css" />
+		<link rel="stylesheet" href="../css/swiper.min.css" />
+		<link rel="stylesheet" href="../css/music.css" />
+		<link rel="stylesheet" href="../font/iconfont.css"/>
+		<script type="text/javascript" src="../js/swiper.min.js" ></script>
+		<script src="../js/jquery-2.1.1.min.js"></script>
+	</head>
+	<body>
+		<header>
+			<div class="search-wrapper clearfix">
+				<i class="icon iconfont icon-sousuo fl"></i>
+				<input type="text" class="search-bar fr" placeholder="搜索商品" maxlength="30"/>
+			</div>
+		</header>
+		<div class="container-wrapper">
+			<div class="classify-box clearfix">
+				<div class="fl left-nav">
+					<div class="left-nav-item active">热门课程</div>
+					<div class="left-nav-item">推荐学习</div>
+					<div class="left-nav-item">西方乐器</div>
+					<div class="left-nav-item">民族乐器</div>
+					<div class="left-nav-item">声乐学习</div>
+					<div class="left-nav-item">舞蹈学习</div>
+				</div>
+				<div class="fr right-nav">
+					<div class="right-nav-item">钢琴</div>
+					<div class="right-nav-item">小提琴</div>
+					<div class="right-nav-item">萨克斯</div>
+					<div class="right-nav-item">大提琴</div>
+					<div class="right-nav-item">吉他</div>
+					<div class="right-nav-item">古筝</div>
+					<div class="right-nav-item">芭蕾</div>
+					<div class="right-nav-item">形体</div>
+					<div class="right-nav-item">声乐</div>
+					<div class="right-nav-item">笛子</div>
+				</div>
+			</div>
+		</div>
+		<footer>
+			<div class="menu-item"><i class="iconfont icon-shouye"></i></div>
+			<div class="menu-item active"><i class="iconfont icon-cascades"></i></div>
+			<div class="menu-item"><i class="iconfont icon-gouwuche"></i></div>
+			<div class="menu-item"><i class="iconfont icon-jiuhuashantubiao-"></i></div>
+		</footer>
+	</body>
+</html>
+<script>
+	$('.icon-shouye').click(function(){
+	    	window.location.href = "index.html";
+	    })
+	    $('.icon-cascades').click(function(){
+	    	window.location.href = "classify.html"
+	    })
+	    $('.icon-gouwuche').click(function(){
+	    	window.location.href = "buyList.html"
+	    })
+	    $('.icon-jiuhuashantubiao-').click(function(){
+	    	window.location.href = "mine.html"
+	    })
+</script>

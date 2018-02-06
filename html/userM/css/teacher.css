@@ -1,0 +1,217 @@
+body{
+	font-size: .68rem;
+}
+.studentInfo{
+	width: 100%;
+	font-size: 0;
+}
+.studentInfo thead th,.studentInfo tbody td{
+	width: 33.33%;
+	text-align: center;
+	font-size: .68rem;
+	height: 2rem;
+	line-height: 2rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.studentInfo thead{
+	background-color: #cdcdb4;
+	color: #FFFFFF;
+}
+.studentInfo tbody tr:nth-of-type(2n){
+	background-color: #EFEFF4;
+}
+
+.windowBK{
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	background-color: rgba(7,17,27,.8);
+	z-index: 100;
+	overflow: hidden;
+}
+.alertBK{
+	position: fixed;
+	z-index: 101;
+	background-color: #FFFFFF;
+	top: 4rem;
+	width: 80%;
+	left: 10%;
+	bottom: 4rem;
+	border-radius: .5rem;
+	overflow: hidden;
+}
+.alertBK .alertTitle{
+	height: 1.8rem;
+	line-height: 1.8rem;
+	font-size: .72rem;
+	font-weight: 600;
+	color: #FFFFFF;
+	background-color: #CDCDB4;
+	text-align: center;
+}
+.alertBK .alertCnt{
+	padding: .2rem .3rem;
+}
+.alertBK .alertCnt .alertList{
+	font-size: .64rem;
+}
+.alertBK .alertCnt .alertList .alertItem{
+	margin-bottom: .5rem;
+}
+.alertBK .alertCnt .alertList .alertItem label{
+	display: inline-block;
+	/*text-align-last: justify;*/
+	width: 25%;
+}
+.alertBK .alertCnt .alertList .alertItem div{
+	display: inline-block;
+	width: 70%;
+}
+.close{
+	padding: .3rem .5rem;
+	font-size: .45rem;
+	background-color: skyblue;
+	border: 0;
+	color: #FFFFFF;
+	border-radius: .2rem;
+}
+.container-wrapper{
+	padding: .5rem 1rem;
+}
+.container-wrapper .title{
+	font-size: .72rem;
+}
+.container-wrapper .title .addBtn,.orderBtn{
+	padding: .2rem .5rem;
+	font-size: .48rem;
+	background-color: darkgray;
+	border: 0;
+	color: #FFFFFF;
+	border-radius: .1rem;
+}
+.container-wrapper .homeworkCnt{
+	width: 95%;
+	margin-top: .5rem;
+	outline: none;
+	font-size: .64rem;
+	padding: .3rem;
+	border: 1px solid #CDCDB4;
+	border-radius: .2rem;
+	margin-bottom: 1rem;
+}
+
+.studentHomework{
+	width: 100%;
+	font-size: 0;
+	margin-top: 1rem;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+.studentHomework tbody{
+	display:block;
+	width: 100%;
+	overflow: auto;
+	height: 9rem;
+}
+.studentHomework thead tr {
+	display: block;
+}
+.studentHomework thead th,.studentHomework tbody td{
+	width:2%;
+	text-align: center;
+	font-size: .58rem;
+	height: 1.5rem;
+	line-height: 1.5rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.studentHomework thead{
+	background-color: #cdcdb4;
+	color: #FFFFFF;
+}
+.studentHomework tbody tr:nth-of-type(2n){
+	background-color: #EFEFF4;
+}
+.btns{
+	bottom: 2rem;
+	padding: .5rem 1rem;
+}
+.btns .postWork{
+	padding: .5rem;
+	font-size: .54rem;
+	background-color: darkseagreen;
+	border: 0;
+	color: #FFFFFF;
+	border-radius: .2rem;
+
+}
+.btns .pastWork{
+	padding: .5rem;
+	font-size: .54rem;
+	background-color: darkgray;
+	border: 0;
+	color: #FFFFFF;
+	border-radius: .2rem;
+}
+
+.roomNav ul{
+	font-size: 0;	
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+.roomNav ul li{
+	-webkit-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	font-size: .7rem;
+	text-align: center;
+	line-height: 2rem;
+	height: 2rem;
+	border: #CDCDB4 1px solid;
+}
+
+.roomNav ul li.active{
+	background-color: #CDCDB4;
+	color: #FFFFFF;
+}
+.colorGray{
+	color: #A9A9A9;
+}
+.selectCondition{
+	font-size: .64rem;
+	padding:.5rem
+}
+.selectCondition label{
+	height: 1.3rem;
+	line-height: 1.3rem;
+}
+.selectCondition label span{
+	font-size: .54rem;
+}
+.selectCondition input{
+	width: 40%;
+	height: 1.3rem;
+	border: 1px solid #DDDDDD;
+	padding-left: .3rem;
+	padding-right: .3rem;
+}
+
+.roomList li{
+	margin-bottom: .5rem;
+	background-color: #EFEFF4;
+	padding: .3rem .5rem;
+}
+
+.roomList li p{
+	padding-top: .5rem;
+	font-size: .54rem;
+}
+.colorGreen{
+	background-color: darkseagreen;
+}

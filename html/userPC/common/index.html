@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>首页</title>
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css" />
+		<link rel="stylesheet" href="header.css" />
+		<link rel="stylesheet" href="index.css" />
+		<script src="jquery-2.1.1.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="canvas.js"></script>
+		<script type="text/javascript" src="header.js" ></script>
+	</head>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+	<body>
+		<header class="site-header">
+			<div class="navBar">
+				<nav>
+					<a href="index.html" class="webName"><span>琴行</span>Machold Rare Violins</a>
+					<ul class="headUL">
+						<li><a href="index.html" class="active">首页</a></li>
+						<li><a href="class.html">课程</a></li>
+						<li><a href="knowledge.html">知识</a></li>
+						<li><a href="aboutUs.html">关于我们</a></li>
+						<li><button class="btn btn-log">登陆</button></li>
+						<li><button class="btn btn-log">注册</button></li>
+					</ul>
+					<div class="listNav"><i class="fa fa-bars"></i></div>
+				</nav>
+			</div>
+			<canvas width="100%" height="340" style="display: block; margin: 0px auto;"></canvas>
+		</header>
+		<div class="sliderBar none">
+			<ul class="slider-ul">
+				<li><a href="index.html" class="active">首页</a></li>
+				<li><a href="class.html">课程</a></li>
+				<li><a href="knowledge.html">知识</a></li>
+				<li><a href="aboutUs.html">关于我们</a></li>
+				<li><button class="btn btn-log">登陆</button></li>
+				<li><button class="btn btn-log">注册</button></li>
+			</ul>
+		</div>
+		<section class="mainPart">
+			<div class="mainContent">
+				<div class="logo"><img src="image/piano.png"/></div>
+				<div class="mainWordPart">
+					<h2>琴行</h2>
+					<h4 style="color: #515151;">这是一家课程丰富，环境优雅，交通便捷的琴行</h4>
+					<h5 style="color: #868686;">我们为广大学员准备了一系列精品课程，聘请了一大批优秀的教师。为提供良好的上课环境，我们每天都会清理琴房，定期检修设备。</h5>
+					<i class="fa fa-ellipsis-h" style="font-size:20px;"></i><br>
+					<button class="btn btn-tiyan">课程体验</button>
+				</div>
+				<div class="recommand-list">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="courseBox">
+								<div class="imgPart">
+									<img src="image/violin-pic.jpg"/>
+								</div>
+								<div class="introPart">
+									<p>小提琴进阶（6级）30课时</p>
+									<p>￥<span>4500</span><span>6000</span></p>
+									<button class="btn btn-log book">我要报名</button>
+									<a href="javascript:;">课程详情</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="courseBox">
+								<div class="imgPart">
+									<img src="image/piano-pic.jpg"/>
+								</div>
+								<div class="introPart">
+									<p>钢琴入门（零基础）30课时</p>
+									<p>￥<span>4500</span><span>6000</span></p>
+									<button class="btn btn-log book">我要报名</button>
+									<a href="javascript:;">课程详情</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="courseBox">
+								<div class="imgPart">
+									<img src="image/pipa-pic.jpg"/>
+								</div>
+								<div class="introPart">
+									<p>琵琶初级30课时</p>
+									<p>￥<span>4500</span><span>6000</span></p>
+									<button class="btn btn-log book">我要报名</button>
+									<a href="javascript:;">课程详情</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="subpart">
+			<div class="mainWordPart2">
+				<h2>琴行</h2>
+				<h4 style="color: #515151;">这是一家课程丰富，环境优雅，交通便捷的琴行</h4>
+				<h5 style="color: #868686;">我们为广大学员准备了一系列精品课程，聘请了一大批优秀的教师。为提供良好的上课环境，我们每天都会清理琴房，定期检修设备。</h5>
+				<i class="fa fa-ellipsis-h" style="font-size:20px;"></i><br>
+			</div>
+			<div class="sub-list">
+				<ul>
+					<li class="item">
+						<img src="image/piano-pic.jpg"/>
+					</li>
+					<li class="item">
+						
+					</li>
+					<li class="item">
+						<img src="image/manyViolin.jpg"/>
+					</li>
+					<li class="item">
+						
+					</li>
+					<li class="item">
+						
+					</li>
+					<li class="item">
+						<img src="image/instrument.jpg" />
+					</li>
+					<li class="item">
+						
+					</li>
+					<li class="item">
+						<img src="image/room.jpg"/>
+					</li>
+				</ul>
+			</div>
+		</section>
+		<footer>
+			<p>Copyright © 2014-2017 杭州曲友科技有限公司 All Rights Reserved.备案/许可证编号：浙ICP备11054850号-1 公安机关备案号:33011802000888</p>
+			<p>联系方式：Email:allmusicren@163.com 中国.杭州</p>
+		</footer>
+	</body>
+</html>
+<script>
+	$('.book').click(function(){
+		alert('请先登录');
+	});
+	$('.introPart a').click(function(){
+		window.location.href = "courseDetail.html";
+	});
+</script>

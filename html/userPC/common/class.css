@@ -1,0 +1,205 @@
+
+section{
+	height: auto;
+}
+.piano{
+	width: 1200px;
+	margin: 0 auto;
+	text-align: center;
+}
+/*热门课程*/
+.piano .title{
+	margin-top:30px;
+}
+.content .box{
+	display: inline-block;
+	float: left;
+    width: 270px;
+    height: 340px;
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    margin: 0 10px 20px 20px;
+}
+.content .box .imgBox{
+	width: 250px;
+	height: 250px;
+	background-color: darkkhaki;
+	margin: 10px auto;
+	cursor: pointer;
+	overflow: hidden;
+}
+.textInfo{
+	width: 250px;
+	margin: 0 auto;
+}
+.textInfo p{
+	padding: 0;
+	margin: 0;
+}
+.textInfo p:nth-child(1){
+	text-align: center;
+}
+.textInfo p:nth-child(2){
+	margin-top: 10px;
+	font-size: 14px;
+	width: 250px;
+}
+.textInfo p:nth-child(2) span:nth-child(1){
+	float: left;
+	color: #666;
+}
+.textInfo p:nth-child(2) span:nth-child(2){
+	float: right;
+	color: #F25039;
+}
+.more{
+	height: 30px;
+}
+.swiper-container img{
+	width: 100%;
+}
+.menuPart{
+	overflow: hidden;
+}
+.menuPart ul{
+	/*padding-top: 20px;*/
+	overflow: hidden;
+}
+.menuPart ul li{
+	width:100%;
+	text-align: center;
+	height: 70px;
+}
+.menuPart ul li a.title{
+	display: block;
+	height:30px;
+	line-height: 30px;
+	padding-top: 20px;
+}
+.menuPart ul li a.title:hover{
+	text-decoration: none;
+	color:inherit;
+}
+.menuPart ul li:hover{
+	background: #DDDDDD;
+}
+.disNone{
+	display: none;
+}
+.subMenu {
+	position: absolute;
+	width: 500px;
+	height: 400px;
+	background: #f2f2f2;
+	top:0;
+	right: 400px;
+	z-index: 100;
+}
+.subMenu a{
+	display: inline-block;
+	min-width: 50px;
+	height: 30px;
+	line-height: 30px;
+}
+.location{
+	width: 1100px;
+	margin: 0 auto;
+}
+.location ul{
+	display: flex;
+	flex-direction: row;
+	height: 50px;
+	line-height: 50px;
+}
+.location ul.location-list li{
+	padding-right: 10px;
+	cursor: pointer;
+}
+.location ul.location-list li.hover{
+	color: #BDB76B;
+}
+.location ul.location-list li.tag:hover{
+	color: #CDC9A5;
+	cursor: pointer;
+}
+.grade{
+	margin-bottom: 200px;
+}
+.main-wrapper{
+	width: 900px;
+	margin: 0 auto;
+	margin-bottom:200px;
+}
+.main-wrapper .btn {
+	padding: 10px 0;
+}
+.main-wrapper .btn .bak {
+	font-size:16px;
+	color:#fff;
+	background: #28A4C9;
+	border:0;
+	padding: 3px 10px;
+	border-radius: 3px;
+}
+.topCon{
+	display: flex;
+	height: 300px;
+	padding: 20px;
+	background:#F2F2F2;
+}
+.topCon .img{
+	flex:1;
+}
+.topCon .img img{
+	width: 100%;
+	height: 100%;
+}
+.topCon .intro{
+	flex: 0 600px;
+	padding-left: 20px;
+}
+.topCon .intro .name{
+	font-size: 20px;
+	font-weight:700;
+	padding-top: 30px;
+	padding-bottom: 20px;
+}
+.topCon .intro div:nth-child(2){
+	padding-bottom: 20px;
+}
+.topCon .intro div:nth-child(2) span{
+	margin-right:10px;
+}
+.topCon .intro .price{
+	padding-bottom: 20px;
+	font-size: 20px;
+	/*font-weight: 700;*/
+}
+.topCon .intro .book{
+	padding: 5px 15px;
+	border: 0;
+	color:#FFFFFF;
+	background: #BDB76B;
+}
+.classMenu{
+	background: #e5e5e5;	
+}
+.classMenu ul{
+	display: flex;
+	flex-direction: row;
+	padding: 10px 20px;
+}
+.classMenu ul li {
+	margin-right: 15px;
+	padding:5px 10px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.classMenu ul li.hover{
+	background: #122B40;
+	color: #fff;
+}
+.main-wrapper .content{
+	background: #F2F2F2;
+	padding: 20px;
+}

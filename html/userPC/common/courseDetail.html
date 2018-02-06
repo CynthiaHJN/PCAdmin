@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>课程</title>
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css" />
+		<link rel="stylesheet" href="header.css" />
+		<link rel="stylesheet" href="idangerous.swiper.css" />
+		<link rel="stylesheet" href="class.css" />
+		<script src="jquery-2.1.1.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="idangerous.swiper.js" ></script>
+		<script type="text/javascript" src="header.js" ></script>
+	</head>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.site-header{
+			min-height: 80px;
+		}
+	</style>
+	<body>
+		<header class="site-header">
+			<div class="navBar">
+				<nav>
+					<a href="index.html" class="webName"><span>琴行</span>Machold Rare Violins</a>
+					<ul class="headUL">
+						<li><a href="index.html">首页</a></li>
+						<li><a href="class.html" class="active">课程</a></li>
+						<li><a href="knowledge.html">知识</a></li>
+						<li><a href="#">关于我们</a></li>
+						<li><button class="btn btn-log">登陆</button></li>
+						<li><button class="btn btn-log">注册</button></li>
+					</ul>
+					<div class="listNav"><i class="fa fa-bars"></i></div>
+
+				</nav>
+			</div>
+			<!--<canvas width="100%" height="340" style="display: block; margin: 0px auto;"></canvas>-->
+		</header>
+		<div class="sliderBar none">
+			<ul class="slider-ul">
+				<li><a href="index.html">首页</a></li>
+				<li><a href="class.html" class="active">课程</a></li>
+				<li><a href="knowledge.html">知识</a></li>
+				<li><a href="#">关于我们</a></li>
+				<li><button class="btn btn-log">登陆</button></li>
+				<li><button class="btn btn-log">注册</button></li>
+			</ul>
+		</div>
+		<section class="main-wrapper">
+			<div class="btn clearfix">
+				<button class="bak fl">返回</button>
+			</div>
+			<div class="topCon">
+				<div class="img"><img src="image/bannerClass5.jpg"></div>
+				<div class="intro">
+					<div class="name">基础乐理教程</div>
+					<div>
+						<span>报名人数: 2/10</span>
+						<span>老师: 王意义</span>
+					</div>
+					<div class="price">￥100/课时</div>
+					<button class="book">立即报名</button>
+				</div>
+			</div>
+			<div class="classMenu">
+				<ul>
+					<li class="hover">介绍</li>
+					<li>目录</li>
+					<li>笔记</li>
+					<li>讨论区</li>
+				</ul>
+			</div>
+			<div class="content">
+				<h3>适用人群</h3>
+				<p>所有人</p>
+				<h3>课程概述</h3>
+				<p>本课程为系列乐理教程，涵盖节奏、认识钢琴键盘、C大调、音程、和弦、五度循环圈、音级、自然大小调、等等全方位的讲解乐理知识，零基础也可轻松易懂，快来和阳光老师一起学习吧！</p>
+			</div>
+		</section>
+	</body>
+</html>
+<script>
+	$('.bak').click(function(){
+		window.history.go(-1);
+	})
+</script>

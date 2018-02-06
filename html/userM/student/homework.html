@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>课后作业</title>
+		<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport" />  
+		<link rel="stylesheet" href="../css/reset.css" />
+		<link rel="stylesheet" href="../css/teacher.css" />
+		<script type="text/javascript" src="../js/jquery-2.1.1.min.js" ></script>
+	</head>
+	<style>
+		ul.roomList li.roomItem .roomInfo p{
+			width: 10rem;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+	</style>
+	<body>
+		<nav class="roomNav">
+			<ul>
+				<li class="active order">未查看作业</li>
+				<li class="myOrder">全部作业</li>
+			</ul>
+		</nav>
+		<div class="order-wrapper">
+			<ul class="roomList">
+				<li class="roomItem clearfix">
+					<div class="roomInfo fl">
+						<h5>钢琴专业课</h3>
+						<p>每天练琴1个小时，练习曲目肖邦第三协奏曲</p>
+						<p>2017-10-10</p>
+					</div>
+					<div class="btnBox fr">
+						<button class="orderBtn colorGreen">查看详情</button>
+					</div>
+				</li>
+				<li class="roomItem clearfix">
+					<div class="roomInfo fl">
+						<h5>钢琴专业课</h3>
+						<p>每天练琴1个小时，练习曲目肖邦第三协奏曲</p>
+						<p>2017-10-10</p>
+					</div>
+					<div class="btnBox fr">
+						<button class="orderBtn colorGreen">查看详情</button>
+					</div>
+				</li>
+				<li class="roomItem clearfix">
+					<div class="roomInfo fl">
+						<h5>钢琴专业课</h3>
+						<p>每天练琴1个小时，练习曲目肖邦第三协奏曲</p>
+						<p>2017-10-10</p>
+					</div>
+					<div class="btnBox fr">
+						<button class="orderBtn colorGreen">查看详情</button>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="myOrder-wrapper disNone">
+			<ul class="roomList">
+				<li class="roomItem clearfix">
+					<div class="roomInfo fl">
+						<h5>钢琴专业课</h3>
+						<p>每天练琴1个小时，练习曲目肖邦第三协奏曲</p>
+						<p>2017-10-10</p>
+					</div>
+					<div class="btnBox fr">
+						<button class="orderBtn colorGreen">查看详情</button>
+					</div>
+				</li>
+				<li class="roomItem clearfix">
+					<div class="roomInfo fl">
+						<h5>钢琴专业课</h3>
+						<p>每天练琴1个小时，练习曲目肖邦第三协奏曲</p>
+						<p>2017-10-10</p>
+					</div>
+					<div class="btnBox fr">
+						<button class="orderBtn colorGreen">查看详情</button>
+					</div>
+				</li>
+				<li class="roomItem clearfix">
+					<div class="roomInfo fl">
+						<h5>钢琴专业课</h3>
+						<p>每天练琴1个小时，练习曲目肖邦第三协奏曲</p>
+						<p>2017-10-10</p>
+					</div>
+					<div class="btnBox fr">
+						<button class="orderBtn colorGreen">查看详情</button>
+					</div>
+				</li>
+				<li class="roomItem clearfix">
+					<div class="roomInfo fl">
+						<h5>钢琴专业课</h3>
+						<p>每天练琴1个小时，练习曲目肖邦第三协奏曲</p>
+						<p>2017-10-10</p>
+					</div>
+					<div class="btnBox fr">
+						<button class="orderBtn">查看详情</button>
+					</div>
+				</li>
+				<li class="roomItem clearfix">
+					<div class="roomInfo fl">
+						<h5>钢琴专业课</h3>
+						<p>每天练琴1个小时，练习曲目肖邦第三协奏曲</p>
+						<p>2017-10-10</p>
+					</div>
+					<div class="btnBox fr">
+						<button class="orderBtn">查看详情</button>
+					</div>
+				</li><li class="roomItem clearfix">
+					<div class="roomInfo fl">
+						<h5>钢琴专业课</h3>
+						<p>每天练琴1个小时，练习曲目肖邦第三协奏曲</p>
+						<p>2017-10-10</p>
+					</div>
+					<div class="btnBox fr">
+						<button class="orderBtn">查看详情</button>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>
+<script>
+	//导航切换
+	$('.roomNav ul li').bind('click',function(){
+		var $this = $(this);
+		$('.roomNav ul li').removeClass('active');
+		$this.addClass('active');
+		if($this.hasClass('order')){
+			$('.myOrder-wrapper').hide();
+			$('.order-wrapper').show();
+		}
+		if($this.hasClass('myOrder')){
+			$('.order-wrapper').hide();
+			$('.myOrder-wrapper').show();
+		}
+	});
+</script>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>关于我们</title>
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css" />
+		<link rel="stylesheet" href="header.css" />
+		<link rel="stylesheet" href="knowledge.css" />
+		<link rel="stylesheet" type="text/css" href="idangerous.swiper.css"/>
+		<script src="jquery-2.1.1.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="idangerous.swiper.js" ></script>
+		<script type="text/javascript" src="header.js" ></script>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			.site-header{
+				min-height: 80px;
+			}
+			.about2,.about3{
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="site-header">
+			<div class="navBar">
+				<nav>
+					<a href="index.html" class="webName"><span>琴行</span>Machold Rare Violins</a>
+					<ul class="headUL">
+						<li><a href="index.html">首页</a></li>
+						<li><a href="class.html">课程</a></li>
+						<li><a href="knowledge.html">知识</a></li>
+						<li><a href="aboutUs.html" class="active">关于我们</a></li>
+						<li><button class="btn btn-log">登陆</button></li>
+						<li><button class="btn btn-log">注册</button></li>
+					</ul>
+					<div class="listNav"><i class="fa fa-bars"></i></div>
+
+				</nav>
+			</div>
+			<!--<canvas width="100%" height="340" style="display: block; margin: 0px auto;"></canvas>-->
+		</header>
+		<div class="sliderBar none">
+			<ul class="slider-ul">
+				<li><a href="index.html">首页</a></li>
+				<li><a href="class.html">课程</a></li>
+				<li><a href="knowledge.html">知识</a></li>
+				<li><a href="aboutUs.html" class="active">关于我们</a></li>
+				<li><button class="btn btn-log">登陆</button></li>
+				<li><button class="btn btn-log">注册</button></li>
+			</ul>
+		</div>
+		<div class="about2" id="about2">
+		    <div class="about_title">
+		        <h1>关于我们</h1>
+		        <h2>About Us</h2>
+		    </div>
+		    <div class="about_txt">
+		        <p>这是一款线上乐器教学的音乐教育软件。</p>
+		        <p>针对不同需求的用户免费提供多种乐器（民谣吉他、电吉他、尤克里里、架子鼓、声乐、钢琴、卡宏）的线上视频教学。</p>
+		        <p>同时，针对不同层次的用户提供难易程度不等的训练课程选择，并由用户自由选择时间进行训练。</p>
+		        <p>每完成一次课程学习，用户即可在训练记录里查看训练进度。</p>
+		    </div>
+		    <div class="about_img">
+		        <img src="/static/laptap/images/iphone2.png" class="iphone2">
+		        <img src="/static/laptap/images/iphone1.png" class="iphone1">
+		        <img src="/static/laptap/images/iphone3.png" class="iphone3">
+		    </div>
+		</div>
+		<div class="about3" id="about3">
+		    <div class="about_txt">
+		        <div class="about_info">
+		            <p>杭州师范大学仓前校区</p>
+		            <p>电话：0571－12345678</p>
+		            <p>邮箱：hejiani@hejiani142.com</p>
+		            <p>地址：浙江杭州市余杭区仓前镇</p>
+		            <p>海曙路58号</p>
+		        </div>
+		    </div>
+		</div>
+	</body>
+</html>
+<script>
+	var mySwiper = new Swiper('.swiper-container',{
+   	 	pagination: '.pagination',
+    	autoplay:4000,
+    	loop:true
+ 	});
+</script>

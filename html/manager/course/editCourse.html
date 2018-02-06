@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="../../../css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/common.css">
+		<script type="text/javascript" src="../../../js/jquery-2.1.1.min.js" ></script>
+		<script type="text/javascript" src="../../../js/public.js" ></script>
+		<script type="text/javascript" src="../../../js/template.js" ></script>
+		<script type="text/javascript" src="../../../js/common.js"></script>
+		<title>主页</title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="sidebar">
+				<div class="title">琴之家</div>
+				<ul class="sidenav">
+					<li class="active">
+						<a href="javascript:;">课程管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">教师管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">学生管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">文章管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">资格审核</a>
+					</li>
+				</ul>
+			</div>
+			<div class="wrapper">
+				<div class="topCon">
+					<button class="fr searchBtn">搜索</button>
+					<input class="searchBar fr"></input>
+				</div>
+				<div class="mainCon">
+					<div class="leftCon">
+						<div class="briefInfo">
+							<div class="avatar"><img src="../../../img/avatar/moren.jpg"></div>
+							<div class="info">
+								<div class="name">administer</div>
+								<div class="mobile">140****0001</div>
+								<i class="modify"></i>
+							</div>
+						</div>
+						<ul class="funcBar">
+							<li><i class="mail">信息</i></li>
+							<li><i class="personalinfo">我的</i></li>
+							<li><i class="rubbish">回收站</i></li>
+						</ul>
+						<div class="timeCon">
+							<p class="clearfix">
+								<span class="weekdayEn fl">Friday 03 Sep</span>
+								<span class="monthEn fr">April 2015</span>
+							</p>
+							<p class="clearfix">
+								<span class="weekdayCn fl">星期五</span>
+								<span class="monthCn fr">四月</span>
+							</p>
+							<div class="dayBox">
+								<span class="day"><em>03</em>日</span>
+							</div>
+							<button class="record">签到</button>
+						</div>
+					</div>
+					<div class="rightCon">
+						<div class="tips" style="margin-top: 20px;">
+							<p class="title">功能介绍</p>
+							<div class="funcIntro">
+								<p>1.在此页面内进行新建课程的操作。</p>
+								<p>2.根据课程的实际情况创建课程，注意必填项必须填写。</p>
+								<p>3.课程成功创建后可在课程列表查看。</p>
+							</div>
+						</div>
+						<div class="funcDetail">
+							<p class="title">添加课程</p>
+							<div class="courseInputCon">
+								<div class="clearfix">
+									<label class="fl">课程名称</label>
+									<input type="text" id="courseName" class="inputBox fr">
+								</div>
+								<div class="clearfix">
+									<label class="fl">报名开始日期</label>
+									<input type="date" id="startTime" class="inputBox fr" value="">
+								</div>
+								<div class="clearfix">
+									<label class="fl">报名截止日期</label>
+									<input type="date" id="endTime" class="inputBox fr" value="">
+								</div>
+								<div class="clearfix">
+									<label class="fl">课程限制人数</label>
+									<input type="type" id="number" class="inputBox fr">
+								</div>
+								<div class="clearfix">
+									<label class="fl">课时数</label>
+									<input type="text" id="courseHours" class="inputBox fr">
+								</div>
+								<div class="clearfix">
+									<label class="fl">课程价格</label>
+									<input type="text" id="courseprice" class="inputBox fr">
+								</div>
+								<div class="clearfix">
+									<label class="fl">课程类型</label>
+									<input type="text" id="courseType" class="inputBox fr" value="">
+								</div>
+								<div class="clearfix">
+									<label class="fl">教师姓名</label>
+									<select class="inputSelect fr" id="teacherName">
+									</select>
+								</div>
+								<div class="clearfix">
+									<label class="fl">课程介绍</label>
+									<textarea class="inputBox fr" id="courseIntro" rows="5"></textarea>
+								</div>
+								<div class="clearfix">
+									<label class="fl">课程封面图</label>
+									<div class="pictureBox fr">
+										<div class="imgShow">使用系统默认图片</div>
+										<input type="file" id="file" accept=".gif,.jpg,.jpeg,.png">
+									</div>
+								</div>
+								<div class="clearfix">
+									<button class="submitBtn fr">确认修改</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var courseImg = 'moren.jpg';
+		var id = GetQueryString('id');
+		getCourseInfo(id);
+		function getCourseInfo(id){
+			$.ajax({
+				url: '../../../php/getCourseInfo.php',
+				type: 'post',
+				dataType: 'json',
+				data: {
+					id: id
+				},
+				success: function(data){
+					if(data.success){
+						var info = data.data;
+						$('#courseName').val(info.course_name);
+						$('#startTime').val(info.start_time.split(' ')[0]);
+						$('#endTime').val(info.end_time.split(' ')[0]);
+						$('#number').val(info.limit_members);
+						$('#courseHours').val(info.course_hours);
+						$('#courseprice').val(info.price);
+						$('#courseType').val(info.course_type);
+						$('#courseIntro').val(info.short_intro);
+						$('.imgShow').html("<img src='/PCAdmin/img/course" + info.banner + "' alt='Alternate Text' id='target' style='height:150px' />");
+						loadTeacherList(info.teacher_id);
+					}
+				}
+			});
+		}
+		function loadTeacherList(id){
+			var courseType = $('#courseType').val();
+			$.ajax({
+				url: '../../../php/getSomeTeacher.php',
+				type: 'post',
+				dataType: 'json',
+				data: {
+					courseType: courseType
+				},
+				success: function(data){
+					if(data.success){
+						var list = data.list;
+						var html = '';
+						for(var i=0;i<list.length;i++){
+							if(list[i].user_id == id){
+								html += '<option value="'+list[i].user_id+'" selected>'+list[i].name+'</option>';
+							}else{
+								html += '<option value="'+list[i].user_id+'">'+list[i].name+'</option>';
+							}
+						}
+						$('#teacherName').html(html);
+					}
+				}
+			});
+		}
+		$('#courseType').blur(function(){
+			loadTeacherList();
+		});
+		$('.submitBtn').click(function(){
+			var courseName = $('#courseName').val();
+			var startTime = $('#startTime').val();
+			var endTime = $('#endTime').val();
+			var limitNum = $('#number').val();
+			var courseType = $('#courseType').val();
+			var teacherId = $('#teacherName option:selected').val();
+			var courseIntro = $('#courseIntro').val();
+			var courseHours = $('#courseHours').val();
+			var coursePrice = $('#courseprice').val();
+			$.ajax({
+				url: '../../../php/editCourse.php',
+				type: 'post',
+				dataType: 'json',
+				data: {
+					courseId:id,
+					courseName:courseName,
+					startTime:startTime,
+					endTime:endTime,
+					limitNum:limitNum,
+					courseType:courseType,
+					teacherId:teacherId,
+					courseIntro:courseIntro,
+					courseImg:courseImg,
+					courseHours:courseHours,
+					coursePrice:coursePrice
+				},
+				success: function(data){
+					if(data){
+						alert('修改成功');
+						window.location.reload();
+					}else{
+						alert('修改失败，请查看输入是否正确');
+					}
+				}
+			});
+		});
+		$('#file').change(function(e){
+		    var reader = new FileReader();
+		    reader.onload = (function (file) {
+		        return function (e) {
+		            courseImg = this.result;
+		            $('.imgShow').html("<img src='" + this.result + "' alt='Alternate Text' id='target' style='height:150px' />");
+		        };
+		    })(e.target.files[0]);
+		    reader.readAsDataURL(e.target.files[0]);
+		}); 
+	</script>
+</html>

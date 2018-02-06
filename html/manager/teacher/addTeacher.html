@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="../../../css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/common.css">
+		<script type="text/javascript" src="../../../js/jquery-2.1.1.min.js" ></script>
+		<script type="text/javascript" src="../../../js/public.js" ></script>
+		<script type="text/javascript" src="../../../js/template.js" ></script>
+		<script type="text/javascript" src="../../../js/common.js"></script>
+		<title>主页</title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="sidebar">
+				<div class="title">琴之家</div>
+				<ul class="sidenav">
+					<li>
+						<a href="javascript:;">课程管理</a>
+					</li>
+					<li class="active">
+						<a href="javascript:;">教师管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">学生管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">文章管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">资格审核</a>
+					</li>
+				</ul>
+			</div>
+			<div class="wrapper">
+				<div class="topCon">
+					<button class="fr searchBtn">搜索</button>
+					<input class="searchBar fr"></input>
+				</div>
+				<div class="mainCon">
+					<div class="leftCon">
+						<div class="briefInfo">
+							<div class="avatar"><img src="../../../img/avatar/moren.jpg"></div>
+							<div class="info">
+								<div class="name">administer</div>
+								<div class="mobile">140****0001</div>
+								<i class="modify"></i>
+							</div>
+						</div>
+						<ul class="funcBar">
+							<li><i class="mail">信息</i></li>
+							<li><i class="personalinfo">我的</i></li>
+							<li><i class="rubbish">回收站</i></li>
+						</ul>
+						<div class="timeCon">
+							<p class="clearfix">
+								<span class="weekdayEn fl">Friday 03 Sep</span>
+								<span class="monthEn fr">April 2015</span>
+							</p>
+							<p class="clearfix">
+								<span class="weekdayCn fl">星期五</span>
+								<span class="monthCn fr">四月</span>
+							</p>
+							<div class="dayBox">
+								<span class="day"><em>03</em>日</span>
+							</div>
+							<button class="record">签到</button>
+						</div>
+					</div>
+					<div class="rightCon">
+						<nav>
+							<ul class="topNav teacherPage">
+								<li>教师列表</li>
+								<li class="active">添加教师</li>
+								<li>导入教师名单</li>
+							</ul>
+						</nav>
+						<div class="tips">
+							<p class="title">功能介绍</p>
+							<div class="funcIntro">
+								<p>1.此页面展示的是教师添加表格。</p>
+								<p>2.管理员按照表格要求填写教师信息。</p>
+								<p>3.成功添加后，将在教师列表中查看在添加内容。</p>
+							</div>
+						</div>
+						<div class="funcDetail">
+							<p class="title">添加教师</p>
+							<div class="courseInputCon">
+								<div class="clearfix">
+									<label class="fl">教师姓名</label>
+									<input type="text" id="teacherName" class="inputBox fr">
+								</div>
+								<div class="clearfix">
+									<label class="fl">教师等级</label>
+									<input type="text" id="rank" class="inputBox fr">
+								</div>
+								<div class="clearfix">
+									<label class="fl">授课方向</label>
+									<input type="text" id="direction" class="inputBox fr">
+								</div>
+								<div class="clearfix">
+									<label class="fl">手机号码</label>
+									<input type="text" maxlength="11" id="mobile" class="inputBox fr">
+								</div>
+								<div class="clearfix">
+									<label class="fl">身份证号码</label>
+									<input type="text" maxlength="18" id="idCard" class="inputBox fr">
+								</div>
+								<div class="clearfix">
+									<label class="fl">性别</label>
+									<select class="inputSelect fr" id="sex">
+										<option value="0">男</option>
+										<option value="1">女</option>
+									</select>
+								</div>
+								<div class="clearfix">
+									<label class="fl">年龄</label>
+									<input type="text" id="age" class="inputBox fr">
+								</div>
+								<div class="clearfix">
+									<button class="submitBtn fr">提交</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(function(){
+			$('.submitBtn').click(function(){
+				var teacherName = $('#teacherName').val();
+				var rank = $('#rank').val();
+				var direction = $('#direction').val();
+				var mobile = $('#mobile').val();
+				var idCard = $('#idCard').val();
+				var sex = $('#sex option:selected').val();
+				var age = $('#age').val();
+				if(teacherName==''){
+					cgtzUtil.showGeneralLayer({
+						'msg':'教师姓名不能为空',
+						'buttonText':'我知道了'
+					});
+					return;
+				}
+				if(rank==''){
+					cgtzUtil.showGeneralLayer({
+						'msg':'教师等级不能为空',
+						'buttonText':'我知道了'
+					});
+					return;
+				}
+				if(direction==''){
+					cgtzUtil.showGeneralLayer({
+						'msg':'授课方向不能为空',
+						'buttonText':'我知道了'
+					});
+					return;
+				}
+				if(mobile==''){
+					cgtzUtil.showGeneralLayer({
+						'msg':'手机号码不能为空',
+						'buttonText':'我知道了'
+					});
+					return;
+				}
+				if(!(/^1[34578]\d{9}$/.test(mobile))){ 
+					cgtzUtil.showGeneralLayer({
+						'msg':'手机号码有误，请重填',
+						'buttonText':'我知道了'
+					});
+			        return; 
+		   		}
+				if(idCard==''){
+					cgtzUtil.showGeneralLayer({
+						'msg':'身份证号不能为空',
+						'buttonText':'我知道了'
+					});
+					return;
+				}
+				if(checkIdcard(idCard)==false){
+					cgtzUtil.showGeneralLayer({
+						'msg':'身份证号码有误，请重填',
+						'buttonText':'我知道了'
+					}); 
+					return;
+				}
+				if(sex==''){
+					cgtzUtil.showGeneralLayer({
+						'msg':'性别不能为空',
+						'buttonText':'我知道了'
+					}); 
+					return;
+				}
+				if(age==''){
+					cgtzUtil.showGeneralLayer({
+						'msg':'年龄不能为空',
+						'buttonText':'我知道了'
+					}); 
+					return;
+				}
+				if(age<0||age>120){
+					cgtzUtil.showGeneralLayer({
+						'msg':'年龄填写有误,请重填',
+						'buttonText':'我知道了'
+					});
+					return;
+				}
+				$.ajax({
+					type:"post",
+					url:"../../../php/addTeacher.php",
+					async:true,
+					dataType:'json',
+					data:{
+						teacherName : teacherName,
+						rank : rank,
+						direction : direction,
+						mobile : mobile,
+						idCard : idCard,
+						sex : sex,
+						age : age
+					},
+					success: function(data){
+						if(data.success){
+							alert('添加成功');
+							window.location.reload();
+						}else{
+							if(data.errorMsg){
+								alert(data.errorMsg);
+							}
+						}
+					}
+				});
+			});
+		});
+	</script>
+</html>

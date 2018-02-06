@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="../../../css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../../../css/font-awesome.css">
+		<link href="../../../css/froala_editor.min.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="../../../js/jquery-2.1.1.min.js" ></script>
+		<script type="text/javascript" src="../../../js/public.js" ></script>
+		<script type="text/javascript" src="../../../js/template.js" ></script>
+		<script type="text/javascript" src="../../../js/common.js"></script>
+		<script type="text/javascript" src="../../../js/froala_editor.min.js"></script>
+		<script type="text/javascript" src="../../../js/plugins/tables.min.js"></script>
+		<script type="text/javascript" src="../../../js/plugins/lists.min.js"></script>
+		<script type="text/javascript" src="../../../js/plugins/colors.min.js"></script>
+		<script type="text/javascript" src="../../../js/plugins/media_manager.min.js"></script>
+		<script type="text/javascript" src="../../../js/plugins/font_family.min.js"></script>
+		<script type="text/javascript" src="../../../js/plugins/font_size.min.js"></script>
+		<script type="text/javascript" src="../../../js/plugins/block_styles.min.js"></script>
+		<script type="text/javascript" src="../../../js/plugins/video.min.js"></script>
+		<script type="text/javascript" src="../../../js/langs/zh_cn.js"></script>
+		<title>主页</title>
+	</head>
+	<style type="text/css">
+		.editorContent,.btnPart{
+			width: 70%;
+			margin: 0 auto;
+		}
+		.btnPart .submit{
+			margin-top: 20px;
+			width: 100px;
+			height: 35px;
+			text-align: center;
+			line-height: 35px;
+			border: 1px solid rgb(120,167,255);
+			background: rgb(120,167,255);
+			color: #fff;
+			font-size: 13px;
+			border-radius: 3px;
+			cursor: pointer;
+		}
+	</style>
+	<body>
+		<div class="container">
+			<div class="sidebar">
+				<div class="title">琴之家</div>
+				<ul class="sidenav">
+					<li>
+						<a href="javascript:;">课程管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">教师管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">学生管理</a>
+					</li>
+					<li class="active">
+						<a href="javascript:;">文章管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">资格审核</a>
+					</li>
+				</ul>
+			</div>
+			<div class="wrapper">
+				<div class="topCon">
+					<button class="fr searchBtn">搜索</button>
+					<input class="searchBar fr"></input>
+				</div>
+				<div class="mainCon">
+					<div class="leftCon">
+						<div class="briefInfo">
+							<div class="avatar"><img src="../../../img/avatar/moren.jpg"></div>
+							<div class="info">
+								<div class="name">administer</div>
+								<div class="mobile">140****0001</div>
+								<i class="modify"></i>
+							</div>
+						</div>
+						<ul class="funcBar">
+							<li><i class="mail">信息</i></li>
+							<li><i class="personalinfo">我的</i></li>
+							<li><i class="rubbish">回收站</i></li>
+						</ul>
+						<div class="timeCon">
+							<p class="clearfix">
+								<span class="weekdayEn fl">Friday 03 Sep</span>
+								<span class="monthEn fr">April 2015</span>
+							</p>
+							<p class="clearfix">
+								<span class="weekdayCn fl">星期五</span>
+								<span class="monthCn fr">四月</span>
+							</p>
+							<div class="dayBox">
+								<span class="day"><em>03</em>日</span>
+							</div>
+							<button class="record">签到</button>
+						</div>
+					</div>
+					<div class="rightCon">
+						<nav>
+							<ul class="topNav articlePage">
+								<li>文章列表</li>
+								<li class="active">添加文章</li>
+							</ul>
+						</nav>
+						<div class="tips">
+							<p class="title">功能介绍</p>
+							<div class="funcIntro">
+								<p>1.根据页面要求填写文章信息。</p>
+								<p>2.成功添加后，可在文章列表中查看新增内容。</p>
+							</div>
+						</div>
+						<div class="funcDetail">
+							<p class="title">添加文章</p>
+							<div class="courseInputCon">
+								<div class="clearfix">
+									<label class="fl">文章标题</label>
+									<input type="text" id="title" class="inputBox fr">
+								</div>
+								<div class="clearfix">
+									<label class="fl">作者</label>
+									<input type="text" id="author" class="inputBox fr">
+								</div>
+								<div class="clearfix">
+									<label class="fl">文章类型</label>
+									<ul class="typeList fr">
+										<li class="typeItem active" data-value="1">乐曲欣赏</li>
+										<li class="typeItem" data-value="2">乐器拾撷</li>
+										<li class="typeItem" data-value="3">基本乐理</li>
+									</ul>
+								</div>
+							</div>
+							<div id='edit' class="editorContent">
+  							</div>
+  							<div class="btnPart clearfix">
+  								<button class="submit fr">发布文章</button>
+  							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+		var articleType = 1;
+		$(function(){
+			$('#edit').editable({
+				inlineMode: false,
+				alwaysBlank: true,
+				language: "zh_cn",
+				direction: "ltr",
+        		theme: 'gray',
+        		height: '300px'
+			});
+			$('.typeList li').click(function(){
+				var $this = $(this);
+				if($this.hasClass('active')){
+					return;
+				}
+				$('.typeList li').removeClass('active');
+				$this.addClass('active');
+				articleType = $this.attr('data-value');
+				console.log(articleType);
+			});
+			$('.btnPart .submit').click(function(){
+				var title = $('#title').val();
+				var author = $('#author').val();
+				var content = $('#edit .froala-element').html();
+				if(title==''||author==''||content==''){
+					alert('必填项不能为空');
+					return;
+				}
+				$.ajax({
+					type:"post",
+					url:"../../../php/addArticle.php",
+					async:true,
+					dataType:'json',
+					data: {
+						mobile: sessionStorage.getItem('username'),
+						type: articleType,
+						title: title,
+						author: author,
+						content: content
+					},
+					success: function(res){
+						if(res.success){
+							alert("文章添加成功");
+							window.location.reload();
+						}
+					}
+				})
+			});
+		});
+	</script>
+</html>

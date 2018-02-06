@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>学生名单</title>
+		<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport" />  
+		<link rel="stylesheet" href="../css/reset.css" />
+		<link rel="stylesheet" href="../css/teacher.css" />
+		<script type="text/javascript" src="../js/jquery-2.1.1.min.js" ></script>
+	</head>
+	<body>
+		<table class="studentInfo">
+			<thead>
+				<tr>
+					<th>学生姓名</th>
+					<th>课程名称</th>
+					<th>联系方式</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>何佳妮</td>
+					<td>钢琴专业课</td>
+					<td>17816869761</td>
+				</tr>
+				<tr>
+					<td>何佳妮</td>
+					<td>钢琴专业课</td>
+					<td>17816869761</td>
+				</tr>
+				<tr>
+					<td>何佳妮</td>
+					<td>钢琴专业课</td>
+					<td>17816869761</td>
+				</tr>
+				<tr> 
+					<td>何佳妮</td>
+					<td>钢琴专业课</td>
+					<td>17816869761</td>
+				</tr>
+				<tr>
+					<td>何佳妮</td>
+					<td>钢琴专业课</td>
+					<td>17816869761</td>
+				</tr>
+				<tr>
+					<td>何佳妮</td>
+					<td>钢琴专业课</td>
+					<td>17816869761</td>
+				</tr>
+				<tr>
+					<td>何佳妮</td>
+					<td>钢琴专业课</td>
+					<td>17816869761</td>
+				</tr>
+				<tr>
+					<td>何佳妮</td>
+					<td>钢琴专业课</td>
+					<td>17816869761</td>
+				</tr>
+				<tr>
+					<td>何佳妮</td>
+					<td>钢琴专业课</td>
+					<td>17816869761</td>
+				</tr>
+				<tr>
+					<td>何佳妮</td>
+					<td>钢琴专业课</td>
+					<td>17816869761</td>
+				</tr>
+				<tr>
+					<td>何佳妮</td>
+					<td>钢琴专业课</td>
+					<td>17816869761</td>
+				</tr>
+			</tbody>
+		</table>
+		<!--弹层-->
+		<div class="windowBK disNone"></div>
+		<div class="alertBK disNone">
+			<div class="alertTitle">学生信息</div>
+			<div class="alertCnt">
+				<ul class="alertList">
+					<li class="alertItem studentName">
+						<label>学生姓名</label>
+						<div>何佳妮</div>
+					</li>
+					<li class="alertItem studentAge">
+						<label>年龄</label>
+						<div>12</div>
+					</li>
+					<li class="alertItem studentTel">
+						<label>联系方式</label>
+						<div>17816869761</div>
+					</li>
+					<li class="alertItem courseName">
+						<label>课程名称</label>
+						<div>钢琴专业课</div>
+					</li>
+					<li class="alertItem times">
+						<label>授课次数</label>
+						<div>10/20</div>
+					</li>
+				</ul>
+				<button class="close">关闭</button>
+			</div>
+		</div>
+	</body>
+</html>
+<script>
+	$('.close').click(function(){
+		$('.windowBK').hide();
+		$('.alertBK').hide();
+	});
+	$('.studentInfo tbody tr td:nth-child(1)').click(function(){
+		$('.windowBK').show();
+		$('.alertBK').show();
+	});
+</script>

@@ -1,0 +1,101 @@
+/*页面公有样式*/
+body{background-color: #fafafa;}
+header{position:fixed;top:0;width:100%;background-color: #2a293b;height: 1.8rem;z-index: 1000;}
+header .search-wrapper{box-sizing:border-box;width: 70%;height:1.3rem;margin: 0 auto;background-color: #000;line-height: 1.3rem;margin-top: 0.25rem;border-radius: .15rem;padding: 0 .68rem;}
+header .search-wrapper .icon-sousuo{color:#FFFFFF;font-size: .58rem;}
+header .search-wrapper .search-bar{background-color: transparent;font-size: .58rem;outline: none;color: #FFFFFF;width: 90%;padding-top: .35rem;}
+header .title{font-size:.75rem;color: #FFFFFF;line-height: 1.8rem;text-align: center;padding: 0 0.5rem;}
+header .edit{position:absolute;font-size:.58rem;color: #FFFFFF;top: .65rem;right: .6rem;}
+header a.cancel{position: absolute;right: .6rem;top: .75rem;font-size: .58rem;color: #FFFFFF;}
+footer {display:-webkit-flex;display:-ms-flexbox;display:flex;justify-content:space-around;justify-content:space-evenly;position: fixed;bottom: 0;width: 100%;height: 2rem;background-color: #2A293B;}
+footer .menu-item{text-align: center;line-height: 2rem;color: #FFFFFF;}
+footer .active{color: #ff5400;} 
+footer .iconfont{font-size: 1.3rem}
+.container-wrapper{position: relative;top: 1.8rem;margin-bottom: 2rem;}
+.clearfix:after {content: " ";display: block;clear: both;height: 0;}
+.clearfix {zoom: 1;}
+.fl{float: left;}
+.fr{float: right;}
+
+/*主页样式*/
+.swiper-container {width: 100%;height: 6rem;overflow: hidden;}
+.swiper-slide {background-position: center;background-size: cover;width: 100%;height: 6rem;overflow: hidden;}
+.swiper-slide img {width: 100%;height: 6rem;}
+.container-wrapper .page-nav{display:-webkit-flex;display:-ms-flexbox;display:flex;justify-content:space-around;justify-content:space-evenly;text-align: center;padding: .3rem 0;}
+.container-wrapper .page-nav .nav-item{text-align: center;}
+.container-wrapper .page-nav div.img-box{width: 2rem;height: 2rem;border-radius:2rem;margin: 0 auto;}
+.container-wrapper .page-nav .nav-item:nth-child(1) div.img-box{background-color: rgb(230,122,94);}
+.container-wrapper .page-nav .nav-item:nth-child(2) div.img-box{background-color: rgb(167,172,254);}
+.container-wrapper .page-nav .nav-item:nth-child(3) div.img-box{background-color: rgb(255,182,113);}
+.container-wrapper .page-nav .nav-item:nth-child(4) div.img-box{background-color: rgb(122,220,255);}
+.container-wrapper .page-nav .img-box i.iconfont{color: #FFFFFF;font-size: 1.35rem;line-height: 2rem;}
+.container-wrapper .page-nav div.title{color:#999;font-size: .58rem;padding-top: .2rem;}
+.container-wrapper .classify-wrapper{border-top: 1px solid #ddd; padding: .35rem 0;}
+.container-wrapper .classify-wrapper .title-box{height: 1rem;padding: 0 1rem;}
+.container-wrapper .classify-wrapper .title-box span{display: inline-block;height: 1rem;line-height: 1rem;}
+.container-wrapper .classify-wrapper .title-box span.title{font-size: .74rem;font-weight: 700;color: #333;}
+.container-wrapper .classify-wrapper .title-box a.more{color: #FF5400;font-size: .48rem;padding-top: .3rem;}
+.container-wrapper .classify-wrapper .content-box{display:-webkit-flex;display:-ms-flexbox;display:flex;justify-content:space-around;justify-content:space-evenly;}
+.container-wrapper .classify-wrapper .content-box .desc{width:4.5rem;text-align: center;padding-top: .3rem;font-size: .48rem;}
+.container-wrapper .classify-wrapper .content-box .desc p:nth-child(1){font-size: .54rem;}
+.container-wrapper .classify-wrapper .content-box .desc p{padding-bottom:.3rem}
+.container-wrapper .classify-wrapper .content-box .pic{padding-top:.5rem;width: 4.5rem;height: 4.5rem;overflow: hidden;background-position: center;background-size: cover;}
+.container-wrapper .classify-wrapper .content-box .pic img{width: 4.5rem;height: 4.5rem;}
+
+/*主菜单分类页面样式*/
+.container-wrapper .classify-box .left-nav{width: 25%;display:-webkit-flex;display:-ms-flexbox;display:flex;flex-direction: column;justify-content:center;align-items: center;}
+.container-wrapper .classify-box .left-nav .left-nav-item{height: 2.5rem;line-height: 3.5rem;font-size: .63rem;}
+.container-wrapper .classify-box .active{color: #FF5400;}
+.container-wrapper .classify-box .right-nav{width: 74%;display:-webkit-flex;display:-ms-flexbox;display:flex;flex-wrap: wrap;align-items: center;justify-content: space-around;justify-content: space-evenly;}
+.container-wrapper .classify-box .right-nav .right-nav-item{width: 3rem;height: 3rem;text-align: center;line-height: 3rem;background-color: #2A293B;margin-top: .5rem;color: #FFFFFF;font-size: .68rem;}
+
+
+/*购物车页面样式*/
+.text-orange{color: #FF5400;}
+.priceCon{position: fixed;bottom: 2rem;right: 0;left: 0;background-color: #FFFFFF;}
+.priceCon .pricePart{display: inline-block;height: 2rem;line-height: 2rem;}
+.priceCon .all{padding-left: .5rem;font-size: .68rem;}
+.priceCon .all i{color: #FF5400;padding-right: .5rem;}
+.priceCon .total{font-size: .68rem;margin-right: .5rem;}
+.priceCon .pay button{height: 2rem;width: 4rem;background-color: #FF5400;color: #FFFFFF;border:0;font-size: .74rem;}
+.goodCon{padding: .5rem;background-color: #FFFFFF;margin-bottom: 1rem;}
+.goodCon div{display: inline-block;	}
+.goodCon .choose{height: 4rem;line-height: 4rem;color: #FF5400;}
+.goodCon .goodsBanner{width: 4rem;height: 4rem;overflow: hidden;margin-left: .7rem;} 
+.goodCon .goodsBanner img{width: 4rem;height: 4rem;}
+.goodCon .description{width: 8rem; font-size: .58rem;}
+.goodCon .description div{display: block;height: auto;}
+.goodCon .description div.title{font-size: .68rem;font-weight: 700;margin-top: 1rem;}
+.goodCon .description div span{display: inline-block;height: 2rem;line-height: 2rem;}
+
+/*个人中心页面样式*/
+.avatarWrapper{
+	width: 100%;
+	height: 8rem;
+	background-color: #2A293B;
+}
+.avatarWrapper .avatar{
+	width: 8rem;
+	margin: 0 auto;
+	padding-top: 3rem;
+}
+.avatarWrapper .avatar img{
+	width: 3rem;
+	height: 3rem;
+	border-radius: 3rem;
+}
+.avatarWrapper .avatar span{
+	width: 5rem;
+	line-height: 3rem;
+	color: #FFFFFF;
+	font-size: .68rem;
+	text-align: center;
+}
+.myInfo .infoItem{
+	height: 2rem;
+	line-height: 2rem;
+	padding-left: 1rem;
+	background-color: #EFEFF4;
+	margin-bottom: .5rem;
+	font-size: .58rem;
+}

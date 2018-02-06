@@ -1,0 +1,64 @@
+body{
+	padding: 50px;
+}
+.wrapper{
+	width: 350px;
+	padding: 30px 0;
+	font-size: 16px;
+	background-color: #E3E3E3;
+}
+.nav{
+	width: 350px;
+}
+.loginCon{
+	width: 250px;
+	margin: 0 auto;
+}
+.inputBox{
+	display: block;
+	border: 1px solid #B7B7B7;
+	width: 250px;
+	height: 40px;
+	border-radius: 5px;
+	margin: 10px 0;
+	padding: 0 10px;
+	font-size: 16px;
+	background: #FFFFFF;
+}
+.inputBox:focus{
+	border: 1px solid rgb(71,120,199);
+}
+.inputBtn{
+	display: block;
+	border: 1px solid rgb(71,120,199);
+	width: 250px;
+	height: 40px;
+	border-radius: 5px;
+	margin: 10px 0;
+	padding: 0 10px;
+	background: rgb(71,120,199);
+	color: #FFFFFF;
+	font-size: 16px;
+	cursor: pointer;
+}
+.tipBox{
+	color: #999;
+	font-size: 12px;
+}
+.nav div{
+	width: 49.5%;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	background: #d6d6d6;
+	/*box-shadow: 0px 1px 3px #333333;*/
+}
+.nav div.active{
+	background: #E3E3E3;
+}
+.rightShadow{
+	box-shadow: 4px 0 5px -3px #333;  
+}
+.leftShadow{
+	box-shadow: -4px 0 5px -3px #333;  
+}

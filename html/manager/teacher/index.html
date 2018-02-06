@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="../../../css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/common.css">
+		<script type="text/javascript" src="../../../js/jquery-2.1.1.min.js" ></script>
+		<script type="text/javascript" src="../../../js/public.js" ></script>
+		<script type="text/javascript" src="../../../js/template.js" ></script>
+		<script type="text/javascript" src="../../../js/common.js"></script>
+		<title>主页</title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="sidebar">
+				<div class="title">琴之家</div>
+				<ul class="sidenav">
+					<li>
+						<a href="javascript:;">课程管理</a>
+					</li>
+					<li class="active">
+						<a href="javascript:;">教师管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">学生管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">文章管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">资格审核</a>
+					</li>
+				</ul>
+			</div>
+			<div class="wrapper">
+				<div class="topCon">
+					<button class="fr searchBtn">搜索</button>
+					<input class="searchBar fr"></input>
+				</div>
+				<div class="mainCon">
+					<div class="leftCon">
+						<div class="briefInfo">
+							<div class="avatar"><img src="../../../img/avatar/moren.jpg"></div>
+							<div class="info">
+								<div class="name">administer</div>
+								<div class="mobile">140****0001</div>
+								<i class="modify"></i>
+							</div>
+						</div>
+						<ul class="funcBar">
+							<li><i class="mail">信息</i></li>
+							<li><i class="personalinfo">我的</i></li>
+							<li><i class="rubbish">回收站</i></li>
+						</ul>
+						<div class="timeCon">
+							<p class="clearfix">
+								<span class="weekdayEn fl"></span>
+								<span class="monthEn fr"></span>
+							</p>
+							<p class="clearfix">
+								<span class="weekdayCn fl"></span>
+								<span class="monthCn fr"></span>
+							</p>
+							<div class="dayBox">
+								<span class="day"><em></em>日</span>
+							</div>
+							<button class="record">签到</button>
+						</div>
+					</div>
+					<div class="rightCon">
+						<nav>
+							<ul class="topNav teacherPage">
+								<li class="active">教师列表</li>
+								<li>添加教师</li>
+								<li>导入教师名单</li>
+							</ul>
+						</nav>
+						<div class="tips">
+							<p class="title">功能介绍</p>
+							<div class="funcIntro">
+								<p>1.此页面展示的是平台内所有的教师信息。</p>
+								<p>2.管理员对已有教师的信息进行编辑，修改已有状态等。</p>
+								<p>3.删除的教师信息可在回收站中找到，仅保留7天。</p>
+							</div>
+						</div>
+						<div class="funcDetail">
+							<p class="title">教师列表</p>
+							<ul class="courseList">
+								<li class="title">
+									<div>教师工号</div>
+									<div>教师姓名</div>
+									<div>教师等级</div>
+									<div>授课方向</div>
+									<div>教师状态</div>
+									<div>操作</div>
+								</li>
+							</ul>
+							<script id="teacherItem" type="text/html">
+								<li data-id="{{list.user_id}}">
+									<div>{{list.user_id}}</div>
+									<div><a href="detail.html?id={{list.user_id}}">{{list.name}}</a></div>
+									<div>{{list.teacher_rank}}</div>
+									<div>{{list.teach_direction}}</div>
+									<div>{{if list.state==0}}在职{{else}}离职{{/if}}</div>
+									<div><a href="editTeacher.html?id={{list.user_id}}" class="edit">编辑</a>&nbsp;<a href="javascript:;" class="delete">删除</a></div>
+								</li>
+							</script>
+							<div class="page">
+								<ul class="pageList">
+									<li class="firstPage">首页</li>
+									<li class="prePage">上一页</li>
+									<li class="currentPage">1</li>
+									<li class="nextPage">下一页</li>
+									<li class="lastPage">尾页</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var initHtml = $('.courseList').html();
+		var limit = 6;
+		var totalPage;
+		var currentPage = 1;
+		$(function(){
+			getTeacherList();
+		});
+		function getTeacherList(){
+			$.ajax({
+				url:'../../../php/getTeacherList.php',
+				type: 'post',
+				dataType: 'json',
+				data:{
+					limit: limit,
+					page: currentPage
+				},
+				success: function(res){
+					if(res.success){
+						var list = res.data.list;
+						if(!list||list.length<=0){
+							return false;
+						}
+						totalPage = res.data.totalPage;
+						for(var i=0;i<list.length;i++){
+							var html = template('teacherItem',{list: list[i]});
+							$('.courseList').append(html);
+						}		
+						$('.courseList .edit').click(function(){
+							var user_id = $(this).parent().parent().attr('data-id');
+							console.log(user_id);
+						});	
+						$('.courseList .delete').click(function(){
+							var user_id = $(this).parent().parent().attr('data-id');
+							$.ajax({
+								url:'../../../php/deleteUser.php',
+								type: 'post',
+								dataType: 'json',
+								data: {
+									userId: user_id
+								},
+								success: function(data){
+									if(data.success){
+										window.location.reload();
+									}
+								}
+							});
+						});				
+					}
+				}
+			});
+		}
+		
+		$('.firstPage').click(function(){
+			currentPage = 1;
+			$('.courseList').html(initHtml);
+			$('.pageList .currentPage').html(currentPage);
+			getTeacherList();
+		});
+		$('.lastPage').click(function(){
+			currentPage = totalPage;
+			$('.courseList').html(initHtml);
+			$('.pageList .currentPage').html(currentPage);
+			getTeacherList();
+		});
+		$('.prePage').click(function(){
+			if(currentPage == 1){
+				cgtzUtil.showGeneralLayer({
+					'msg':'已经是第一页了',
+					'buttonText':'我知道了'
+				});
+				return;
+			}
+			$('.courseList').html(initHtml);
+			currentPage = currentPage - 1;
+			$('.pageList .currentPage').html(currentPage);
+			getTeacherList();
+		});
+		$('.nextPage').click(function(){
+			if(currentPage == totalPage){
+				cgtzUtil.showGeneralLayer({
+					'msg':'已经是最后一页了',
+					'buttonText':'我知道了'
+				});
+				return;
+			}
+			$('.courseList').html(initHtml);
+			currentPage = currentPage + 1;
+			$('.pageList .currentPage').html(currentPage);
+			getTeacherList();
+		});
+	</script>
+</html>

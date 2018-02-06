@@ -1,0 +1,26 @@
+.detailCon{
+	padding-top: 20px;
+}
+.returnBtn{
+	border-radius: 3px;
+	border: 0;
+	background: rgb(71,120,199);
+	color: #fff;
+	padding: 3px 10px;
+	font-size: 14px;
+}
+.detailCon .titleCon p.title{
+    padding: 10px 0;
+    font-size: 20px;
+    text-align: center;
+    font-weight: 700;
+}
+.detailCon .titleCon p.author{
+	font-size: 12px;
+	color: #999;
+	text-align: center;
+	padding-bottom: 10px;
+}
+.contentCon img{
+	width: 60%;
+}

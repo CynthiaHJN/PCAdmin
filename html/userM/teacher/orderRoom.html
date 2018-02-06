@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>预约教室</title>
+		<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport" />  
+		<link rel="stylesheet" href="../css/reset.css" />
+		<link rel="stylesheet" href="../css/teacher.css" />
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+		<script type="text/javascript" src="../js/jquery-2.1.1.min.js" ></script>
+		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	</head>
+	<body>
+		<nav class="roomNav">
+			<ul>
+				<li class="active order">可预约</li>
+				<li class="myOrder">我的预约</li>
+			</ul>
+		</nav>
+		<div class="order-wrapper">
+			<div class="selectCondition clearfix">
+				<label class="fl">筛选:<span class="colorGray">只能预约7天以内</span></label>
+				<input type="text" placeholder="选择日期" class="fr" id="datepicker">
+			</div>
+			<ul class="roomList">
+				<li class="roomItem clearfix">
+					<div class="roomInfo fl">
+						<h5>琴房号</h3>
+						<p>钢琴教室</p>
+					</div>
+					<div class="btnBox fr">
+						<button class="orderBtn">预约</button>
+					</div>
+				</li>
+				<li class="roomItem clearfix">
+					<div class="roomInfo fl">
+						<h5>琴房号</h3>
+						<p>钢琴教室</p>
+					</div>
+					<div class="btnBox fr">
+						<button class="orderBtn">预约</button>
+					</div>
+				</li>
+				<li class="roomItem clearfix">
+					<div class="roomInfo fl">
+						<h5>琴房号</h3>
+						<p>钢琴教室</p>
+					</div>
+					<div class="btnBox fr">
+						<button class="orderBtn">预约</button>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="myOrder-wrapper disNone">
+			<ul class="roomList">
+				<li class="roomItem clearfix">
+					<div class="roomInfo fl">
+						<h5>琴房号</h3>
+						<p>钢琴教室</p>
+					</div>
+					<div class="btnBox fr">
+						<button class="orderBtn">取消预约</button>
+					</div>
+				</li>
+				<li class="roomItem clearfix">
+					<div class="roomInfo fl">
+						<h5>琴房号</h3>
+						<p>钢琴教室</p>
+					</div>
+					<div class="btnBox fr">
+						<button class="orderBtn">取消预约</button>
+					</div>
+				</li>
+				<li class="roomItem clearfix">
+					<div class="roomInfo fl">
+						<h5>琴房号</h3>
+						<p>钢琴教室</p>
+					</div>
+					<div class="btnBox fr">
+						<button class="orderBtn">取消预约</button>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>
+<script>
+	$(function() {
+	    $( "#datepicker" ).datepicker({ minDate: 0, maxDate: "+6" });
+	});
+	//导航切换
+	$('.roomNav ul li').bind('click',function(){
+		var $this = $(this);
+		$('.roomNav ul li').removeClass('active');
+		$this.addClass('active');
+		if($this.hasClass('order')){
+			$('.myOrder-wrapper').hide();
+			$('.order-wrapper').show();
+		}
+		if($this.hasClass('myOrder')){
+			$('.order-wrapper').hide();
+			$('.myOrder-wrapper').show();
+		}
+	});
+</script>

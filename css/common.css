@@ -1,0 +1,395 @@
+/*页面框架构建*/
+.container{
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	overflow: hidden;  
+}
+.container .sidebar{
+	flex: 150px 0;
+	/*height: 100%;*/
+	background: rgb(27,39,55);
+}
+.container .wrapper{
+	flex: 1;
+	height: 100%;
+	background: rgb(71,120,199);
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+}
+.container .wrapper .topCon{
+	flex: 0 50px;
+	position: relative;
+}
+.container .wrapper .mainCon{
+	flex: 1;
+	background: #aaa;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	position: relative;
+}
+.container .wrapper .mainCon .leftCon{
+	flex: 250px 0;
+	background: rgb(71,120,199);
+	position: relative;
+}
+.container .wrapper .mainCon .rightCon{
+	flex: 1;
+	background: #fff;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	position: relative;
+}
+/*分部内容*/
+/*侧边栏*/
+.container .sidebar .title{
+	font-size: 24px;
+	line-height: 50px;
+	padding-top: 10px;
+	color: #999;
+	text-align: center;
+}
+.container .sidebar .sidenav{
+	margin-top: 50px;
+	text-align: center;
+	font-size: 14px;
+	color: #999;
+}
+.container .sidebar .sidenav li{
+	line-height: 40px;
+	border-left: 3px solid rgb(27,39,55);
+}
+.container .sidebar .sidenav li a{
+	color:#999;
+}
+.container .sidebar .sidenav li:hover{
+	background: rgba(88,126,209,.2);
+	border-left: 3px solid rgba(88,126,209,.6);
+}
+.container .sidebar .sidenav li.active{
+	background: rgba(88,126,209,.25);
+	border-left: 3px solid rgba(88,126,209,.6);
+}
+.container .sidebar .sidenav li.active a{
+	color: #fff;
+}
+/*左边部分*/
+.container .wrapper .mainCon .leftCon .briefInfo{
+	height: 70px;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	background: rgb(120,167,255);
+}
+.container .wrapper .mainCon .leftCon .briefInfo .avatar{
+	flex: 70px 0;
+}
+.container .wrapper .mainCon .leftCon .briefInfo .avatar img{
+	width: 100%;
+}
+.container .wrapper .mainCon .leftCon .briefInfo .info{
+	flex: 1;
+	padding: 10px 0;
+	color: #fff;
+	font-size: 14px;
+}
+.container .wrapper .mainCon .leftCon .briefInfo .info div{
+	height: 25px;
+	line-height: 25px;
+	padding-left: 15px
+}
+.container .wrapper .mainCon .leftCon .funcBar{
+	height: 40px;
+	background: rgb(88,126,209);
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	color: #fff;
+}
+.container .wrapper .mainCon .leftCon .funcBar li{
+	flex: 1;
+	text-align: center;
+	line-height: 40px;
+	cursor: pointer;
+}
+.container .wrapper .mainCon .leftCon .timeCon{
+	margin-top: 20px;
+	padding: 0 20px;
+}
+.container .wrapper .mainCon .leftCon .timeCon p{
+	padding: 10px 0 0 0;
+	font-size: 13px;
+	color: #fff;
+}
+.container .wrapper .mainCon .leftCon .timeCon p:first-child{
+	color: rgb(196,228,239);
+}
+.container .wrapper .mainCon .leftCon .timeCon .dayBox{
+	padding: 50px 0 50px 0;
+	color: #fff;
+	text-align: center;
+}
+.container .wrapper .mainCon .leftCon .timeCon .dayBox em{
+	font-size: 72px;
+	padding-right: 10px;
+}
+.container .wrapper .mainCon .leftCon .timeCon .record{
+	display: block;
+	width: 180px;
+	height: 40px;
+	border-radius: 20px;
+	border: 1px solid #fff;
+	margin: 0 auto;
+	color: #fff;
+	font-size: 14px;
+	background: rgb(88,126,209);
+}
+.container .wrapper .topCon .searchBar{
+	width: 200px;
+	height: 25px;
+	border: 1px solid #fff;
+	border-radius: 30px;
+	margin-top: 12.5px;
+	padding: 0 15px;
+	color: #fff;
+	margin-right: 10px;
+}
+.container .wrapper .topCon .searchBtn{
+	border: 0;
+	height: 25px;
+	line-height: 25px;
+	margin-top: 12.5px;
+	color: #fff;
+	margin-right: 20px;
+	cursor: pointer;
+}
+.container .wrapper .mainCon .rightCon nav{
+	height: 60px;
+	border-bottom: 1px solid #ddd;
+	position: fixed;
+	top: 50px;
+	width: 100%;
+	background: #fff;
+}
+.container .wrapper .mainCon .rightCon nav .topNav{
+	height: 60px;
+	line-height: 60px;
+}
+.container .wrapper .mainCon .rightCon nav .topNav li{
+	display: inline-block;
+	padding: 0 5px;
+	margin: 0 20px;
+	font-size: 15px;
+	color: #999;
+	cursor: pointer;
+}
+.container .wrapper .mainCon .rightCon nav .topNav li.active{
+	color: #333;
+	border-bottom: 2px solid rgb(88,126,209);
+}
+.container .wrapper .mainCon .rightCon .tips{
+	margin-top: 60px;
+	padding: 30px 20px 15px 20px;
+	border-bottom: 1px solid #eee;
+}
+.container .wrapper .mainCon .rightCon .tips .title{
+	font-size: 16px;
+	color: #333;
+}
+.container .wrapper .mainCon .rightCon .tips .funcIntro{
+	font-size: 14px;
+	margin-top: 10px;
+}
+.container .wrapper .mainCon .rightCon .tips .funcIntro p{
+	line-height: 20px;
+	color: #333;
+}
+.container .wrapper .mainCon .rightCon .funcDetail{
+	padding: 30px 20px;
+}
+.container .wrapper .mainCon .rightCon .funcDetail .title{
+	font-size: 18px;
+	color: rgb(88,126,209);
+}
+.container .wrapper .mainCon .rightCon .funcDetail .courseList{
+	margin-top: 20px;
+}
+.container .wrapper .mainCon .rightCon .funcDetail .courseList li{
+	font-size: 15px;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	color: #666;
+	padding: 5px 0;
+}
+.container .wrapper .mainCon .rightCon .funcDetail .courseList li.title{
+	color: #333;
+}
+.container .wrapper .mainCon .rightCon .funcDetail .courseList li div{
+	flex:1;
+	text-align: center;
+}
+.container .wrapper .mainCon .rightCon .funcDetail .page{
+	margin-top: 60px;
+}
+.container .wrapper .mainCon .rightCon .funcDetail .page .pageList{
+	margin: 0 auto;
+	text-align: center;
+	font-size: 14px;
+}
+.container .wrapper .mainCon .rightCon .funcDetail .page .pageList li{
+	display: inline-block;
+	padding: 3px 5px;
+	color: rgb(88,126,209);
+	border-radius: 3px;
+	border: 1px solid rgb(88,126,209);
+	cursor: pointer;
+	margin: 0 4px;
+}
+.container .wrapper .mainCon .rightCon .funcDetail .page .pageList li.currentPage{
+	border: 0;
+	cursor:inherit;
+	font-weight: 700;
+}
+.container .wrapper .mainCon .rightCon .funcDetail .courseInputCon{
+	margin-top: 20px;
+	font-size: 16px;
+}
+.container .wrapper .mainCon .rightCon .funcDetail .courseInputCon div{
+	width: 70%;
+	margin: 0 auto;
+	margin-bottom: 14px;
+	color: #333;
+}
+.container .wrapper .mainCon .rightCon .funcDetail .courseInputCon div label{
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	width: 18%;
+}
+.container .wrapper .mainCon .rightCon .funcDetail .courseInputCon div label em{
+	color: red;
+}
+input.inputBox,.inputSelect{
+	width: 80%;
+	height: 30px;
+	border: 1px solid #999;
+	border-radius: 3px;
+	font-size: 14px;
+}
+textarea.inputBox{
+	width: 80%;
+	border: 1px solid #999;
+	border-radius: 3px;
+	font-size: 14px;
+}
+.submitBtn{
+	width: 70px;
+	height: 30px;
+	border-radius:3px;
+	border: 0;
+	background: rgb(88,126,209);
+	color: #fff;
+}
+.container .wrapper .mainCon .rightCon .funcDetail .courseInputCon div .pictureBox{
+	width: 80%;
+}
+
+.container .wrapper .mainCon .rightCon .funcDetail .courseInputCon div .imgShow{
+	width: 100%;
+	height: 200px;
+	border: 1px solid #999;
+	border-radius: 3px;
+	line-height: 200px;
+	text-align: center;
+	color: #999;
+}
+.container .wrapper .mainCon .rightCon .funcDetail .courseInputCon .typeList{
+	display: inline-block;
+	width: 80%;
+	height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+}
+.container .wrapper .mainCon .rightCon .funcDetail .courseInputCon .typeList li{
+	display: inline-block;
+	margin-right: 10px;
+	cursor: pointer;
+	color: rgb(88,126,209);
+	border: 1px solid rgb(88,126,209);
+	padding: 0 5px;
+	border-radius: 3px;
+}
+.container .wrapper .mainCon .rightCon .funcDetail .courseInputCon .typeList li.active{
+	background: rgb(88,126,209);
+	color: #fff;
+}
+.detailCon{
+	width: 80%;
+	margin: 0 auto;
+}
+.detailCon .box{
+	padding: 15px 0;
+}
+.detailCon .box span{
+	display: inline-block;
+}
+.detailCon .box .avatar{
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+.detailCon .box .avatar img{
+	width: 100%;
+}
+.detailCon .box .name{
+	height: 80px;
+	line-height: 30px;
+	font-size: 18px;
+	vertical-align: top;
+	margin-left: 10px;
+	padding-top: 10px
+}
+.detailCon .box .name i:last-child{
+	font-size: 14px;
+	color: #999;
+}
+.detailCon .box label{
+	display: inline-block;
+	font-size: 16px;
+}
+.detailCon .box .list li{
+	display: inline-block;
+	border: 1px solid #ddd;
+    padding: 10px;
+    margin-right: 20px;
+}
+.detailCon .box .list li .imgBox{
+	width: 200px;
+	height: 200px;
+	overflow: hidden;
+}
+.detailCon .box .list li .imgBox img{
+	width: 100%;
+	height: 100%;
+}
+.detailCon .box .list li p{
+	height: 20px;
+	line-height: 20px;
+	font-size: 14px;
+}
+.detailCon .box .list li p.courseName{
+	padding-top: 10px;
+}
+.detailCon .box .list li p .times{
+	color: #ff0000;
+}

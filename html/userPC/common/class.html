@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>课程</title>
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css" />
+		<link rel="stylesheet" href="header.css" />
+		<link rel="stylesheet" href="idangerous.swiper.css" />
+		<link rel="stylesheet" href="class.css" />
+		<script src="jquery-2.1.1.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="idangerous.swiper.js" ></script>
+		<script type="text/javascript" src="header.js" ></script>
+	</head>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.site-header{
+			min-height: 80px;
+		}
+		.picPlay{
+			position: relative;
+			margin-top: 100px;	
+		}
+		.swiperPart{
+			position: relative;
+			width: 1150px;
+			display: flex;
+			margin:0 auto;
+			margin-top: 40px;
+		}
+		.menuPart{
+			flex: 1;
+			background-color: #cdc9a5;
+			border-top-left-radius: 10px;
+		    border-bottom-left-radius: 10px;
+		}
+		.swiper-container {
+		  flex: 0 900px;
+		  height: 400px;
+		  color: #fff;
+		  text-align: center;
+		  border-top-right-radius: 10px;
+		  border-bottom-right-radius: 10px;
+		}
+		.pagination {
+		  position: absolute;
+		  z-index: 20;
+		  left: 0px;
+		  right: 0px;
+		  bottom: -10px;
+		}
+		/*将圆点定位符改为矩形文字框*/
+		.swiper-pagination-switch {
+		  display: inline-block;
+		  width: 10px;
+		  height: 10px;
+		  line-height: 35px;
+		  background: #888;
+		  opacity: 0.8;
+		  cursor: pointer;
+		  text-align: center;
+		  margin: 0 2px;
+		}
+		.swiper-active-switch {
+		  background: #fff;
+		  height: 15px;
+		}
+	</style>
+	<body>
+		<header class="site-header">
+			<div class="navBar">
+				<nav>
+					<a href="index.html" class="webName"><span>琴行</span>Machold Rare Violins</a>
+					<ul class="headUL">
+						<li><a href="index.html">首页</a></li>
+						<li><a href="class.html" class="active">课程</a></li>
+						<li><a href="knowledge.html">知识</a></li>
+						<li><a href="#">关于我们</a></li>
+						<li><button class="btn btn-log">登陆</button></li>
+						<li><button class="btn btn-log">注册</button></li>
+					</ul>
+					<div class="listNav"><i class="fa fa-bars"></i></div>
+
+				</nav>
+			</div>
+			<!--<canvas width="100%" height="340" style="display: block; margin: 0px auto;"></canvas>-->
+		</header>
+		<div class="sliderBar none">
+			<ul class="slider-ul">
+				<li><a href="index.html">首页</a></li>
+				<li><a href="class.html" class="active">课程</a></li>
+				<li><a href="knowledge.html">知识</a></li>
+				<li><a href="#">关于我们</a></li>
+				<li><button class="btn btn-log">登陆</button></li>
+				<li><button class="btn btn-log">注册</button></li>
+			</ul>
+		</div>
+		<!--轮播图部分-->
+		<section class="swiperPart">
+			<div class="menuPart">
+				<ul>
+					<li>
+						<a class="title" href="javascript:;">民族乐器</a>
+						<div class="subMenu disNone">
+							<a href="classList.html">古筝</a>
+							<a href="classList.html">二胡</a>
+							<a href="classList.html">竹笛</a>
+							<a href="classList.html">琵琶</a>
+							<a href="classList.html">扬琴</a>
+							<a href="classList.html">古琴</a>
+							<a href="classList.html">葫芦丝</a>
+							<a href="classList.html">笙</a>
+						</div>
+					</li>
+					<li>
+						<a class="title" href="javascript:;">西方乐器</a>
+						<div class="subMenu disNone">
+							<a href="classList.html">小提琴</a>
+							<a href="classList.html">吉他</a>
+							<a href="classList.html">长笛</a>
+							<a href="classList.html">尤克里里</a>
+							<a href="javascript:;">钢琴</a>
+							<a href="javascript:;">电子琴</a>
+							<a href="javascript:;">手风琴</a>
+							<a href="javascript:;">贝斯</a>
+						</div>
+					</li>
+					<li>
+						<a class="title" href="javascript:;">舞蹈</a>
+						<div class="subMenu disNone">
+							<a href="javascript:;">芭蕾</a>
+							<a href="javascript:;">现代舞</a>
+							<a href="javascript:;">民族舞</a>
+							<a href="javascript:;">中国古典舞</a>
+							<a href="javascript:;">拉丁舞</a>
+						</div>
+					</li>
+					<li>
+						<a class="title" href="javascript:;">声乐/唱歌</a>
+						<div class="subMenu disNone">
+							<a href="javascript:;">声乐</a>
+							<a href="javascript:;">流行音乐</a>
+						</div>
+					</li>
+					<li>
+						<a class="title" href="javascript:;">乐器推荐</a>
+						<div class="subMenu disNone">
+							<a href="javascript:;">古筝</a>
+							<a href="javascript:;">二胡</a>
+							<a href="javascript:;">竹笛</a>
+							<a href="javascript:;">琵琶</a>
+							<a href="javascript:;">扬琴</a>
+							<a href="javascript:;">古琴</a>
+							<a href="javascript:;">葫芦丝</a>
+							<a href="javascript:;">笙</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="swiper-container" id="lunbo1">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" style="background-color: darkgoldenrod;">
+						<a href="#" target="_blank"><img src="image/bannerClass.jpg"/></a>
+					</div>
+					<div class="swiper-slide" style="background-color: salmon">
+						<a href="#" target="_blank"><img src="image/bannerClass2.png" /></a>
+					</div>
+					<div class="swiper-slide" style="background-color: seagreen">
+						<a href="#" target="_blank"><img src="image/bannerClass3.jpg"/></a>
+					</div>
+					<div class="swiper-slide" style="background-color: #FFA500">
+						<a href="#" target="_blank"><img src="image/bannerClass6.png"/></a>
+					</div>
+					<div class="swiper-slide" style="background-color: firebrick;">
+						<a href="#" target="_blank"><img src="image/bannerClass4.jpg"/></a>
+					</div>
+					<div class="swiper-slide" style="background-color: darkkhaki;">
+						<a href="#" target="_blank"><img src="image/bannerClass5.jpg"/></a>
+					</div>
+				</div>
+				<div class="pagination"></div>
+			</div>
+		</section>
+		<!--热门部分-->
+		<section class="piano clearfix">
+			<div class="title">
+				<img src="image/pop_course_title.png" />
+			</div>
+			<div class="content clearfix">
+				<div class="box">
+					<div class="imgBox"><img src="image/bannerClass2.png"/></div>
+					<div class="textInfo">
+						<p>初级钢琴零基础学习</p>
+						<p>
+							<span>课时数：30</span>
+							<span>￥1500</span>
+						</p>
+					</div>
+				</div>
+				<div class="box">
+					<div class="imgBox"><img src="image/bannerClass3.jpg"/></div>
+					<div class="textInfo">
+						<p>初级钢琴零基础学习</p>
+						<p>
+							<span>课时数：30</span>
+							<span>￥1500</span>
+						</p>
+					</div>
+				</div>
+				<div class="box">
+					<div class="imgBox"><img src="image/bannerClass4.jpg"/></div>
+					<div class="textInfo">
+						<p>初级钢琴零基础学习</p>
+						<p>
+							<span>课时数：30</span>
+							<span>￥1500</span>
+						</p>
+					</div>
+				</div>
+				<div class="box">
+					<div class="imgBox"><img src="image/bannerClass5.jpg"/></div>
+					<div class="textInfo">
+						<p>初级钢琴零基础学习</p>
+						<p>
+							<span>课时数：30</span>
+							<span>￥1500</span>
+						</p>
+					</div>
+				</div>
+				<div class="box">
+					<div class="imgBox"><img src="image/bannerClass.jpg"/></div>
+					<div class="textInfo">
+						<p>初级钢琴零基础学习</p>
+						<p>
+							<span>课时数：30</span>
+							<span>￥1500</span>
+						</p>
+					</div>
+				</div>
+				<div class="box">
+					<div class="imgBox"><img src="image/bannerClass6.png"/></div>
+					<div class="textInfo">
+						<p>初级钢琴零基础学习</p>
+						<p>
+							<span>课时数：30</span>
+							<span>￥1500</span>
+						</p>
+					</div>
+				</div>
+				<div class="box">
+					<div class="imgBox"><img src="image/manyViolin.jpg"/></div>
+					<div class="textInfo">
+						<p>初级钢琴零基础学习</p>
+						<p>
+							<span>课时数：30</span>
+							<span>￥1500</span>
+						</p>
+					</div>
+				</div>
+				<div class="box">
+					<div class="imgBox"><img src="image/instrument.jpg"/></div>
+					<div class="textInfo">
+						<p>初级钢琴零基础学习</p>
+						<p>
+							<span>课时数：30</span>
+							<span>￥1500</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--钢琴部分-->
+		<section class="piano clearfix">
+			<div class="title">
+				<img src="image/piano_title.png" />
+			</div>
+			<div class="more">
+				<a style="float: right;color: #F25039;font-size: 14px;cursor: pointer;margin-right: 40px;">了解更多&gt;</a>
+			</div>
+			<div class="content clearfix">
+				<div class="box">
+					<div class="imgBox"><img src="image/bannerClass6.png"/></div>
+					<div class="textInfo">
+						<p>初级钢琴零基础学习</p>
+						<p>
+							<span>课时数：30</span>
+							<span>￥1500</span>
+						</p>
+					</div>
+				</div>
+				<div class="box">
+					<div class="imgBox"><img src="image/manyViolin.jpg"/></div>
+					<div class="textInfo">
+						<p>初级钢琴零基础学习</p>
+						<p>
+							<span>课时数：30</span>
+							<span>￥1500</span>
+						</p>
+					</div>
+				</div>
+				<div class="box">
+					<div class="imgBox"><img src="image/bannerClass2.png"/></div>
+					<div class="textInfo">
+						<p>初级钢琴零基础学习</p>
+						<p>
+							<span>课时数：30</span>
+							<span>￥1500</span>
+						</p>
+					</div>
+				</div>
+				<div class="box">
+					<div class="imgBox"><img src="image/instrument.jpg"/></div>
+					<div class="textInfo">
+						<p>初级钢琴零基础学习</p>
+						<p>
+							<span>课时数：30</span>
+							<span>￥1500</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--吉他部分-->
+		<section class="piano clearfix" style="margin-bottom:200px">
+			<div class="title">
+				<img src="image/guitar_title.png" />
+			</div>
+			<div class="more">
+				<a style="float: right;color: #F25039;font-size: 14px;cursor: pointer;margin-right: 40px;">了解更多&gt;</a>
+			</div>
+			<div class="content clearfix">
+				<div class="box">
+					<div class="imgBox"><img src="image/bannerClass2.png"/></div>
+					<div class="textInfo">
+						<p>初级钢琴零基础学习</p>
+						<p>
+							<span>课时数：30</span>
+							<span>￥1500</span>
+						</p>
+					</div>
+				</div>
+				<div class="box">
+					<div class="imgBox"><img src="image/bannerClass6.png"/></div>
+					<div class="textInfo">
+						<p>初级钢琴零基础学习</p>
+						<p>
+							<span>课时数：30</span>
+							<span>￥1500</span>
+						</p>
+					</div>
+				</div>
+				<div class="box">
+					<div class="imgBox"><img src="image/manyViolin.jpg"/></div>
+					<div class="textInfo">
+						<p>初级钢琴零基础学习</p>
+						<p>
+							<span>课时数：30</span>
+							<span>￥1500</span>
+						</p>
+					</div>
+				</div>
+				<div class="box">
+					<div class="imgBox"><img src="image/instrument.jpg"/></div>
+					<div class="textInfo">
+						<p>初级钢琴零基础学习</p>
+						<p>
+							<span>课时数：30</span>
+							<span>￥1500</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>
+<script>
+	var mySwiper = new Swiper('.swiper-container',{
+   	 	pagination: '.pagination',
+    	paginationClickable: true,
+    	autoplay:4000,
+    	loop:true
+ 	});
+ 	$('.menuPart ul li').hover(function(){
+ 		$(this).find('.subMenu').removeClass("disNone");
+ 	},function(){
+ 		$(this).find('.subMenu').addClass("disNone");
+ 	})
+ 	$('.piano .content .box').click(function(){
+ 		window.location.href = "courseDetail.html";
+ 	})
+</script>

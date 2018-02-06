@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="../../../css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/common.css">
+		<script type="text/javascript" src="../../../js/jquery-2.1.1.min.js" ></script>
+		<script type="text/javascript" src="../../../js/public.js" ></script>
+		<script type="text/javascript" src="../../../js/template.js" ></script>
+		<script type="text/javascript" src="../../../js/common.js"></script>
+		<script type="text/javascript" src="../../../js/xlsx.full.min.js"></script>
+		<title>主页</title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="sidebar">
+				<div class="title">琴之家</div>
+				<ul class="sidenav">
+					<li>
+						<a href="javascript:;">课程管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">教师管理</a>
+					</li>
+					<li class="active">
+						<a href="javascript:;">学生管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">文章管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">资格审核</a>
+					</li>
+				</ul>
+			</div>
+			<div class="wrapper">
+				<div class="topCon">
+					<button class="fr searchBtn">搜索</button>
+					<input class="searchBar fr"></input>
+				</div>
+				<div class="mainCon">
+					<div class="leftCon">
+						<div class="briefInfo">
+							<div class="avatar"><img src="../../../img/avatar/moren.jpg"></div>
+							<div class="info">
+								<div class="name">administer</div>
+								<div class="mobile">140****0001</div>
+								<i class="modify"></i>
+							</div>
+						</div>
+						<ul class="funcBar">
+							<li><i class="mail">信息</i></li>
+							<li><i class="personalinfo">我的</i></li>
+							<li><i class="rubbish">回收站</i></li>
+						</ul>
+						<div class="timeCon">
+							<p class="clearfix">
+								<span class="weekdayEn fl">Friday 03 Sep</span>
+								<span class="monthEn fr">April 2015</span>
+							</p>
+							<p class="clearfix">
+								<span class="weekdayCn fl">星期五</span>
+								<span class="monthCn fr">四月</span>
+							</p>
+							<div class="dayBox">
+								<span class="day"><em>03</em>日</span>
+							</div>
+							<button class="record">签到</button>
+						</div>
+					</div>
+					<div class="rightCon">
+						<nav>
+							<ul class="topNav studentPage">
+								<li>学生列表</li>
+								<li>添加学生</li>
+								<li class="active">导入学生名单</li>
+							</ul>
+						</nav>
+						<div class="tips">
+							<p class="title">功能介绍</p>
+							<div class="funcIntro">
+								<p>1.此页面可批量导入学生信息。</p>
+								<p>2.点击“选择文件”按钮，选择要导入的学生信息表格，表格中需包含（name，mobile，sex，age）字段。</p>
+								<p>3.点击“开始导入”按钮，将信息导入到数据库。</p>
+							</div>
+						</div>
+						<div class="funcDetail">
+							<p class="title">文件导入</p>
+							<div style="padding: 20px 0">
+								<input type="file" name="" onchange="importf(this)" />
+								<button class="submitBtn">开始导入</button>
+							</div>
+							<p class="title">导入列表</p>
+							<ul class="courseList">
+								<li class="title">
+									<div>学生姓名</div>
+									<div>联系方式</div>
+									<div>学生性别</div>
+									<div>学生年龄</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+        var wb;//读取完成的数据
+        var rABS = false; //是否将文件读取为二进制字符串
+        var list;
+        function importf(obj) {//导入
+            if(!obj.files) {
+                return;
+            }
+            var f = obj.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var data = e.target.result;
+                if(rABS) {
+                    wb = XLSX.read(btoa(fixdata(data)), {//手动转化
+                        type: 'base64'
+                    });
+                } else {
+                    wb = XLSX.read(data, {
+                        type: 'binary'
+                    });
+                }
+                //wb.SheetNames[0]是获取Sheets中第一个Sheet的名字
+                //wb.Sheets[Sheet名]获取第一个Sheet的数据
+                var html='';
+                var sex = ['男','女'];
+                list = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+                if(list.length>0){
+                	for(var i=0;i<list.length;i++){
+                        html+='<li class="title">'+
+                                '<div>'+list[i].name+'</div>'+
+                                '<div>'+list[i].mobile+'</div>'+
+                                '<div>'+sex[list[i].sex]+'</div>'+
+                                '<div>'+list[i].age+'</div>'+
+                            '</li>';
+                    }
+                    $('.courseList').append(html);
+                }
+            };
+            if(rABS) {
+                reader.readAsArrayBuffer(f);
+            } else {
+                reader.readAsBinaryString(f);
+            }
+        }
+
+        function fixdata(data) { //文件流转BinaryString
+            var o = "",
+                l = 0,
+                w = 10240;
+            for(; l < data.byteLength / w; ++l) o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w)));
+            o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)));
+            return o;
+        }
+        $('.submitBtn').click(function(){
+        	if(!list||list==''||!list.length||list.length<=0){
+        		alert('导入内容不能为空');
+        		return;
+        	}
+        	var num=0;
+        	for(var i=0;i<list.length;i++){
+        		$.ajax({
+					type:"post",
+					url:"../../../php/addStudent.php",
+					async:false,
+					dataType:'json',
+					data:{
+						name: list[i].name,
+						mobile: list[i].mobile,
+						sex: list[i].sex,
+						age: list[i].age
+					},
+					success: function(data){
+						if(data.success){
+							num++;
+						}
+					}
+				});
+        	}
+        	alert('共导入'+Number(num)+'条学生信息');
+        });
+	</script>
+</html>

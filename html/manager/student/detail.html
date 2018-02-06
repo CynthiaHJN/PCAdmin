@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="../../../css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/common.css">
+		<script type="text/javascript" src="../../../js/jquery-2.1.1.min.js" ></script>
+		<script type="text/javascript" src="../../../js/public.js" ></script>
+		<script type="text/javascript" src="../../../js/template.js" ></script>
+		<script type="text/javascript" src="../../../js/common.js"></script>
+		<title>主页</title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="sidebar">
+				<div class="title">琴之家</div>
+				<ul class="sidenav">
+					<li>
+						<a href="javascript:;">课程管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">教师管理</a>
+					</li>
+					<li class="active">
+						<a href="javascript:;">学生管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">文章管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">资格审核</a>
+					</li>
+				</ul>
+			</div>
+			<div class="wrapper">
+				<div class="topCon">
+					<button class="fr searchBtn">搜索</button>
+					<input class="searchBar fr"></input>
+				</div>
+				<div class="mainCon">
+					<div class="leftCon">
+						<div class="briefInfo">
+							<div class="avatar"><img src="../../../img/avatar/moren.jpg"></div>
+							<div class="info">
+								<div class="name">administer</div>
+								<div class="mobile">140****0001</div>
+								<i class="modify"></i>
+							</div>
+						</div>
+						<ul class="funcBar">
+							<li><i class="mail">信息</i></li>
+							<li><i class="personalinfo">我的</i></li>
+							<li><i class="rubbish">回收站</i></li>
+						</ul>
+						<div class="timeCon">
+							<p class="clearfix">
+								<span class="weekdayEn fl">Friday 03 Sep</span>
+								<span class="monthEn fr">April 2015</span>
+							</p>
+							<p class="clearfix">
+								<span class="weekdayCn fl">星期五</span>
+								<span class="monthCn fr">四月</span>
+							</p>
+							<div class="dayBox">
+								<span class="day"><em>03</em>日</span>
+							</div>
+							<button class="record">签到</button>
+						</div>
+					</div>
+					<div class="rightCon">
+						<div class="detailCon">
+							<div class="box">
+								<span class="avatar"><img src="/PCAdmin/img/avatar/moren.jpg"/></span>
+								<span class="name"><i>张澜·17812666666</i><br/><i>10岁·女</i></span>
+							</div>
+							<div class="box">
+								<label>地址:</label>
+								<span>暂无</span>
+							</div>
+							<div class="box">
+								<label>个人简介:</label>
+								<span>得一卷诗书在手，品万千情愫于心</span>
+							</div>
+							<div class="box">
+								<label>已购课程:</label>
+								<ul class="list">
+									<li>
+										<div class="imgBox">
+											<img src="/PCAdmin/img/course/moren.jpg"/>
+										</div>
+										<p class="courseName">钢琴入门30课时</p>
+										<p class="clearfix"><em class="status fl">进行中</em><em class="fr times">6/30</em></p>
+									</li>
+									<li>
+										<div class="imgBox">
+											<img src="/PCAdmin/img/course/moren.jpg"/>
+										</div>
+										<p class="courseName">钢琴入门30课时</p>
+										<p class="clearfix"><em class="status fl">进行中</em><em class="fr times">6/30</em></p>
+									</li>
+									<li>
+										<div class="imgBox">
+											<img src="/PCAdmin/img/course/moren.jpg"/>
+										</div>
+										<p class="courseName">钢琴入门30课时</p>
+										<p class="clearfix"><em class="status fl">进行中</em><em class="fr times">6/30</em></p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<script id="studentDetail" type="text/html">
+						<div class="box">
+							<span class="avatar">{{if info.avatar}}<img src="../../img/avatar/{{info.avatar}}"/>{{else}}<img src="../../img/avatar/moren.jpg"/>{{/if}}</div>
+							<span class="name"><i>{{info.name}}·{{info.mobile}}</i><br/><i>{{info.age}}岁·{{info.sex}}</i></div>
+						</div>
+						<div class="box">
+							<label>地址:</label>
+							<span>{{info.address}}</span>
+						</div>
+						<div class="box">
+							<label>个人简介:</label>
+							<span>{{short_intro}}</span>
+						</div>
+						<div class="box">
+							<label>已购课程:</label>
+							<ul class="list">
+								{{each info.courseList as value}}
+								<li>
+									<div class="imgBox">
+										{{if value.banner}}
+										<img src="/PCAdmin/img/course/{{value.banner}}"/>
+										{{else}}
+										<img src="/PCAdmin/img/course/moren.jpg"/>
+										{{/if}}
+									</div>
+									<p class="courseName">{{value.course_name}}</p>
+									<p class="clearfix"><em class="status fl">{{value.status}}</em><em class="fr times">{{value.leftTimes}}/{{value.course_hours}}</em></p>
+								</li>
+								{{/each}}
+							</ul>
+						</div>
+					</script>
+					<script id="teacherDetail" type="text/html">
+						<div class="box">
+							<span class="avatar">{{if info.avatar}}<img src="../../img/avatar/{{info.avatar}}"/>{{else}}<img src="../../img/avatar/moren.jpg"/>{{/if}}</div>
+							<span class="name"><i>{{info.name}}·{{info.mobile}}</i><br/><i>{{info.age}}岁·{{info.sex}}</i></div>
+						</div>
+						<div class="box">
+							<label>地址:</label>
+							<span>{{info.address}}</span>
+						</div>
+						<div class="box">
+							<label>个人简介:</label>
+							<span>{{short_intro}}</span>
+						</div>
+						<div class="box">
+							<label>已授课程:</label>
+							<ul class="list">
+								{{each info.courseList as value}}
+								<li>
+									<div class="imgBox">
+										{{if value.banner}}
+										<img src="/PCAdmin/img/course/{{value.banner}}"/>
+										{{else}}
+										<img src="/PCAdmin/img/course/moren.jpg"/>
+										{{/if}}
+									</div>
+									<p class="courseName">{{value.course_name}}</p>
+									<p class="clearfix"><em class="status fl">{{value.status}}</em><em class="fr times">{{value.limit_members}}</em></p>
+								</li>
+								{{/each}}
+							</ul>
+						</div>
+					</script>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+	</script>
+</html>
