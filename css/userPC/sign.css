@@ -1,0 +1,178 @@
+body,html{
+    background: #e8e5d6;
+    font-family: -apple-system,SF UI Display,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif;
+}
+*, :after, :before {
+    box-sizing: border-box;
+}
+a{
+    cursor: pointer;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+    color: inherit;
+}
+.main{
+    width:400px;
+    margin: 60px auto 0;
+    padding: 50px 50px 30px;
+    background: #fff;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(0,0,0,.1);
+    vertical-align: middle;
+    text-align: center;
+    box-sizing: border-box;
+}
+.main ul.title{
+    font-weight: 400;
+    color: #969696;
+    margin: 0 auto 30px;
+    font-size: 18px;
+    padding: 10px;
+}
+.main ul.title li{
+    display: inline-block;
+}
+.main ul.title li a{
+    display: inline-block;
+    color: #969696;
+    line-height: 40px;
+    padding: 0 10px;
+}
+.main ul.title li.active a{
+    color: #CDC9A5;
+}
+.main ul.title li.active{
+    font-weight: 700;
+    color: #CDC9A5;
+    border-bottom: 2px solid #CDC9A5;
+}
+.main ul.title li:hover{
+    border-bottom: 2px solid #CDC9A5;
+}
+.signin-container .more-sign{
+    margin-top: 30px;
+}
+.signin-container .more-sign h6{
+    position: relative;
+    margin: 0 0 20px;
+    font-size: 12px;
+    color: #b5b5b5;
+}
+.signin-container .more-sign h6:after, .signin-container .more-sign h6:before {
+    content: "";
+    border-top: 1px solid #b5b5b5;
+    display: block;
+    position: absolute;
+    width: 60px;
+    top: 5px;
+}
+.signin-container .more-sign h6:before {
+    left: 30px;
+}
+.signin-container .more-sign h6:after {
+    right: 30px;
+}
+.signin-container  .more-sign ul li {
+    margin: 0 10px;
+    display: inline-block;
+}
+.signin-container .more-sign ul li a{
+    width: 50px;
+    height: 50px;
+    background-color: hsla(0,0%,71%,.2);
+    border-radius: 50%;
+    line-height: 50px;
+    display: block;
+}
+.signin-container .more-sign ul li a i{
+    font-size: 22px;
+    color: #FFFFFF;
+    line-height: 50px;
+}
+.signin-container .more-sign ul li a.weibo{
+    background-color: #e05244;
+}
+.signin-container .more-sign ul li a.weixin{
+    background-color: #00bb29;
+}
+.signin-container .more-sign ul li a.qq{
+    background-color: #498ad5;
+}
+.signin-container .form-box .input-prepend{
+    position: relative;
+    width:100%;
+}
+.signin-container .form-box .input-prepend input{
+    width: 100%;
+    height: 50px;
+    margin-bottom: 0;
+    padding: 4px 12px 4px 35px;
+    border: 1px solid #c8c8c8;
+    border-radius:  0 0 4px 4px;
+    background: hsla(0,0%,71%,.1);
+    font-size:15px;
+}
+.signin-container .form-box .restyle input{
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+}
+.signin-container .form-box .middle input{
+    border-bottom: none;
+    border-radius: 0;
+}
+.signin-container .form-box .input-prepend i{
+    position: absolute;
+    top: 18px;
+    left: 10px;
+    font-size: 18px;
+    color: #969696;
+}
+.signin-container .form-box .forget-btn{
+    float: right;
+    position: relative;
+    margin: 15px 0;
+    font-size: 14px;
+}
+.signin-container .form-box .role-line{
+    height:30px;
+    line-height:30px;
+    font-size:14px;
+}
+.signin-container .form-box .role-line div{
+    display: inline-block;
+    width: 49%;
+    box-sizing: border-box;
+}
+.signin-container .form-box .role-line div:nth-child(1){
+    padding-left: 40px;
+}
+.signin-container .form-box .role-line div:nth-child(2){
+    padding-right: 40px;
+}
+.signin-container .form-box .role-line div input{
+    margin-top:0;
+}
+.signin-container .form-box .role-line div span{
+    padding-left: 5px;
+}
+.signin-container .form-box .btn-line{
+    padding-top: 5px;
+}
+.signin-container .form-box .btn-line button{
+    width: 100%;
+    padding: 9px 18px;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    background: #42c02e;
+    cursor: pointer;
+    outline: none;
+    display: block;
+    clear: both;
+    box-sizing: border-box;
+}

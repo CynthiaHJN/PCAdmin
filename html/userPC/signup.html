@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>登陆</title>
+    <link rel="stylesheet" href="common/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="common/font-awesome-4.7.0/css/font-awesome.css" />
+    <link rel="stylesheet" href="/PCAdmin/css/reset.css">
+    <link rel="stylesheet" href="/PCAdmin/css/userPC/sign.css">
+    <script src="/PCAdmin/js/jquery-2.1.1.min.js"></script>
+    <script src="common/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+</style>
+<body>
+<div class="container-wrapper">
+    <div class="main">
+        <ul class="title">
+            <li><a href="signin.html">登录</a></li>
+            <li><b>·</b></li>
+            <li class="active"><a href="javascript:;">注册</a></li>
+        </ul>
+        <div class="signin-container">
+            <div class="form-box">
+                <div class="input-prepend restyle js-normal">
+                    <input type="text" placeholder="你的名字" id="name">
+                    <i class="fa fa-user"></i>
+                </div>
+                <div class="input-prepend middle">
+                    <input type="text" placeholder="手机号" id="mobile">
+                    <i class="fa fa-mobile"></i>
+                </div>
+                <div class="input-prepend">
+                    <input type="password" placeholder="密码" id="password">
+                    <i class="fa fa-unlock-alt"></i>
+                </div>
+                <div class="role-line">
+                    <div><input type="radio" name="role" value="0"><span>学生</span></div>
+                    <div><input type="radio" name="role" value="1"><span>教师</span></div>
+                </div>
+                <div class="btn-line">
+                    <button class="logBtn">注册</button>
+                </div>
+            </div>
+            <div class="more-sign">
+                <h6>社交账号直接注册</h6>
+                <ul>
+                    <li><a class="weibo" target="_blank"><i class="fa fa-weibo"></i></a></li>
+                    <li><a class="weixin" target="_blank"><i class="fa fa-weixin"></i></a></li>
+                    <li><a class="qq" target="_blank"><i class="fa fa-qq"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+</script>
