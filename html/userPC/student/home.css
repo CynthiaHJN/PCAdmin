@@ -1,0 +1,27 @@
+.personalNav li{
+	height: 50px;
+	width: 80%;
+	text-align: center;
+	line-height: 50px;
+	font-size: 15px;
+	cursor: pointer;
+}
+.personalNav li:hover{
+	background-color: rgba(205,201,165,.6);
+}
+.personalNav .on{
+	background-color: rgba(205,201,165,.7);
+}
+.subTopNav li{
+	display: inline-block;
+	padding: 0 20px;
+	height: 50px;
+	line-height: 50px;
+	box-sizing: border-box;
+	font-size: 15px;
+	cursor: pointer;
+}
+.subTopNav li.on{
+	color: rgba(205,201,165,.7);
+	border-bottom: 2px solid  rgba(205,201,165,.7);
+}

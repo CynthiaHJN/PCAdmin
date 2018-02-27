@@ -187,7 +187,7 @@
 			</div>
 		</section>
 		<!--热门部分-->
-		<section class="piano clearfix">
+		<section class="piano clearfix" id="hotPart">
 			<div class="title">
 				<img src="image/pop_course_title.png" />
 			</div>
@@ -275,12 +275,12 @@
 			</div>
 		</section>
 		<!--钢琴部分-->
-		<section class="piano clearfix">
+		<section class="piano clearfix" id="pianoPart">
 			<div class="title">
 				<img src="image/piano_title.png" />
 			</div>
 			<div class="more">
-				<a style="float: right;color: #F25039;font-size: 14px;cursor: pointer;margin-right: 40px;">了解更多&gt;</a>
+				<a href="classList.html" style="float: right;color: #F25039;font-size: 14px;cursor: pointer;margin-right: 40px;">了解更多&gt;</a>
 			</div>
 			<div class="content clearfix">
 				<div class="box">
@@ -326,12 +326,12 @@
 			</div>
 		</section>
 		<!--吉他部分-->
-		<section class="piano clearfix" style="margin-bottom:200px">
+		<section class="piano clearfix" id="guitarPart" style="margin-bottom:200px">
 			<div class="title">
 				<img src="image/guitar_title.png" />
 			</div>
 			<div class="more">
-				<a style="float: right;color: #F25039;font-size: 14px;cursor: pointer;margin-right: 40px;">了解更多&gt;</a>
+				<a href="classList.html" style="float: right;color: #F25039;font-size: 14px;cursor: pointer;margin-right: 40px;">了解更多&gt;</a>
 			</div>
 			<div class="content clearfix">
 				<div class="box">
@@ -389,8 +389,35 @@
  		$(this).find('.subMenu').removeClass("disNone");
  	},function(){
  		$(this).find('.subMenu').addClass("disNone");
- 	})
+ 	});
  	$('.piano .content .box').click(function(){
  		window.location.href = "courseDetail.html";
- 	})
+ 	});
+ 	$.ajax({
+		url:'/PCAdmin/php/getCourseList.php',
+		type: 'post',
+		dataType: 'json',
+		data: {
+			limit: 1000,
+			page: 1
+		},
+		success: function (res) {
+			if(res.success){
+			    var hotList = [],pianoList = [],guitarList = [];
+				var list = res.data.list;
+				for(var i=0;i<list.length;i++){
+				    if(list[i].state==3){
+				        hotList.push(list[i]);
+					}
+					if(String(list[i].course_type).indexOf('钢琴')>-1){
+				        pianoList.push(list[i]);
+					}
+					if(String(list[i].course_type).indexOf('吉他')>-1){
+					    guitarList.push(list[i]);
+					}
+				}
+				console.log(pianoList);
+			}
+        }
+	});
 </script>
