@@ -57,4 +57,25 @@ function editCourse($arr){
 	$flag = insert_datas($sql);
 	return $flag;
 }
+
+function getUserCourse($userId,$state){
+    $sql = "select * from orders where user_id = $userId and state = $state";
+    $res =  json_decode(get_datas($sql,2));
+    $list = array();
+    foreach($res as $item){
+        $classId = $item->class_id;
+        $sql2 = "select * from course where course_id = '$classId'";
+        $course = get_row($sql2);
+        $course['leftTime'] = $item->leftTime;
+        array_push($list,$course);
+    }
+    return $list;
+}
+
+function submitLeave($userId,$teacherId,$reason,$title){
+    $publish_time = date("y-m-d h:i:s");
+    $sql = "insert into message (send_id,receive_id,publish_time,title,content,type,state) values ('$userId','$teacherId','$publish_time','$title','$reason','1','0')";
+    $flag = insert_datas($sql);
+	return $flag;
+}
 ?>

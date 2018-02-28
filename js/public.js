@@ -197,3 +197,30 @@ function checkPhone(phone){
         return false; 
     } 
 }
+
+function getUserId(mobile){
+    $.ajax({
+       url:'/PCAdmin/php/getUserId.php',
+       type:'post',
+       dataType:'json',
+       data:{
+           mobile: mobile
+       },
+        success: function (res) {
+            if(res.success){
+                sessionStorage.setItem('userId',res.data.user_id);
+                sessionStorage.setItem('name',res.data.name);
+            }
+        }
+    });
+}
+
+function isLogin(){
+    // 登录检查
+    var userId = sessionStorage.getItem('userId')||'';
+    if(userId==''){
+       return false;
+    }
+    return true;
+}
+

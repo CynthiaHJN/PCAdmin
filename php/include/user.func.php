@@ -11,7 +11,12 @@ function user_register($mobile,$password,$user_type){
 	$flag = insert_datas($sql);
 	return $flag;
 }
-
+function user_register2($name,$mobile,$password,$type){
+    $pwd = md5($password);
+    $sql = "insert into user (mobile,name,password,user_type) values ('$mobile','$name','$pwd',$type)";
+    $flag = insert_datas($sql);
+    return $flag;
+}
 // 用户登录
 function user_login($mobile,$password,$user_type){
 	$sql = "select * from user where mobile='$mobile' and password='$password' and user_type=$user_type";
@@ -20,7 +25,13 @@ function user_login($mobile,$password,$user_type){
 	}
 	return true;
 }
-
+function user_login2($mobile,$password){
+    $sql = "select * from user where mobile='$mobile' and password='$password'";
+    if(get_row($sql)==null){
+        return false;
+    }
+    return true;
+}
 // 检查用户是否存在
 function exit_user($mobile){
 	$sql = "select * from user where mobile = '$mobile' limit 1";
@@ -28,6 +39,12 @@ function exit_user($mobile){
 		return false;
 	}
 	return true;
+}
+
+// 获取用户Id
+function getUserId($mobile){
+    $sql = "select user_id,name from user where mobile = '$mobile' limit 1";
+    return get_row($sql);
 }
 
 // 管理员单独添加教师

@@ -3,12 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>登陆</title>
+    <title>注册</title>
     <link rel="stylesheet" href="common/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="common/font-awesome-4.7.0/css/font-awesome.css" />
     <link rel="stylesheet" href="/PCAdmin/css/reset.css">
     <link rel="stylesheet" href="/PCAdmin/css/userPC/sign.css">
     <script src="/PCAdmin/js/jquery-2.1.1.min.js"></script>
+    <script src="/PCAdmin/js/public.js"></script>
     <script src="common/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <style>
@@ -27,17 +28,29 @@
         </ul>
         <div class="signin-container">
             <div class="form-box">
-                <div class="input-prepend restyle js-normal">
+                <div class="input-prepend restyle js-normal name-line">
                     <input type="text" placeholder="你的名字" id="name">
                     <i class="fa fa-user"></i>
+                    <div class="fault disNone">
+                        <i class="fa fa-warning"></i>
+                        <span>名字不能为空</span>
+                    </div>
                 </div>
-                <div class="input-prepend middle">
-                    <input type="text" placeholder="手机号" id="mobile">
+                <div class="input-prepend middle mobile-line">
+                    <input type="text" placeholder="手机号" id="mobile" maxlength="11">
                     <i class="fa fa-mobile"></i>
+                    <div class="fault disNone">
+                        <i class="fa fa-warning"></i>
+                        <span style="margin-left: 20px;">手机号码不能为空</span>
+                    </div>
                 </div>
-                <div class="input-prepend">
+                <div class="input-prepend password-line">
                     <input type="password" placeholder="密码" id="password">
                     <i class="fa fa-unlock-alt"></i>
+                    <div class="fault disNone">
+                        <i class="fa fa-warning"></i>
+                        <span>密码不能为空</span>
+                    </div>
                 </div>
                 <div class="role-line">
                     <div><input type="radio" name="role" value="0"><span>学生</span></div>
@@ -59,9 +72,62 @@
     </div>
 </div>
 </body>
-<script>
-
-</script>
 </html>
 <script>
+    var flag = 0;
+    $(function () {
+        $('#mobile').focus(function () {
+            $('.mobile-line .fault').hide();
+        });
+        $('.logBtn').click(function () {
+            flag = 1;
+            var name = $('#name').val();
+            var mobile = $('#mobile').val();
+            var password = $('#password').val();
+            var type = $('input:radio[name="role"]:checked').val();
+            console.log('type'+type);
+            if(name==''){
+                $('.name-line .fault').show();
+                return;
+            }
+            if(mobile==''){
+                $('.mobile-line .fault').show();
+                return;
+            }
+            if(!(/^1[34578]\d{9}$/.test(mobile))){
+                $('.mobile-line .fault span').html('手机号码输入有误');
+                $('.mobile-line .fault').show();
+                return;
+            }
+            if(password==''){
+                $('.password-line .fault').show();
+                return;
+            }
+            if(!type||type==''||type=='undefined'){
+                alert('请选择角色类型');
+                return;
+            }
+            $.ajax({
+                url: '/PCAdmin/php/register.php',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    name: name,
+                    mobile: mobile,
+                    password: password,
+                    type: type
+                },
+                success: function(res){
+                    if(res.success){
+                        alert('注册成功！去登陆吧！');
+                        window.location.href = 'signin.html';
+                    }else{
+                        $('.mobile-line .fault span').html('该手机号已被注册');
+                        $('.mobile-line .fault').show();
+                        return;
+                    }
+                }
+            });
+        });
+    });
 </script>

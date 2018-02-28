@@ -139,7 +139,7 @@ a {
 	color: #444;
 	text-decoration: none;
 }
-.none{
+.none,.headUL li.none{
 	display: none;
 }
 
