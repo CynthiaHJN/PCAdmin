@@ -103,6 +103,11 @@ function getCourse(state){
                         '<span class="fl">课时数：'+list[i].course_hours+'</span><span class="fr">￥'+list[i].price+'</span></p></div></li>';
                 }
                 $('.classList ul').html(html);
+                $('.classList li.box').click(function() {
+                    var courseId = $(this).attr('classId');
+                    var leftTime = $(this).attr('left');
+                    window.location.href = 'myClassDetail.html?courseId='+courseId+'&leftTime='+leftTime;
+                });
             }
         }
     });
@@ -120,6 +125,6 @@ $(function () {
             getCourse(1);
         }
     });
-})
+});
 </script>
 </html>

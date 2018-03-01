@@ -1,4 +1,5 @@
 $(function () {
+    isLogin();
    $('.personalNav ul li').click(function () {
         var index = $(this).index();
         if(index==0){
@@ -17,4 +18,13 @@ $(function () {
             window.location.href = 'myClass.html';
         }
    });
+
 });
+function isLogin(){
+    // 登录检查
+    var userId = sessionStorage.getItem('userId')||'';
+    if(userId==''){
+        window.location.href = '../signin.html';
+    }
+    return;
+}
