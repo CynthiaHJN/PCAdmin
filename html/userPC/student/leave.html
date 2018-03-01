@@ -101,7 +101,7 @@
                 state: 0
             },
             success:function (res) {
-                if(res.success){
+                if(res.success&&res.list){
                     var list = res.list;
                     var nameList = '';
                     for(var i=0;i<list.length;i++){

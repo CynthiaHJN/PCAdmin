@@ -17,4 +17,9 @@ function getHomeworkInfo($homeworkId){
     $sql = "select * from homework where homework_id = '$homeworkId' limit 1";
     return get_datas($sql,1);
 }
+function finishHomework($homeworkId){
+    $sql = "update homework set finish_state=1 where homework_id = '$homeworkId'";
+    $flag = insert_datas($sql);
+    return $flag;
+}
 ?>

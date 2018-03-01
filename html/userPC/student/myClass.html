@@ -83,8 +83,8 @@
 </body>
 <script>
 function getCourse(state){
-//    var userId = sessionStorage.getItem('userId');
-    var userId = 14;
+    var userId = sessionStorage.getItem('userId');
+//    var userId = 14;
     $.ajax({
         url:'/PCAdmin/php/orderToCourseInfo.php',
         type:'post',
@@ -96,18 +96,23 @@ function getCourse(state){
         success:function (res) {
             if(res.success){
                 var list = res.list;
-                var html = '';
-                for(var i=0;i<list.length;i++){
-                    html += '<li class="box" classId="'+list[i].course_id+'" left="'+list[i].leftTime+'"><div class="imgBox"><img src="/PCAdmin/img/course/'+list[i].banner+'"></div>' +
-                        '<div class="textInfo"><p>'+list[i].course_name+'</p><p class="clearfix">' +
-                        '<span class="fl">课时数：'+list[i].course_hours+'</span><span class="fr">￥'+list[i].price+'</span></p></div></li>';
+                if(list){
+                    var html = '';
+                    for(var i=0;i<list.length;i++){
+                        html += '<li class="box" classId="'+list[i].course_id+'" left="'+list[i].leftTime+'"><div class="imgBox"><img src="/PCAdmin/img/course/'+list[i].banner+'"></div>' +
+                            '<div class="textInfo"><p>'+list[i].course_name+'</p><p class="clearfix">' +
+                            '<span class="fl">课时数：'+list[i].course_hours+'</span><span class="fr">￥'+list[i].price+'</span></p></div></li>';
+                    }
+                    $('.classList ul').html(html);
+                    $('.classList li.box').click(function() {
+                        var courseId = $(this).attr('classId');
+                        var leftTime = $(this).attr('left');
+                        window.location.href = 'myClassDetail.html?courseId='+courseId+'&leftTime='+leftTime;
+                    });
+                }else{
+                    $('.classList ul').html('<p>暂无数据</p>');
                 }
-                $('.classList ul').html(html);
-                $('.classList li.box').click(function() {
-                    var courseId = $(this).attr('classId');
-                    var leftTime = $(this).attr('left');
-                    window.location.href = 'myClassDetail.html?courseId='+courseId+'&leftTime='+leftTime;
-                });
+
             }
         }
     });

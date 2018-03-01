@@ -1,5 +1,8 @@
 $(function () {
     isLogin();
+    $('header .navBar .headUL li,.sidebar .slider-ul li').find('button').parent().addClass('none');
+    $('header .navBar .headUL li.showName a,.sidebar .slider-ul li.showName a').html(sessionStorage.getItem('name'));
+    $('header .navBar .headUL li.showName,.sidebar .slider-ul li.showName').removeClass('none');
    $('.personalNav ul li').click(function () {
         var index = $(this).index();
         if(index==0){

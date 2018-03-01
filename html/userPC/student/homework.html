@@ -26,6 +26,39 @@
         margin:0 auto;
         margin-top: 20px;
     }
+    .contentPart ul.classList li.class-item{
+        margin-top: 10px;
+    }
+    .contentPart ul.classList li.class-item .title{
+        background: #999;
+        height: 40px;
+        line-height: 40px;
+        color: #fff;
+        padding-left: 10px;
+        font-weight: 700;
+        font-size: 16px;
+    }
+    .contentPart ul.classList li.class-item ul.homeworkList li{
+        border: 1px solid #999;
+        box-sizing: border-box;
+        border-top: 0;
+        padding: 10px;
+        line-height: 25px;
+    }
+    .contentPart ul.classList li.class-item ul.homeworkList li .content{
+        font-size: 14px;
+    }
+    .contentPart ul.classList li.class-item ul.homeworkList li .time{
+        font-size: 12px;
+        color: #999;
+    }
+    .contentPart ul.classList li.class-item ul.homeworkList li button{
+        border: 0;
+        background: #2aabd2;
+        color: #fff;
+        border-radius: 3px;
+        padding: 0px 10px;
+    }
 </style>
 <body>
 <header class="site-header">
@@ -69,11 +102,138 @@
             </ul>
         </div>
         <div class="col-md-9">
-            <ul>
-                <li class=""></li>
+            <ul class="subTopNav">
+                <li class="on">未完成</li>
+                <li>已完成</li>
             </ul>
+            <div class="contentPart">
+                <ul class="classList">
+                    <!--<li class="class-item">-->
+                        <!--<div class="title">古琴进阶课程</div>-->
+                        <!--<ul class="homeworkList">-->
+                            <!--<li>-->
+                                <!--<div class="content">每天练习古琴乐曲1小时</div>-->
+                                <!--<div class="time">2017-2-2 xxx</div>-->
+                                <!--<button class="finish">确认完成</button>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<div class="content">每天练习古琴乐曲1小时</div>-->
+                                <!--<div class="time">2017-2-2 xxx</div>-->
+                                <!--<button class="finish">确认完成</button>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<div class="content">每天练习古琴乐曲1小时</div>-->
+                                <!--<div class="time">2017-2-2 xxx</div>-->
+                                <!--<button class="finish">确认完成</button>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                </ul>
+            </div>
         </div>
     </div>
 </section>
 </body>
+<script>
+    $('.contentPart .classList').html('');
+    getCourse(0,0);
+    getCourse(1,0);
+    $('.subTopNav li').click(function(){
+        $('.subTopNav li').removeClass('on');
+        $(this).addClass('on');
+        var index = $(this).index();
+        if(index==0){
+            $('.contentPart .classList').html('');
+            getCourse(0,0);
+            getCourse(1,0);
+        }else{
+            $('.contentPart .classList').html('');
+            getCourse(0,1);
+            getCourse(1,1);
+        }
+    });
+
+    function getCourse(state,flag){
+        var userId = sessionStorage.getItem('userId');
+//        var userId = 14;
+        $.ajax({
+            url:'/PCAdmin/php/orderToCourseInfo.php',
+            type:'post',
+            dataType:'json',
+            async:'false',
+            data:{
+                user_id: userId,
+                state: state
+            },
+            success:function (res) {
+                if(res.success&&res.list){
+                    var list = res.list;
+                    var html = '';
+                    for(var i=0;i<list.length;i++){
+                        $('.contentPart .classList').append('<li class="class-item '+list[i].course_id+'"><div class="title">'+list[i].course_name+'</div></li>');
+                        var classId = list[i].course_id;
+                        $.ajax({
+                            url: '/PCAdmin/php/getHomeworkList.php',
+                            type: 'post',
+                            async:'false',
+                            dataType: 'json',
+                            data: {
+                                classId: classId,
+                                userId:sessionStorage.getItem('userId'),
+                                type:0
+                            },
+                            success: function(res){
+                                if(res.success){
+                                    if(res.data){
+                                        var list = res.data;
+                                        html+='<ul class="homeworkList">';
+                                        var k=0;
+                                        for(var i=0;i<list.length;i++){
+                                            if(list[i].finish_state==flag){
+                                                k=1;
+                                                if(flag==0){
+                                                    html+='<li><div class="content">'+list[i].content+'</div> <div class="time">'+list[i].create_time+'</div> <button class="finish" homework="'+list[i].homework_id+'">确认完成</button> </li>';
+                                                }
+                                                else{
+                                                    html+='<li><div class="content">'+list[i].content+'</div> <div class="time">'+list[i].create_time+'</div></li>';
+                                                }
+                                            }
+                                        }
+                                        if(k==0){
+                                            html+='<li><div class="content">暂无作业</div></li>';
+                                        }
+                                        html+='</ul>';
+                                        $('.contentPart .classList').find(classId).append(html);
+                                    }
+                                    else{
+                                        html+='<ul class="homeworkList"><li><div class="content">暂无作业</div></li></ul>';
+                                    }
+                                    $('.contentPart .classList .class-item').append(html);
+                                }
+                            }
+                        });
+                    }
+                }else{
+                    $('.contentPart .classList').html('<p>暂无作业</p>');
+                }
+            }
+        });
+    }
+    $(document).delegate('.contentPart .classList button','click',function () {
+       var homework_id = $(this).attr('homework');
+       $.ajax({
+           url: '/PCAdmin/php/finishHomework.php',
+           type: 'post',
+           dataType: 'json',
+           data: {
+               homeworkId: homework_id
+           },
+           success: function (res) {
+               if(res.success){
+                   window.reload();
+               }
+           }
+       });
+    });
+</script>
 </html>

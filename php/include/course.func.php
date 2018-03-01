@@ -62,12 +62,14 @@ function getUserCourse($userId,$state){
     $sql = "select * from orders where user_id = $userId and state = $state";
     $res =  json_decode(get_datas($sql,2));
     $list = array();
-    foreach($res as $item){
-        $classId = $item->class_id;
-        $sql2 = "select * from course where course_id = '$classId'";
-        $course = get_row($sql2);
-        $course['leftTime'] = $item->leftTime;
-        array_push($list,$course);
+    if(is_array($res)){
+        foreach($res as $item){
+            $classId = $item->class_id;
+            $sql2 = "select * from course where course_id = '$classId'";
+            $course = get_row($sql2);
+            $course['leftTime'] = $item->leftTime;
+            array_push($list,$course);
+        }
     }
     return $list;
 }

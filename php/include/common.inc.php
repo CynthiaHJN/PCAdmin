@@ -17,6 +17,7 @@ require ROOT_PATH.'include/article.func.php';
 // 引入课程功能
 require ROOT_PATH.'include/course.func.php';
 require ROOT_PATH.'include/homework.func.php';
+require ROOT_PATH.'include/message.func.php';
 // 定义数据库相关内容
 define('DB_HOST','localhost');
 define('DB_USER', 'root');
