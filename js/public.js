@@ -198,7 +198,7 @@ function checkPhone(phone){
     } 
 }
 
-function getUserId(mobile){
+function getUserId(mobile,type){
     $.ajax({
        url:'/PCAdmin/php/getUserId.php',
        type:'post',
@@ -208,8 +208,15 @@ function getUserId(mobile){
        },
         success: function (res) {
             if(res.success){
+                sessionStorage.setItem('mobile',mobile);
+                sessionStorage.setItem('user_type',type);
                 sessionStorage.setItem('userId',res.data.user_id);
                 sessionStorage.setItem('name',res.data.name);
+                if(type==0){
+                    window.location.href="/PCAdmin/html/userPC/student/home.html";
+                }else{
+                    window.location.href="/PCAdmin/html/userPC/teacher/home.html";
+                }
             }
         }
     });

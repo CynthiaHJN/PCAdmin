@@ -27,7 +27,7 @@ function isLogin(){
     // 登录检查
     var userId = sessionStorage.getItem('userId')||'';
     var type = sessionStorage.getItem('user_type')||'';
-    if(userId==''||type==''||type==1){
+    if(userId==''||type==''||type==0){
         window.location.href = '../signin.html';
     }
     return;

@@ -97,6 +97,7 @@
                 url:'/PCAdmin/php/login.php',
                 type:'post',
                 dataType: 'json',
+				async: 'false',
                 data: {
                     mobile: mobile,
                     password: password,
@@ -104,14 +105,18 @@
                 },
                 success: function(res){
                     if(res.success){
-                        if(type==0){
-                            sessionStorage.setItem('mobile',mobile);
-                            getUserId(mobile);
-                            window.location.href = 'student/home.html';
-                        }else{
-                            sessionStorage.setItem('mobile',mobile);
-                            alert('教师端登陆成功')
-                        }
+                        getUserId(mobile,type);
+//                        if(type==0){
+//                            sessionStorage.setItem('mobile',mobile);
+//                            sessionStorage.setItem('user_type',type);
+//                            getUserId(mobile,type);
+////                            window.location.href = 'student/home.html';
+//                        }else{
+//                            sessionStorage.setItem('mobile',mobile);
+//                            sessionStorage.setItem('user_type',type);
+//                            getUserId(mobile,type);
+////                            window.location.href = 'teacher/home.html';
+//                        }
                     }else{
                         if(res.errorCode==1){
                             $('.mobile-line .fault span').html(res.errorMsg);
@@ -119,7 +124,7 @@
                             return;
                         }
                         if(res.errorCode==2){
-                            $('.password-line  .fault span').html('手机号码输入有误');
+                            $('.password-line  .fault span').html('密码输入有误');
                             $('.password-line .fault').show();
                         }
                     }
