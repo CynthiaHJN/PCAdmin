@@ -59,6 +59,12 @@
         border-radius: 3px;
         padding: 0px 10px;
     }
+    .classList p.tipMsg{
+        text-align: center;
+        padding: 100px 0;
+        font-size: 20px;
+        color: #999;
+    }
 </style>
 <body>
 <header class="site-header">
@@ -214,7 +220,7 @@
                         });
                     }
                 }else{
-                    $('.contentPart .classList').html('<p>暂无作业</p>');
+                    $('.contentPart .classList').html('<p class="tipMsg">暂无作业</p>');
                 }
             }
         });
@@ -230,7 +236,7 @@
            },
            success: function (res) {
                if(res.success){
-                   window.reload();
+                   window.location.reload();
                }
            }
        });

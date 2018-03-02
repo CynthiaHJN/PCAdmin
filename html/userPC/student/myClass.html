@@ -26,6 +26,12 @@
         margin:0 auto;
         margin-top: 20px;
     }
+    .classList p.tipMsg{
+        text-align: center;
+        padding: 100px 0;
+        font-size: 20px;
+        color: #999;
+    }
 </style>
 <body>
 <header class="site-header">
@@ -110,9 +116,8 @@ function getCourse(state){
                         window.location.href = 'myClassDetail.html?courseId='+courseId+'&leftTime='+leftTime;
                     });
                 }else{
-                    $('.classList ul').html('<p>暂无数据</p>');
+                    $('.classList ul').html('<p class="tipMsg">暂无数据</p>');
                 }
-
             }
         }
     });

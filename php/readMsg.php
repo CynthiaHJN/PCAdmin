@@ -4,9 +4,12 @@ header('Access-Control-Allow-Origin:*');
 define('IN_TG', true);
 //引入
 require dirname(__FILE__).'/include/common.inc.php';
-$receiveId = $_POST['receiveId'];
-$state = $_POST['state'];
-$data =  getMessageList($receiveId,$state);
-$res  = array('success' => true, 'data' => $data);
+$msgId = $_POST['msgId'];
+$data =  readMsg($msgId);
+if($data){
+    $res = array('success'=>true);
+}else{
+    $res = array('success'=>false);
+}
 echo json_encode($res);
 ?>
