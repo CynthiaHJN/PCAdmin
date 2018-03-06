@@ -64,17 +64,29 @@
     <div class="row">
         <div class="col-md-3 personalNav">
             <ul>
-                <li class="on">我的课表</li>
+                <li>我的课表</li>
                 <li>我的消息</li>
                 <li>请假调课</li>
                 <li>课程目录</li>
-                <li>我的课程</li>
+                <li class="on">我的课程</li>
             </ul>
         </div>
         <div class="col-md-9">
-            <ul>
-                <li class=""></li>
-            </ul>
+            <div class="inputList">
+                <div class="name">
+                    <span>课程名称</span>
+                    <select id="leaveCourse">
+                        <option value="-1"></option>
+                    </select>
+                </div>
+                <div class="reason">
+                    <span>作业内容</span>
+                    <textarea rows="5"></textarea>
+                </div>
+                <div class="clearfix">
+                    <button class="submit fr">确认发布</button>
+                </div>
+            </div>
         </div>
     </div>
 </section>

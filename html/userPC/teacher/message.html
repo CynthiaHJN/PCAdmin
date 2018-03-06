@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="../common/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../common/font-awesome-4.7.0/css/font-awesome.css" />
+    <link rel="stylesheet" href="../common/header.css" />
+    <link rel="stylesheet" href="home.css" />
+    <script src="../common/jquery-2.1.1.min.js"></script>
+    <script src="../common/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../common/header.js" ></script>
+    <script type="text/javascript" src="/PCAdmin/js/public.js"></script>
+    <script type="text/javascript" src="/PCAdmin/js/template.js"></script>
+    <script type="text/javascript" src="teacher.js"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .site-header{
+        min-height: 80px;
+    }
+    section{
+        padding: 0 10px;
+        max-width: 1200px;
+        margin:0 auto;
+        margin-top: 20px;
+    }
+    .msgList li{
+        padding: 10px;
+        background: #ddd;
+        line-height: 25px;
+    }
+    .msgList li .title{
+        font-size: 15px;
+    }
+    .msgList li .time{
+        font-size: 12px;
+        color: #999;
+    }
+    .msgList p.tipMsg{
+        text-align: center;
+        padding: 100px 0;
+        font-size: 20px;
+        color: #999;
+    }
+    .msgList li .btnBox .read{
+        border:  1px solid #CDC9A5;
+        color: #CDC9A5;
+        background: #fff;
+        border-radius: 5px;
+        padding: 0 10px;
+    }
+    .msgList li .btnBox .delete{
+        border: 1px solid #2aabd2;
+        color: #2aabd2;
+        background: #fff;
+        border-radius: 5px;
+        padding: 0 10px;
+    }
+</style>
+<body>
+<header class="site-header">
+    <div class="navBar">
+        <nav>
+            <a href="../common/index.html" class="webName"><span>琴行</span>Machold Rare Violins</a>
+            <ul class="headUL">
+                <li><a href="../common/index.html">首页</a></li>
+                <li><a href="../common/class.html">课程</a></li>
+                <li><a href="../common/knowledge.html">知识</a></li>
+                <li><a href="../common/aboutUs.html">关于我们</a></li>
+                <li class="none"><button class="btn btn-log">登陆</button></li>
+                <li class="none"><button class="btn btn-log">注册</button></li>
+                <li class="showName"><a href="home.html" class="active">Cynthia</a></li>
+            </ul>
+            <div class="listNav"><i class="fa fa-bars"></i></div>
+        </nav>
+    </div>
+</header>
+<div class="sliderBar none">
+    <ul class="slider-ul">
+        <li><a href="../common/index.html" class="active">首页</a></li>
+        <li><a href="../common/class.html">课程</a></li>
+        <li><a href="../common/knowledge.html">知识</a></li>
+        <li><a href="../common/aboutUs.html">关于我们</a></li>
+        <li><button class="btn btn-log">登陆</button></li>
+        <li><button class="btn btn-log">注册</button></li>
+        <li class="none"><button class="btn btn-log">登陆</button></li>
+        <li class="none"><button class="btn btn-log">注册</button></li>
+        <li class="showName"><a href="home.html" class="active">Cynthia</a></li>
+    </ul>
+</div>
+
+<section>
+    <div class="row">
+        <div class="col-md-3 personalNav">
+            <ul>
+                <li>我的课表</li>
+                <li class="on">我的消息</li>
+                <li>请假调课</li>
+                <li>课程目录</li>
+                <li>我的课程</li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <ul class="subTopNav">
+                <li class="on">未读消息</li>
+                <li>全部消息</li>
+            </ul>
+            <div class="msgCnt">
+                <ul class="msgList">
+                </ul>
+            </div>
+        </div>
+        <script id="noReadItem" type="text/html">
+            <li>
+                <div class="title">{{item.title}}</div>
+                <div class="content">{{item.content}}</div>
+                <div class="time">请假人:{{item.send_name}}&nbsp;&nbsp;&nbsp;&nbsp;发布时间:{{item.publish_time.split(' ')[0]}}</div>
+                <div class="btnBox">
+                    <button class="read" msgId="{{item.id}}">标记为已读</button>
+                    <button class="delete" msgId="{{item.id}}">删除</button>
+                </div>
+            </li>
+        </script>
+        <script id="hasReadItem" type="text/html">
+            <li>
+                <div class="title">{{item.title}}</div>
+                <div class="content">{{item.content}}</div>
+                <div class="time">请假人:{{item.send_name}}&nbsp;&nbsp;&nbsp;&nbsp;发布时间:{{item.publish_time.split(' ')[0]}}</div>
+                <div class="btnBox">
+                    <button class="delete" msgId="{{item.id}}">删除</button>
+                </div>
+            </li>
+        </script>
+    </div>
+</section>
+</body>
+<script>
+    $('.subTopNav li').click(function(){
+        var index = $(this).index();
+        $('.subTopNav li').removeClass('on');
+        $(this).addClass('on');
+        if(index==0){
+            $('.msgList').html('');
+            getMessageList(0);
+        }
+        else if(index==1){
+            $('.msgList').html('');
+            getMessageList(1);
+        }
+    });
+    getMessageList(0);
+    function getMessageList(state){
+        var userId = sessionStorage.getItem('userId');
+        $.ajax({
+            url:'/PCAdmin/php/getMessageList.php',
+            type:'post',
+            dataType: 'json',
+            data: {
+                receiveId: userId,
+                state: state
+            },
+            success: function(res){
+                if(res.success){
+                    if(res.data&&res.data.length>0){
+                        var list = res.data;
+                        for(var i=0;i<list.length;i++){
+                            if(state==0){
+                                var html = template('noReadItem',{item: list[i]});
+                            }else{
+                                var html = template('hasReadItem',{item: list[i]});
+                            }
+                            $('.msgList').append(html);
+                        }
+                    }else{
+                        if(state==0){
+                            $('.msgList').html('<p class="tipMsg">暂无未读消息</p>');
+                        }else{
+                            $('.msgList').html('<p class="tipMsg">暂无已读消息</p>');
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    $(document).delegate('.msgList li .read','click',function () {
+        var msgId = $(this).attr('msgId');
+        $.ajax({
+            url: '/PCAdmin/php/readMsg.php',
+            type:'post',
+            dataType: 'json',
+            data: {
+                msgId: msgId
+            },
+            success: function(res){
+                if(res.success){
+                    window.location.reload();
+                }
+            }
+        })
+    });
+    $(document).delegate('.msgList li .delete','click',function () {
+        var msgId = $(this).attr('msgId');
+        $.ajax({
+            url: '/PCAdmin/php/deleteMsg.php',
+            type:'post',
+            dataType: 'json',
+            data: {
+                msgId: msgId
+            },
+            success: function(res){
+                if(res.success){
+                    alert('消息删除成功');
+                    window.location.reload();
+                }
+            }
+        })
+    });
+</script>
+</html>

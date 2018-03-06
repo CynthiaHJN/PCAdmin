@@ -15,7 +15,7 @@ $(function () {
             window.location.href = 'leave.html';
         }
         else if(index==3){
-            window.location.href = 'homework.html';
+            window.location.href = 'catalogue.html';
         }
         else if(index==4){
             window.location.href = 'myClass.html';

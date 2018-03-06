@@ -1,78 +1,763 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="yes" name="apple-touch-fullscreen"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="#ffffff" name="msapplication-TileColor"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+    <link type="text/css" rel="stylesheet" href="{{config.resource_path}}/resource/cgtz_new/css/reset.css"/>
+    <link type="text/css" rel="stylesheet" href="{{config.resource_path}}/resource/cgtz_new/css/common.css"/>
+    <link rel="stylesheet" type="text/css"  href="{{config.resource_path}}/resource/cgtz_new/css/investing/investing.css">
+    <script src="{{config.resource_path}}/resource/cgtz_new/js/flexible.js"></script>
+    <script src="{{config.resource_path}}/resource/cgtz_new/js/jquery-2.1.1.min.js"></script>
+    <script src="{{config.resource_path}}/resource/cgtz_new/js/jquery-get.js"></script>
+    <script src="{{config.resource_path}}/resource/cgtz_new/js/eventHandler.js"></script>
+    <script src="{{config.resource_path}}/resource/cgtz_new/js/common.js"></script>
+    <script src="{{config.resource_path}}/resource/cgtz_new/js/art-template.js"></script>
+    <script src="{{config.resource_path}}/resource/cgtz_new/js/template-defaults.js"></script>
+    <script src="{{config.resource_path}}/resource/cgtz_new/js/pagenation.js"></script>
+    <script src="{{config.resource_path}}/resource/cgtz_new/js/public.js"></script>
+    <title>我的投资</title>
+</head>
+{% raw %}
+<body>
+<div class="wrapper">
+    <div class="container">
+        <div class="top_nav">
+            <div class="tab nav1"><span class="hover">投资中</span></div>
+            <div class="tab nav2"><span>已结算</span></div>
+            <div class="tab nav3"><span>投资失败</span></div>
+        </div>
+    </div>
 
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-        <script src="../js/xlsx.full.min.js"></script>
-    </head>
+    <div class="main">
+        <div class="nav_cont nav_cont1">
+            <div class="cont" id="cont">
+                <div class="cont_left">
+                    <p class="tit">待收本金(元)</p>
+                    <p class="num" id="Principal"></p>
+                </div>
+                <div class="cont_right">
+                    <p class="tit">期望利息(元)</p>
+                    <p class="num" id="Interest"></p>
+                </div>
+            </div>
+        </div>
+        <div class="nav_cont_details">
+            <!-- 自动投资 -->
+            <ul id="content">
+            </ul>
+            <!-- 投资中 -->
+            <ul id="content0">
+            </ul>
+            <!-- 已结算 -->
+            <ul id="content1" style="display: none;">
+            </ul>
 
-    <body>
-        <input type="file"onchange="importf(this)" />
-        <div id="demo"></div>
-        <script>
-            var html;
-            /*
-            FileReader共有4种读取方法：
-            1.readAsArrayBuffer(file)：将文件读取为ArrayBuffer。
-            2.readAsBinaryString(file)：将文件读取为二进制字符串
-            3.readAsDataURL(file)：将文件读取为Data URL
-            4.readAsText(file, [encoding])：将文件读取为文本，encoding缺省值为'UTF-8'
-                         */
-            var wb;//读取完成的数据
-            var rABS = false; //是否将文件读取为二进制字符串
+            <!--投资失败-->
+            <ul id="content2" style="display: none;">
+            </ul>
+        </div>
+        <script id="tzz" type="text/html">
+            {{each invests invest i}}
+            <li about="{{invest.transactionId}}" data-projectid="{{invest.projectId}}" data-startinterest="{{invest.startInterestTime}}" data-usedCouponTypes="{{invest.usedCouponTypes}}" data-orderid="{{invest.orderId}}" data-ordertype="{{invest.orderType}}" class="{{if invest.orderType==10}}hlbjihe{{else}}{{if invest.noStart==1}}start{{else}}noStart{{/if}} {{if invest.orderType==9}}jihe{{/if}}{{/if}}">
+                <div  class="li_padd clearfix">
+                    <p class="tit">
+                        <i class="{{if invest.orderFrom =='13'||invest.orderFrom == '14'||invest.orderFrom =='15'||(invest.orderFrom>200&&invest.orderFrom<300)}}fromYr{{else}}fromCg{{/if}}"></i>
+                        <span>{{invest.projectName}}</span>
+                        {{if invest.orderType==10}}
+                        <span style="float:right;">{{if invest.orderStatus == 1}}处理中{{/if}}</span>
+                        {{else}}
+                        <span style="float:right;">{{if invest.transferCode == 1}}转让中{{/if}}{{if invest.transferCode == 2}}转让已完成{{/if}}</span>
+                        {{/if}}
+                        {{if invest.orderAutoStatus == 1}}
+                        <em class="yxt">已续投</em>
+                        {{/if}}
+                        {{if invest.orderAutoStatus == 2}}
+                        <em class="yxt">续投失败</em>
+                        {{/if}}
+                    </p>
+                    <p class="num num1">
+                        <em>{{invest.investAmount}}元</em>
+                        {{if invest.projectRateType == 1}}
+                        <span>保底年化:{{invest.annualizedRate}}%</span>
+                        {{else}}
+                        <span>期望年化:{{invest.annualizedRate}}%
+                            <!--2017-05-08-->
+                                {{ if invest.usedCouponTypes && invest.usedCouponTypes.indexOf('4')!=-1}}
+                                (区间加息)
+                                {{/if}}
+                            <!--2017-05-08-->
+                        </span>
+                        {{/if}}
+                    </p>
+                    <p class="num num2">
+                        <em>
+                            {{if invest.orderType != 9 && invest.orderType!=10}}
+                            {{if invest.noStart==1}}
+                            {{if invest.projectRateType ==1}}保底收益:{{else}}期望利息:{{/if}}{{if invest.noPayInterest}}{{(invest.noPayInterest+invest.payedInterest).toFixed(2)}}{{else}}{{invest.payedInterest}}{{/if}}元
+                            {{else if invest.noStart==2}}
+                            项目放款中
+                            {{else}}
+                            项目募集中
+                            {{/if}}
+                            {{/if}}
+                            {{if invest.orderType==10}}
+                            {{if invest.otderStatus==3}}
+                            期望利息:{{if invest.noPayInterest}}{{(invest.noPayInterest+invest.payedInterest).toFixed(2)}}{{else}}{{invest.payedInterest}}{{/if}}元
+                            {{/if}}
+                            {{/if}}
+                        </em>
+                        <span>{{if invest.noStart==1 && invest.orderType != 9}}{{invest.leftDays}}天后到期{{/if}}</span>
+                    </p>
+                </div>
 
-            function importf(obj) {//导入
-                if(!obj.files) {
-                    return;
+                {{ if invest.packageId && invest.packageId!='' }}
+                <div class="shareHb" res_id="{{invest.packageId}}"></div>
+                {{/if}}
+            </li>
+            {{/each}}
+        </script>
+
+        <script id="yjs" type="text/html">
+            {{each invests invest i}}
+            <li about="{{invest.transactionId}}" data-projectid="{{invest.projectId}}" data-startinterest="{{invest.startInterestTime}}" data-usedCouponTypes="{{invest.usedCouponTypes}}" data-orderid="{{invest.orderId}}" data-ordertype="{{invest.orderType}}" class="{{if invest.orderType==9}}jihe{{/if}}{{if invest.orderType==10}}hlbjihe{{/if}}">
+                <div class="li_padd clearfix">
+                    <p class="tit"><i class="{{if invest.orderFrom =='13'||invest.orderFrom == '14'||invest.orderFrom =='15'||(invest.orderFrom>200&&invest.orderFrom<300)}}fromYr{{else}}fromCg{{/if}}"></i>
+                        <span>{{invest.projectName}}</span>
+                        {{if invest.orderAutoStatus == 1}}
+                        <em class="yxt">已续投</em>
+                        {{/if}}
+                        {{if invest.orderAutoStatus == 2}}
+                        <em class="yxt">续投失败</em>
+                        {{/if}}
+                    </p>
+                    <p class="num num1">
+                        <em>{{invest.investAmount}}元</em>
+                        <span>期望年化:{{invest.annualizedRate}}%
+                            <!--2017-05-08-->
+                            {{ if invest.usedCouponTypes && invest.usedCouponTypes.indexOf('4')!=-1}}
+                            (区间加息)
+                            {{/if}}
+                            <!--2017-05-08-->
+                        </span>
+                    </p>
+                    {{if invest.orderType!=9}}
+                    <p class="num num2"><em>投资日:{{invest.gmtCreated.split(' ')[0]}}</em><span>到期日:{{invest.endTime}}</span></p>
+                    {{/if}}
+                </div>
+            </li>
+            {{/each}}
+        </script>
+
+        <script id="tzsb" type="text/html">
+            {{each invests invest i}}
+            <li>
+                <div class="li_padd clearfix">
+                    <p class="tit"><i class="{{if invest.orderFrom =='13'||invest.orderFrom == '14'||invest.orderFrom =='15'||(invest.orderFrom>200&&invest.orderFrom<300)}}fromYr{{else}}fromCg{{/if}}"></i>
+                        <span>{{invest.projectName}}</span>
+                        <span style="float:right;"></span>
+                    </p>
+                    <p class="num num1">
+                        <em>{{invest.investAmount}}元</em>
+                        <span>年化{{invest.annualizedRate}}%</span>
+                    </p>
+                    <p class="num num2">
+                        <em style="font-size: .597345rem;">{{invest.createdTime}}</em>   <!-- 时间-->
+                    </p>
+                    <!-- 失败原因-->
+                    {{if invest.payStatus==-2}}
+                    <span class="text14">失败原因：流标</span>
+                    {{else}}
+                    <span class="text14">失败原因：网络原因</span>
+                    {{/if}}
+                </div>
+            </li>
+            {{/each}}
+        </script>
+        <!--自动投资-->
+        <script id="zdtz" type="text/html">
+            {{each list value i}}
+            <li>
+                <div class="li_padd clearfix">
+                    <p class="tit">
+                        <i class="fromCg"></i>
+                        <span style="width: 63%;">{{value.projectName}}</span>
+                        <span style="float:right;"></span>
+                        <i class="cancle" orderid="{{value.id}}">取消</i>
+                        <em class="clz" style="float:right;">处理中</em>
+                    </p>
+                    <p class="num num1"><em>{{value.investAmount}}元</em></p>
+                    <p class="num num2">
+                        <em>年化{{value.autoReats}}%</em>
+                        <span>{{value.autoInvest}}天</span>
+                    </p>
+                </div>
+            </li>
+            {{/each}}
+        </script>
+    </div>
+    {% endraw %}
+    <div class="addLoading" style="display:none;">
+        <div class="pullUp disNone">
+            <div class="flex_wrap">
+                <div class="flex_con">
+                    <div class="pullUp-icon loadingIcon"></div>
+                    <p>上拉加载更多</p>
+                </div>
+            </div>
+        </div>
+        <div class="loading disNone">
+            <div class="flex_wrap">
+                <div class="flex_con">
+                    <img class="loadingIcon" src="{{config.resource_path}}/resource/cgtz_new/dist/img/pay/loading.gif"/>
+                    <p>加载中...</p>
+                </div>
+            </div>
+        </div>
+        <div class="loadingSuccess disNone">
+            <div class="flex_wrap">
+                <div class="flex_con">
+                    <div class="myLoading loadingIcon"></div>
+                    <p>加载成功</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alertBg disNone"></div>
+<div class="shareAlert disNone">
+    <div class="textBg">
+        <p class="size20">恭喜您获得一个礼包</p>
+        分享后，您和好友都可领取礼包内福利！
+    </div>
+    <a href="javascript:" class="shareBtn">分享礼包</a>
+</div>
+</body>
+
+
+<script>
+    var userId;
+    var accessf;
+    var token;
+    var page = 1;
+    var sortType = 1;
+    var payStatus = 0; //0:投资中;1:已结算;3:投资失败
+    var limit = 16; //每页显示多少条
+    var loading = false;
+    var list0 = new Array();
+    var list1 = new Array();
+    var list2 = new Array();
+    var cancel_id;
+    var responseHandler = function(response) {
+        if(response.function == '1060') {
+            userId = response.data.userId;
+            accessf = response.data.accessFrom;
+            token = response.data.token;
+            isLogin(userId,token);
+        }
+        if(response.function == '1069'){
+            var index = response.data.value;
+            page = 1;
+            loading = false;
+            resetTopRightCorner(0,index);
+            $('#content0').html('');
+            if(index==0){
+                sortType = 1;
+            }
+            if(index==1){
+                sortType = 2;
+            }
+            list0 = new Array();
+            getInfos(0,sortType);
+        }
+    }
+    CgtzCommon.registerCallback(responseHandler);
+    CgtzCommon.getAppInfo();
+
+
+    $(function(){
+        // 初始化页面
+        init(payStatus);
+
+        // 导航切换
+        $('.tab').on('click',function(){
+            $('.tab span').removeClass('hover');
+            $(this).find('span').addClass('hover');
+            $('.nav_cont1').hide();
+            $('#content,#content0,#content1,#content2').hide();
+            page = 1;
+            loading = false;
+            if($(this).hasClass('nav1')){
+                list0 = new Array();
+                $('.nav_cont1').show();
+                $('#content0,#content').show();
+                autoBid();
+                getInfos(0,sortType);
+                resetTopRightCorner(0,0);
+            }
+            else if($(this).hasClass('nav2')){
+                list1 = new Array();
+                $('#content1').show();
+                getInfos(1,1);
+                resetTopRightCorner(1,0);
+            }
+            else{
+                list2 = new Array();
+                $('#content2').show();
+                getFail();
+                resetTopRightCorner(1,0);
+            }
+        });
+        // 跳转到“回款计划”页面
+        $('#cont').click(function(){
+            CgtzCommon.openNewView({
+                link: '{{config.domain}}/cgtz_new/user/investing/huikuanjihua.html',
+                title: '回款计划'
+            });
+        });
+        // 分页
+        $(window).scroll(function() {
+            if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+                if($(".hover").parent().hasClass("nav1")){
+                    getInfos(0,sortType);
                 }
-                var f = obj.files[0];
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    var data = e.target.result;
-                    if(rABS) {
-                        wb = XLSX.read(btoa(fixdata(data)), {//手动转化
-                            type: 'base64'
-                        });
-                    } else {
-                        wb = XLSX.read(data, {
-                            type: 'binary'
-                        });
+                else if($(".hover").parent().hasClass("nav2")){
+                    getInfos(1,1);
+                }
+                else{
+                    getFail();
+                }
+            }
+        });
+    });
+
+
+    // 得到投资中和已结算的项目
+    function getInfos(payStatus,sortType){
+        if(loading){
+            return;
+        }
+        loading = true;
+        $.ajax({
+            type:"post",
+            url:"/optimus-deal/deal/deal/select_user_transactions_new.json",
+            dataType: 'json',
+            data:{
+                userId : userId,
+                token:token,
+                accessFrom : accessf,
+                payStatus: payStatus,
+                limit: 16,
+                page:page,
+                sortType: sortType,
+                gatherFlag:1,
+                hlbFlag: 1
+            },
+            beforeSend:function(data) {
+                pageShowInitFun();
+                loadingTime();
+            },
+            success: function(data){
+                if(data.success){
+                    var list = data.data;
+                    var html= '';
+                    if(page<data.totalPage){
+                        page += 1;
+                        loading = false;
                     }
-                    //wb.SheetNames[0]是获取Sheets中第一个Sheet的名字
-                    //wb.Sheets[Sheet名]获取第一个Sheet的数据
-                    list = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
-                    var html;
-                    var sex = ['男','女'];
-                    console.log(list);
+                    if(data.currentPage == data.totalPage){
+                        pageShowInitFun();
+                        loadingSuccessFun();
+                    }else {
+                        pageShowInitFun();
+                        pullUp();
+                    }
                     if(list.length>0){
                         for(var i=0;i<list.length;i++){
-                            html+='<li class="title">'+
-                                    '<div>'+list[i].name+'</div>'+
-                                    '<div>'+list[i].mobile+'</div>'+
-                                    '<div>'+sex[list[i].sex]+'</div>'+
-                                    '<div>'+list[i].age+'</div>'+
-                                '</li>';
+                            if(payStatus == 0){
+                                if(list[i].orderType==9){
+                                    list[i].noStart=1;
+                                }else{
+                                    var pId = (String)(list[i].projectId);
+                                    // 募集中(非转让项目)
+                                    if(list[i].projectStatus==4 && pId[1] != '6'){
+                                        list[i].noStart=0;
+                                    }
+                                    // 放款中
+                                    else if(list[i].projectStatus==8&&!list[i].startInterestTime){
+                                        list[i].noStart=2;//记得改回2
+                                    }
+                                    // 项目状态有误，并且没有放款(暂且先写成放款中)
+                                    else if(!list[i].startInterestTime){
+                                        list[i].noStart=2;//projectStatus!=4&&projectStatus!=8&&!startInterestTime
+                                    }
+                                    // 正常可查看详情的项目
+                                    else{
+                                        list[i].noStart=1;
+                                    }
+                                }
+                                list0.push(list[i]);
+                                html = template('tzz',{invests: list0});
+                                $('#content0').html(html);
+                            }
+                            else if(payStatus == 1){
+                                list1.push(list[i]);
+                                html = template('yjs',{invests: list1});
+                                $('#content1').html(html);
+                            }
+                            $('#content0 li .li_padd,#content1 li .li_padd').click(function(){
+                                var $this = $(this).parent('li');
+                                var transactionId = $this.attr('about');
+                                var orderId = $this.attr('data-orderid');
+                                var orderType = $this.attr('data-ordertype');
+                                var projectId = $this.attr('data-projectid');
+                                var usedCouponTypes = $this.attr('data-usedCouponTypes');
+
+
+                                if($this.hasClass('hlbjihe')){
+                                    //window.location = '{{config.domain}}/cgtz_new/user/investing/group_invest_detail.html?transaction_id='+transactionId+'&orderId='+orderId+'&orderType='+orderType
+                                    var dataJSON = {
+                                        link: '{{config.domain}}/cgtz_new/user/investing/group_invest_detail.html?transaction_id='+transactionId+'&orderId='+orderId+'&orderType='+orderType,
+                                        title: '已购产品详情'
+                                    };
+                                    CgtzCommon.openNewView(dataJSON);
+                                    return;
+                                }
+                                if($this.hasClass('noStart')&&!$this.hasClass('jihe')){
+                                    var data = {
+                                        title: '提示',
+                                        msg: '募集完成且放款后可查看',
+                                        buttonText: '确定'
+                                    };
+                                    cgtzUtil.showGeneralLayer(data);
+                                    return;
+                                }
+                                if($this.hasClass('jihe')){
+                                    // 查看集合投资项目详情，判断是否开始放款
+                                    $.ajax({
+                                        type:"post",
+                                        url:"/optimus-deal/deal/deal/gather_project_detail_if.json",
+                                        dataType:'json',
+                                        data:{
+                                            transaction_id:transactionId
+                                        },
+                                        success:function(data){
+                                            // 放款
+                                            if(data.success){
+                                                if(data.data=="true"){
+                                                    var dataJSON = {
+                                                        link: '{{config.domain}}/cgtz_new/user/investing/group_invest_detail.html?transaction_id='+transactionId+'&orderId='+orderId+'&orderType='+orderType,
+                                                        title: '已购产品详情'
+                                                    };
+                                                    CgtzCommon.openNewView(dataJSON);
+                                                }else{
+                                                    var data = {
+                                                        title: '提示',
+                                                        msg: '募集完成且放款后可查看',
+                                                        buttonText: '确定'
+                                                    };
+                                                    cgtzUtil.showGeneralLayer(data);
+
+                                                    return;
+                                                }
+                                            } else if(data.errorCode == 501) {
+                                                CgtzCommon.AppLogin();  //登录
+                                            } else{
+                                                CgtzCommon.AppToast(data.errorMsg);
+                                            }
+                                        }
+                                    });
+                                }
+                                else{
+                                    var dataJSON = {
+                                        link: '{{config.domain}}/cgtz_new/user/investing/investDetail.html?transaction_id='+transactionId+'&usedCouponTypes='+usedCouponTypes,
+                                        title: '已购产品详情'
+                                    };
+                                    CgtzCommon.openNewView(dataJSON);
+                                    return;
+                                }
+                            });
+
                         }
+
+
+                        //分享红包——2018-01-29
+                        $(".shareHb").bind("click",function(){
+                            var date=new Date();
+                            var packetId='';
+                            packetId=$(this).attr('res_id');
+                            var shareTitle='';
+                            var sharedDesc='';
+                            var version;
+                            $.ajax({
+                                url:"/optimus-score/score/investshared/get_sign.json",
+                                dataType:'json',
+                                type:'post',
+                                data:{
+                                    userId : userId,
+                                    token:token,
+                                    accessFrom : accessf,
+                                    packageId:packetId
+                                },
+                                success:function(result){
+                                    if(result.success){
+                                        version=result.data;
+                                        $.ajax({
+                                            url:"/optimus-score/score/investshared/query_activity_config.json",
+                                            dataType:'json',
+                                            type:'post',
+                                            data:{
+                                                accessFrom:'1.0_h5-cgtz'
+                                            },
+                                            success:function(data){
+                                                if(data.success){
+                                                    shareTitle = data.data.title||'草根投资';
+                                                    sharedDesc = data.data.sharedDesc||'';
+                                                    var dataJson={
+                                                        shareTitle: shareTitle,
+                                                        shareLink: '{{config.domain}}/activity/cgtz/redagent_'+packetId+'.html',
+                                                        shareImg:'https://cgtzfiles.b0.upaiyun.com/cgwx/h5_new/resource/cgtz_new/img/shareImg.png',
+                                                        desc:sharedDesc
+                                                    }
+                                                    CgtzCommon.AppShare(dataJson);
+                                                } else if(data.errorCode == 501) {
+                                                    CgtzCommon.AppLogin();  //登录
+                                                } else{
+                                                    CgtzCommon.AppToast(data.errorMsg);
+                                                }
+                                            }
+                                        })
+
+                                    }
+                                }
+                            })
+
+                            //统计
+                            $.ajax({
+                                url:'/optimus-score/score/investshared/click_statis.json',
+                                type:'post',
+                                dataType:'json',
+                                data:{
+                                    userId:userId,
+                                    packageId:packetId,
+                                    clickType:4,//(1|2|4|8|16|32  1发红包|2取消|4红包icon|8领取页面浏览|16去使用|32打开app)
+                                },
+                                success:function(data){
+
+                                }
+
+                            })
+                            return false;
+                        })
                     }
-                };
-                if(rABS) {
-                    reader.readAsArrayBuffer(f);
-                } else {
-                    reader.readAsBinaryString(f);
+                }else if(data.errorCode == 501) {
+                    CgtzCommon.AppLogin();  //登录
+                }else{
+                    CgtzCommon.AppToast(data.errorMsg);
                 }
             }
+        });
+    }
 
-            function fixdata(data) { //文件流转BinaryString
-                var o = "",
-                    l = 0,
-                    w = 10240;
-                for(; l < data.byteLength / w; ++l) o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w)));
-                o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)));
-                return o;
+    // 得到投资失败的项目
+    function getFail(){
+        if(loading){
+            return;
+        }
+        loading = true;
+        $.ajax({
+            type:"post",
+            url:"/optimus-deal/deal/deal/select_fail_orders.json",
+            dataType: 'json',
+            data: {
+                userId : userId,
+                token:token,
+                accessFrom : accessf
+            },
+            beforeSend:function(data){
+                pageShowInitFun();
+                loadingTime();
+            },
+            success:function(data){
+                if(data.success){
+                    var list = data.data;
+                    var html= '';
+                    pageShowInitFun();
+                    loadingSuccessFun();
+                    if(list.length>0){
+                        for(var i=0;i<list.length;i++){
+                            list2.push(list[i]);
+                            html = template('tzsb',{invests: list2});
+                            $('#content2').html(html);
+                        }
+                    }
+                }else if(data.errorCode == 501) {
+                    CgtzCommon.AppLogin();  //登录
+                }else{
+                    CgtzCommon.AppToast(data.errorMsg);
+                }
             }
+        });
+    }
 
-        </script>
-    </body>
+    // 得到自动投资带匹配的订单
+    function autoBid(){
+        $.ajax({
+            type:"post",
+            url:"/optimus-deal/deal/dreamandauto/query_auto_orders.json",
+            dataType:'json',
+            data: {
+                status: 1,
+                orderType:4,
+                page_size:1000
+            },
+            success:function(data){
+                if(data.success){
+                    var list = data.data;
+                    if(list){
+                        for(var i=0;i<list.length;i++){
+                            if(list[i].autoInvest=="0-49"){
+                                list[i].autoReats = "6.5";
+                            }else if(list[i].autoInvest == "50-79"){
+                                list[i].autoReats = "7.0";
+                            }else if(list[i].autoInvest == "80-169"){
+                                list[i].autoReats = "8.0";
+                            }else if(list[i].autoInvest == "170-339"){
+                                list[i].autoReats = "9.0";
+                            }else{
+                                list[i].autoReats = "10.0";
+                            }
+                        }
+                        html = template('zdtz',{list: list});
+                        $('#content').html(html);
+                        $('.cancle').click(function(){
+                            cancel_id = $(this).attr("orderid");
+                            var data = {
+                                title: '',
+                                buttonText: ['取消','确定'],
+                                content: '确认要取消自动投资?'
+                            };
+                            cgtzUtil.showConfirmLayer(data,confirmCancel);
+                        });
+                    }
+                }else if(data.errorCode == 501) {
+                    CgtzCommon.AppLogin();  //登录
+                }else{
+                    CgtzCommon.AppToast(data.errorMsg);
+                }
+            }
+        });
+    }
 
+    function init(payStatus) {
+        autoBid();
+        getInfos(payStatus,sortType);
+        resetTopRightCorner(payStatus,0);
+        // 加载投入本金和预收利息
+        $.ajax({
+            type:"post",
+            url:"/optimus-deal/deal/deal/query_total_amount_info.json",
+            dataType:'json',
+            data: {
+            },
+            success: function(data){
+                if(data.success){
+                    $('#Principal').html(data.data.payablePrincipal+'元');
+                    $('#Interest').html(data.data.payableInterest+'元');
+                }else if(data.errorCode == 501) {
+                    CgtzCommon.AppLogin();  //登录
+                }else{
+                    CgtzCommon.AppToast(data.errorMsg);
+                }
+            }
+        });
+    }
+
+    // 页面状态（上拉加载更多、加载完成、加载中）
+    function pageShowInitFun(){
+        $(".addLoading").show();
+        $(".pullUp").removeClass('disNone').addClass('disNone');
+        $(".loading").removeClass('disNone').addClass('disNone');
+        $(".loadingSuccess").removeClass('disNone').addClass('disNone');
+    }
+
+    function pullUp(){
+        $(".pullUp").removeClass("disNone");
+    }
+
+    function loadingTime(){
+        $('.loading').removeClass('disNone');
+    }
+
+    function loadingSuccessFun(){
+        $('.loadingSuccess').removeClass('disNone');
+    }
+
+    function confirmCancel(callback){
+        $.ajax({
+            type:"post",
+            url:"/optimus-deal/deal/dreamandauto/auto_order.json",
+            dataType:'json',
+            data:{
+                orderId: cancel_id,
+                type: 2
+            },
+            success: function(data){
+                if(data.success){
+                    window.location.reload();
+                }else if(data.errorCode == 501) {
+                    CgtzCommon.AppLogin();  //登录
+                }else{
+                    CgtzCommon.AppToast(data.errorMsg);
+                }
+            }
+        });
+    }
+
+    function resetTopRightCorner(payStatus,select) {
+        var dataJSON = {};
+        if(payStatus == 0){
+            dataJSON = {
+                title: '排序',
+                type: 'radio',
+                options:{},
+                callback: 'value'
+            };
+            if(select==0){
+                dataJSON.options = [
+                    {'name': '按投资时间','value': '0', 'selected': '1'},
+                    {'name': '按项目到期','value': '1', 'selected': '0'}
+                ];
+            }else{
+                dataJSON.options = [
+                    {'name': '按投资时间','value': '0', 'selected': '0'},
+                    {'name': '按项目到期','value': '1', 'selected': '1'}
+                ];
+            }
+        }else{
+            dataJSON = {
+                title: '',
+                type: 'text',
+                function:''
+            };
+        }
+        CgtzCommon.topRightCorner(dataJSON);
+    }
+
+    //判断是否登录
+    function isLogin(userId,token){
+        if(token=="undefined"||token==""||token==0||userId==0||userId==undefined||userId==""||String(userId).indexOf("-") > 0){
+            CgtzCommon.AppLogin();
+            return false;
+        }else{
+            return true;
+        }
+    }
+</script>
 </html>

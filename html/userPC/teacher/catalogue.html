@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="../common/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../common/font-awesome-4.7.0/css/font-awesome.css" />
+    <link rel="stylesheet" href="../common/header.css" />
+    <link rel="stylesheet" href="home.css" />
+    <script src="../common/jquery-2.1.1.min.js"></script>
+    <script src="../common/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../common/header.js" ></script>
+    <script type="text/javascript" src="/PCAdmin/js/public.js"></script>
+    <script type="text/javascript" src="teacher.js"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .site-header{
+        min-height: 80px;
+    }
+    section{
+        padding: 0 10px;
+        max-width: 1200px;
+        margin:0 auto;
+        margin-top: 20px;
+    }
+    .my-course-list{
+        margin-top:20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+    .my-course-list .title{
+        font-size: 16px;
+        font-weight: 700;
+    }
+    .my-course-list ul li{
+        display: inline-block;
+        border: 1px solid #CDC9A5;
+        color: #CDC9A5;
+        padding: 5px 10px;
+        border-radius: 3px;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+    .my-course-list ul li.choose {
+        background: #CDC9A5;
+        color: #fff;
+    }
+    .catalogue .title{
+        height:30px;
+        line-height: 30px;
+        color: #CDC9A5;
+        margin-top:20px;
+        cursor: pointer;
+    }
+    .catalogue i{
+        color: #CDC9A5;
+        font-size:20px;
+        vertical-align: middle;
+        margin-right: 5px;
+        cursor: pointer;
+    }
+    .catalogue .form-group{
+        margin: 10px 0;
+    }
+    .catalogue .form-group label{
+        height:34px;
+        line-height:34px;
+    }
+    .noDataBox p{
+        text-align: center;
+        padding: 100px 0;
+        font-size: 20px;
+        color: #999;
+    }
+</style>
+<body>
+<header class="site-header">
+    <div class="navBar">
+        <nav>
+            <a href="../common/index.html" class="webName"><span>琴行</span>Machold Rare Violins</a>
+            <ul class="headUL">
+                <li><a href="../common/index.html">首页</a></li>
+                <li><a href="../common/class.html">课程</a></li>
+                <li><a href="../common/knowledge.html">知识</a></li>
+                <li><a href="../common/aboutUs.html">关于我们</a></li>
+                <li class="none"><button class="btn btn-log">登陆</button></li>
+                <li class="none"><button class="btn btn-log">注册</button></li>
+                <li class="showName"><a href="home.html" class="active">Cynthia</a></li>
+            </ul>
+            <div class="listNav"><i class="fa fa-bars"></i></div>
+        </nav>
+    </div>
+</header>
+<div class="sliderBar none">
+    <ul class="slider-ul">
+        <li><a href="../common/index.html" class="active">首页</a></li>
+        <li><a href="../common/class.html">课程</a></li>
+        <li><a href="../common/knowledge.html">知识</a></li>
+        <li><a href="../common/aboutUs.html">关于我们</a></li>
+        <li><button class="btn btn-log">登陆</button></li>
+        <li><button class="btn btn-log">注册</button></li>
+        <li class="none"><button class="btn btn-log">登陆</button></li>
+        <li class="none"><button class="btn btn-log">注册</button></li>
+        <li class="showName"><a href="home.html" class="active">Cynthia</a></li>
+    </ul>
+</div>
+
+<section>
+    <div class="row">
+        <div class="col-md-3 personalNav">
+            <ul>
+                <li>我的课表</li>
+                <li>我的消息</li>
+                <li>请假调课</li>
+                <li class="on">课程目录</li>
+                <li>我的课程</li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <ul class="subTopNav">
+                <li class="on">添加目录</li>
+                <li>修改目录</li>
+            </ul>
+            <div class="addBox">
+                <div class="my-course-list">
+                    <p class="title">课程列表</p>
+                    <ul>
+                    </ul>
+                </div>
+                <div class="catalogue">
+                    <div class="title"><i class="fa fa-plus-circle"></i>添加目录</div>
+                </div>
+                <button class="submit" style="margin-top: 20px;">提交目录</button>
+            </div>
+            <div class="editBox none">
+                <div class="my-course-list">
+                    <p class="title">课程列表</p>
+                    <ul>
+                    </ul>
+                </div>
+                <div class="catalogue">
+                    <div class="title"><i class="fa fa-plus-circle"></i>添加目录</div>
+                </div>
+                <button class="submit" style="margin-top: 20px;">提交目录</button>
+            </div>
+            <div class="noDataBox none">
+                <p>暂无课程数据</p>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+<script>
+    getCourseList(0);
+    $('.subTopNav li').click(function(){
+        var index = $(this).index();
+        $('.subTopNav li').removeClass('on');
+        $(this).addClass('on');
+        if(index==0){
+            getCourseList(0);
+        }
+        else if(index==1){
+            getCourseList(1);
+        }
+    });
+
+    $(document).delegate('.my-course-list ul li','click',function(){
+        $('.my-course-list ul li').removeClass('choose');
+        $(this).addClass('choose');
+    });
+
+    $('.catalogue .title').click(function(){
+        var i = $('.form-group').length+1;
+        html = `
+        <div class="form-group clearfix">
+                    <label class="col-sm-2 control-label" sortId="${i}">第 ${i} 章节</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" placeholder="请输入标题">
+                    </div>
+                    <div class="col-sm-2">
+                        <i class="fa fa-trash delete" style="line-height: 34px;"></i>
+                    </div>
+                </div>
+        `;
+        $('.catalogue').append(html);
+    });
+
+    $(document).delegate('.catalogue .form-group .delete','click',function(){
+        var index = $(this).parent().parent().index();
+        console.log(index);
+        for(var i=index;i<$('.form-group').length+1;i++){
+            $('.form-group:eq('+i+')').find('.control-label').attr('sortId',i);
+            $('.form-group:eq('+i+')').find('.control-label').html(`第 ${i} 章节`);
+        }
+        $(this).parent().parent().remove();
+    });
+
+    $('.submit').click(function(){
+        var courseId = $('.my-course-list ul li.choose').attr('courseId');
+        if($('.form-group').length<1){
+            alert('没有可以提交的目录');
+            return;
+        }
+        var length = $('.form-group').length;
+        var obj = [];
+        for(var i=0;i<length;i++){
+            var id = $('.form-group:eq('+i+')').find('.control-label').attr('sortId');
+            var content = $('.form-group:eq('+i+')').find('.form-control').val();
+            if(!content||content==''){
+                alert('目录内容不能为空');
+                return;
+            }
+            var item = {'id':id,'content':content};
+            obj.push(item);
+        }
+        $.ajax({
+            url:'/PCAdmin/php/setCatalogue.php',
+            type:'post',
+            dataType:'json',
+            data: {
+                catalogue:obj,
+                courseId: courseId
+            },
+            success:function(res){
+                if(res.success){
+                    alert('添加成功');
+                }else{
+                    alert('添加失败');
+                }
+            }
+        });
+    });
+
+    function getCourseList(type){
+        var userId = sessionStorage.getItem('userId');
+        $.ajax({
+            url:'/PCAdmin/php/getTeacherCourseList.php',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                userId: userId,
+                type: type
+            },
+            success: function(res){
+                if(res.success){
+                    var list = res.list;
+                    if(type==0){
+                        $('.addBox').removeClass('none');
+                        $('.editBox').addClass('none');
+                        $('.noDataBox').addClass('none');
+                    }else{
+                        $('.addBox').addClass('none');
+                        $('.editBox').removeClass('none');
+                        $('.noDataBox').addClass('none');
+                    }
+                    if(list&&list.length>0){
+                        var html = '';
+                        for(var i=0;i<list.length;i++){
+                            if(i==0){
+                                html+='<li class="choose" courseId="'+list[i].course_id+'">'+list[i].course_name+'</li>';
+                            }else{
+                                html+='<li courseId="'+list[i].course_id+'">'+list[i].course_name+'</li>';
+                            }
+                        }
+                        $('.my-course-list ul').html(html);
+                        if(type==1){
+                            getThisCatalogueList();
+                        }
+                    }else{
+                        $('.addBox').addClass('none');
+                        $('.editBox').addClass('none');
+                        $('.noDataBox').removeClass('none');
+                    }
+                }else{
+                    $('.addBox').addClass('none');
+                    $('.editBox').addClass('none');
+                    $('.noDataBox').removeClass('none');
+                }
+            }
+        });
+    }
+
+    function getThisCatalogueList(){
+        var courseId = $('.my-course-list ul li.choose').attr('courseId');
+        $.ajax({
+            url: '/PCAdmin/php/getThisCatalogueList.php',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                courseId: courseId
+            },
+            success: function(res){
+                if(res.success){
+                    var list = res.list;
+                    if(list){
+                        for(var i=0;i<list.length;i++){}
+                    }
+                }
+            }
+        });
+    }
+
+</script>
+</html>
