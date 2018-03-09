@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="../common/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../common/font-awesome-4.7.0/css/font-awesome.css" />
+    <link rel="stylesheet" href="../common/header.css" />
+    <link rel="stylesheet" href="home.css" />
+    <script src="../common/jquery-2.1.1.min.js"></script>
+    <script src="../common/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../common/header.js" ></script>
+    <script type="text/javascript" src="/PCAdmin/js/public.js"></script>
+    <script type="text/javascript" src="/PCAdmin/js/template.js"></script>
+    <script type="text/javascript" src="teacher.js"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .site-header{
+        min-height: 80px;
+    }
+    section{
+        padding: 0 10px;
+        max-width: 1200px;
+        margin:0 auto;
+        margin-top: 20px;
+    }
+    .homeworkInfo .title{
+        height: 40px;
+        line-height: 40px;
+        font-size: 18px;
+        border-bottom: 1px solid #ddd; 
+        margin-bottom: 20px;
+    }
+    .homeworkInfo .form-group{
+        margin: 10px 0;
+    }
+    .homeworkInfo .form-group label{
+        height:34px;
+        line-height:34px;
+    }
+</style>
+<body>
+<header class="site-header">
+    <div class="navBar">
+        <nav>
+            <a href="../common/index.html" class="webName"><span>琴行</span>Machold Rare Violins</a>
+            <ul class="headUL">
+                <li><a href="../common/index.html">首页</a></li>
+                <li><a href="../common/class.html">课程</a></li>
+                <li><a href="../common/knowledge.html">知识</a></li>
+                <li><a href="../common/aboutUs.html">关于我们</a></li>
+                <li class="none"><button class="btn btn-log">登陆</button></li>
+                <li class="none"><button class="btn btn-log">注册</button></li>
+                <li class="showName"><a href="home.html" class="active">Cynthia</a></li>
+            </ul>
+            <div class="listNav"><i class="fa fa-bars"></i></div>
+        </nav>
+    </div>
+</header>
+<div class="sliderBar none">
+    <ul class="slider-ul">
+        <li><a href="../common/index.html" class="active">首页</a></li>
+        <li><a href="../common/class.html">课程</a></li>
+        <li><a href="../common/knowledge.html">知识</a></li>
+        <li><a href="../common/aboutUs.html">关于我们</a></li>
+        <li><button class="btn btn-log">登陆</button></li>
+        <li><button class="btn btn-log">注册</button></li>
+        <li class="none"><button class="btn btn-log">登陆</button></li>
+        <li class="none"><button class="btn btn-log">注册</button></li>
+        <li class="showName"><a href="home.html" class="active">Cynthia</a></li>
+    </ul>
+</div>
+
+<section>
+    <div class="row">
+        <div class="col-md-3 personalNav">
+            <ul>
+                <li>我的课表</li>
+                <li>我的消息</li>
+                <li>请假调课</li>
+                <li>课程目录</li>
+                <li class="on">我的课程</li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div class="homeworkInfo">
+                <div class="title">添加作业</div>
+                <ul>
+                </ul>
+                <div class="form-group clearfix">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-8 clearfix">
+                        <button class="fr submit" style="margin-right: 0;margin-top: 20px;">提交作业</button>
+                    </div>
+                 </div>
+            </div>
+            <script id="homeworkItem" type="text/html">
+                <li>
+                    <div class="form-group clearfix">
+                        <label class="col-sm-2 control-label">课程名称</label>
+                        <div class="col-sm-8">
+                            <input type="text" data-courseId="{{item.course_id}}" class="form-control course" value="{{item.course_name}}" readonly="readonly">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="form-group clearfix">
+                        <label class="col-sm-2 control-label">章节名称</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control catalogue" value="{{item.catalogue_content}}" readonly="readonly">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="form-group clearfix">
+                        <label class="col-sm-2 control-label">作业内容</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control content" rows="5"></textarea>
+                        </div>
+                    </div>
+                </li>
+            </script>
+        </div>
+    </div>
+</section>
+</body>
+<script>
+    var catalogueId = GetQueryString('catalogueId');
+    console.log(catalogueId);
+    getInfos(catalogueId);
+    function getInfos(catalogueId){
+        $.ajax({
+            url: '/PCAdmin/php/useCatalogueToCourseInfo.php',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                catalogueId: catalogueId
+            },
+            success: function(res){
+                if(res.success){
+                    var html = template('homeworkItem',{item:res.data});
+                    $('.homeworkInfo ul').html(html);
+                }
+            }
+        });
+    }
+    $('.submit').click(function(){
+        var courseId = $('.course').attr('data-courseId');
+        var content = $('.content').val();
+        var userId = sessionStorage.getItem('userId');
+        if(content==''){
+            alert('作业内容不能为空');
+            return;
+        }
+        $.ajax({
+            url: '/PCAdmin/php/addHomework.php',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                catalogueId:catalogueId,
+                courseId:courseId,
+                content: content,
+                teacherId: userId
+            },
+            success: function(res){
+                if(res.success){
+                    alert('作业发布成功');
+                }else{
+                    alert('作业发布失败');
+                }
+            }
+        });
+    });
+</script>
+</html>

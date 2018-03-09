@@ -145,7 +145,7 @@
                 <div class="catalogue">
                     <div class="title"><i class="fa fa-plus-circle"></i>添加目录</div>
                 </div>
-                <button class="submit" style="margin-top: 20px;">提交目录</button>
+                <button class="submitEdit" style="margin-top: 20px;">提交目录</button>
             </div>
             <div class="noDataBox none">
                 <p>暂无课程数据</p>
@@ -155,26 +155,37 @@
 </section>
 </body>
 <script>
-    getCourseList(0);
+    var type = 0;
+    getCourseList(type);
     $('.subTopNav li').click(function(){
         var index = $(this).index();
         $('.subTopNav li').removeClass('on');
         $(this).addClass('on');
         if(index==0){
-            getCourseList(0);
+            type = 0;
+            $('.addBox .catalogue .form-group').remove();
+            getCourseList(type);
         }
         else if(index==1){
-            getCourseList(1);
+            type = 1;
+            $('.editBox .catalogue .form-group').remove();
+            getCourseList(type);
         }
     });
 
     $(document).delegate('.my-course-list ul li','click',function(){
+        if($(this).hasClass('choose')){
+            return;
+        }
         $('.my-course-list ul li').removeClass('choose');
         $(this).addClass('choose');
+        $('.editBox .catalogue .form-group').remove();
+        getThisCatalogueList();
     });
 
     $('.catalogue .title').click(function(){
         var i = $('.form-group').length+1;
+        console.log(i);
         html = `
         <div class="form-group clearfix">
                     <label class="col-sm-2 control-label" sortId="${i}">第 ${i} 章节</label>
@@ -186,7 +197,11 @@
                     </div>
                 </div>
         `;
-        $('.catalogue').append(html);
+        if(type==0){
+            $('.addBox .catalogue').append(html);
+        }else{
+            $('.editBox .catalogue').append(html);
+        } 
     });
 
     $(document).delegate('.catalogue .form-group .delete','click',function(){
@@ -297,12 +312,62 @@
                 if(res.success){
                     var list = res.list;
                     if(list){
-                        for(var i=0;i<list.length;i++){}
+                        var html='';
+                        for(var i=0;i<list.length;i++){
+                            html += `
+                            <div class="form-group clearfix">
+                                <label class="col-sm-2 control-label" sortId="${i+1}">第 ${i+1} 章节</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" value="${list[i].content}">
+                                </div>
+                                <div class="col-sm-2">
+                                    <i class="fa fa-trash delete" style="line-height: 34px;"></i>
+                                </div>
+                            </div>
+                            `;
+                        }
+                        $('.editBox .catalogue').append(html);
                     }
                 }
             }
         });
     }
 
+    $('.submitEdit').click(function(){
+        var courseId = $('.my-course-list ul li.choose').attr('courseId');
+        if($('.form-group').length<1){
+            alert('没有可以提交的目录');
+            return;
+        }
+        var length = $('.form-group').length;
+        var obj = [];
+        for(var i=0;i<length;i++){
+            var id = $('.form-group:eq('+i+')').find('.control-label').attr('sortId');
+            var content = $('.form-group:eq('+i+')').find('.form-control').val();
+            if(!content||content==''){
+                alert('目录内容不能为空');
+                return;
+            }
+            var item = {'id':id,'content':content};
+            obj.push(item);
+        }
+        $.ajax({
+            url:'/PCAdmin/php/editCatalogue.php',
+            type:'post',
+            dataType:'json',
+            data: {
+                catalogue:obj,
+                courseId: courseId
+            },
+            success:function(res){
+                if(res.success){
+                    alert('修改成功');
+                }else{
+                    alert('修改失败');
+                }
+            }
+        });
+        // console.log(obj);
+    });
 </script>
 </html>

@@ -78,7 +78,7 @@ section .inputList div select,section .inputList div textarea{
 section .inputList div select{
 	height:30px;
 }
-section .submit{
+section .submit,.submitEdit{
 	border: 0;
 	background: #2aabd2;
 	padding: 5px 10px;

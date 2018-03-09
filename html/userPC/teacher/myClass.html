@@ -72,11 +72,64 @@
             </ul>
         </div>
         <div class="col-md-9">
-            <ul>
-                <li class=""></li>
+            <ul class="subTopNav">
+                <li class="on nav1">进行中</li>
+                <li class="nav2">已结束</li>
             </ul>
+            <div class="classList">
+                <ul>
+                </ul>
+            </div>
         </div>
     </div>
 </section>
 </body>
+<script>
+function getCourse(state){
+    var userId = sessionStorage.getItem('userId');
+    $.ajax({
+        url:'/PCAdmin/php/getTeacherCourseList.php',
+        type:'post',
+        dataType:'json',
+        data:{
+            userId: userId,
+            type: state
+        },
+        success:function (res) {
+            if(res.success){
+                var list = res.list;
+                if(list){
+                    var html = '';
+                    for(var i=0;i<list.length;i++){
+                        html += '<li class="box" classId="'+list[i].course_id+'"><div class="imgBox"><img src="/PCAdmin/img/course/'+list[i].banner+'"></div>' +
+                            '<div class="textInfo"><p>'+list[i].course_name+'</p><p class="clearfix">' +
+                            '<span class="fl">课时数：'+list[i].course_hours+'</span><span class="fr">￥'+list[i].price+'</span></p></div></li>';
+                    }
+                    $('.classList ul').html(html);
+                    $('.classList li.box').click(function() {
+                        var courseId = $(this).attr('classId');
+                        window.location.href = 'myClassDetail.html?courseId='+courseId;
+                    });
+                }else{
+                    $('.classList ul').html('<p class="tipMsg">暂无数据</p>');
+                }
+            }
+        }
+    });
+}
+$(function () {
+    var state = 2;
+    getCourse(state);
+    $('.subTopNav li').click(function(){
+        $('.classList ul').html('');
+        $('.subTopNav li').removeClass('on');
+        $(this).addClass('on');
+        if($(this).hasClass('nav1')){
+            getCourse(2);
+        }else{
+            getCourse(3);
+        }
+    });
+});
+</script>
 </html>

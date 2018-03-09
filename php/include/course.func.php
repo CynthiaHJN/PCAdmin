@@ -84,8 +84,12 @@ function submitLeave($userId,$teacherId,$reason,$title){
 function getTeacherCourseList($userId,$type){
 	if($type==0){
 		$sql = "select * from course where teacher_id = '$userId' and catalogue_id is null";
-	}else{
+	}else if($type==1){
 		$sql = "select * from course where teacher_id = '$userId' and catalogue_id is not null";
+	}else if($type==2){
+		$sql = "select * from course where teacher_id = '$userId' and state=0";
+	}else if($type==3){
+		$sql = "select * from course where teacher_id = '$userId' and state=1";
 	}
 	return get_datas($sql,2);
 }

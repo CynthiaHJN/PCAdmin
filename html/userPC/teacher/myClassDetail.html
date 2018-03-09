@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="../common/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../common/font-awesome-4.7.0/css/font-awesome.css" />
+    <link rel="stylesheet" href="../common/header.css" />
+    <link rel="stylesheet" href="home.css" />
+    <script src="../common/jquery-2.1.1.min.js"></script>
+    <script src="../common/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/PCAdmin/js/template.js" ></script>
+    <script type="text/javascript" src="../common/header.js" ></script>
+    <script type="text/javascript" src="/PCAdmin/js/public.js"></script>
+    <script type="text/javascript" src="teacher.js"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .site-header{
+        min-height: 80px;
+    }
+    section{
+        padding: 0 10px;
+        max-width: 1200px;
+        margin:0 auto;
+        margin-top: 20px;
+    }
+    .topCon {
+        display: flex;
+        height: 300px;
+        padding: 20px;
+        background: #F2F2F2;
+    }
+    .topCon .img {
+        flex: 1;
+    }
+    .topCon .img img {
+        width: 100%;
+        height: 100%;
+    }
+    .topCon .intro {
+        flex: 0 65%;
+        padding-left: 20px;
+    }
+    .topCon .intro .name {
+        font-size: 20px;
+        font-weight: 700;
+        padding-top: 30px;
+        padding-bottom: 20px;
+    }
+    .topCon .intro div:nth-child(2) {
+        padding-bottom: 20px;
+    }
+    .topCon .intro div:nth-child(2) span {
+        margin-right: 10px;
+    }
+    .topCon .intro div:nth-child(2) span {
+        margin-right: 10px;
+    }
+    .topCon .intro .price {
+        padding-bottom: 20px;
+        font-size: 20px;
+        /* font-weight: 700; */
+    }
+    .topCon .intro .book {
+        padding: 5px 15px;
+        border: 0;
+        color: #FFFFFF;
+        background: #BDB76B;
+    }
+    .classMenu {
+        background: #e5e5e5;
+    }
+    .classMenu ul {
+        display: flex;
+        flex-direction: row;
+        padding: 10px 20px;
+    }
+    .classMenu ul li.hover {
+        background: #122B40;
+        color: #fff;
+    }
+    .classMenu ul li {
+        margin-right: 15px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .contentPart .content {
+        background: #F2F2F2;
+        padding: 20px;
+    }
+    .homeworkBtn{
+        background: #b9b7b2;
+        border: 0;
+        padding: 3px 5px;
+        border-radius: 3px;
+    }
+    .hadHomework{
+        color: #18901d;
+    }
+    .noHomework{
+        color: #cd3245;
+    }
+</style>
+<body>
+<header class="site-header">
+    <div class="navBar">
+        <nav>
+            <a href="../common/index.html" class="webName"><span>琴行</span>Machold Rare Violins</a>
+            <ul class="headUL">
+                <li><a href="../common/index.html">首页</a></li>
+                <li><a href="../common/class.html">课程</a></li>
+                <li><a href="../common/knowledge.html">知识</a></li>
+                <li><a href="../common/aboutUs.html">关于我们</a></li>
+                <li class="none"><button class="btn btn-log">登陆</button></li>
+                <li class="none"><button class="btn btn-log">注册</button></li>
+                <li class="showName"><a href="home.html" class="active">Cynthia</a></li>
+            </ul>
+            <div class="listNav"><i class="fa fa-bars"></i></div>
+        </nav>
+    </div>
+</header>
+<div class="sliderBar none">
+    <ul class="slider-ul">
+        <li><a href="../common/index.html" class="active">首页</a></li>
+        <li><a href="../common/class.html">课程</a></li>
+        <li><a href="../common/knowledge.html">知识</a></li>
+        <li><a href="../common/aboutUs.html">关于我们</a></li>
+        <li class="none"><button class="btn btn-log">登陆</button></li>
+        <li class="none"><button class="btn btn-log">注册</button></li>
+        <li class="showName"><a href="home.html" class="active">Cynthia</a></li>
+    </ul>
+</div>
+
+<section>
+    <div class="row">
+        <div class="col-md-3 personalNav">
+            <ul>
+                <li>我的课表</li>
+                <li>我的消息</li>
+                <li>请假调课</li>
+                <li>课程目录</li>
+                <li class="on">我的课程</li>
+            </ul>
+        </div>
+        <div class="col-md-9 contentPart">
+        </div>
+    </div>
+</section>
+<script id="courseDetail" type="text/html">
+    <div class="courseDetail">
+        <div class="topCon">
+            <div class="img"><img src="/PCAdmin/img/course/{{item.banner}}"></div>
+            <div class="intro">
+                <div class="name">{{item.course_name}}</div>
+                <div>
+                    <span>老师: {{item.teacher_name}}</span>
+                </div>
+                <div>教师等级：{{item.teacher_rank}}</div>
+            </div>
+        </div>
+        <div class="classMenu">
+            <ul>
+                <li class="hover">介绍</li>
+                <li>目录</li>
+                <!-- <li>作业</li> -->
+            </ul>
+        </div>
+        <div class="content">
+            <h3>课程概述</h3>
+            <p>{{item.short_intro}}</p>
+        </div>
+        <div class="content none">
+            <h3>课程目录</h3>
+        </div>
+    <!--     <div class="content none">
+            <h3>课程作业</h3>
+        </div> -->
+    </div>
+</script>
+</body>
+<script>
+    var courseId = GetQueryString('courseId');
+    getCourseInfo();
+    function getCourseInfo(){
+        $.ajax({
+            url:'/PCAdmin/php/getCourseInfo.php',
+            type:'post',
+            dataType:'json',
+            data: {
+                id: courseId
+            },
+            success: function(res){
+                if(res.success){
+                    var item = res.data;
+                    $.ajax({
+                        url:'/PCAdmin/php/getUserInfo.php',
+                        type: 'post',
+                        dataType:'json',
+                        aysnc: 'false',
+                        data: {
+                            id: item.teacher_id
+                        },
+                        success: function(result){
+                            if(result.success){
+                                item.teacher_name = result.data.name;
+                                item.teacher_rank = result.data.teacher_rank;
+                                var html = template('courseDetail',{item:item});
+                                $('.contentPart').append(html);
+                            }
+                            $('.classMenu ul li').click(function() {
+                                var index = $(this).index();
+                                $('.classMenu ul li').removeClass('hover');
+                                $(this).addClass('hover');
+                                if(index==0){
+                                    $('.courseDetail .content').addClass('none');
+                                    $('.courseDetail .content:eq(0)').removeClass('none');
+                                }
+                                else if(index==1){
+                                    getCatalogueList(courseId);
+                                    $('.courseDetail .content').addClass('none');
+                                    $('.courseDetail .content:eq(1)').removeClass('none');
+                                }
+                                // else if(index==2){
+                                //     getHomeworkList();
+                                //     $('.courseDetail .content').addClass('none');
+                                //     $('.courseDetail .content:eq(2)').removeClass('none');
+                                // }
+                            });
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    function getCatalogueList(courseId){
+        $.ajax({
+            url: '/PCAdmin/php/getThisCatalogueList.php',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                courseId: courseId
+            },
+            success: function(res){
+                if(res.success){
+                    if(res.list){
+                        var list = res.list;
+                        var html = '<h3>课程目录</h3>';
+                        for(var i=0;i<list.length;i++){
+                            if(list[i].has_homework){
+                                html += '<p class="clearfix">课时'+list[i].sort_line+'：'+list[i].content+'<button data-catalogueId="list[i].id" class="fr homeworkBtn hadHomework">查看作业</button></p>';
+                            }else{
+                                html += '<p class="clearfix">课时'+list[i].sort_line+'：'+list[i].content+'<button data-catalogueId="'+list[i].id+'" class="fr homeworkBtn noHomework">添加作业</button></p>';
+                            }
+                        }
+                        $('.courseDetail .content:eq(1)').html(html);
+                    }else{
+                        var html = '<h3>课程目录</h3><p>暂未设置课程目录</p>';
+                        $('.courseDetail .content:eq(1)').html(html);
+                    }
+                }
+            }
+        });
+    }
+
+    $(document).delegate('.courseDetail .content:eq(1) .homeworkBtn','click',function () {
+       var catalogue_id = $(this).attr('data-catalogueId');
+       console.log(catalogue_id); 
+       if($(this).hasClass('noHomework')){
+            window.location.href = "addHomework.html?catalogueId="+catalogue_id;
+       }else{
+            window.location.href = "homeworkDetail.html?catalogueId="+catalogue_id;
+       }
+    });
+</script>
+</html>
