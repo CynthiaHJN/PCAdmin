@@ -129,8 +129,12 @@
 </section>
 </body>
 <script>
-    var catalogueId = GetQueryString('catalogueId');
-    console.log(catalogueId);
+    var catalogueId = GetQueryString('catalogueId') || '';
+    // console.log(catalogueId);
+    if(catalogueId==''){
+        alert('缺少参数，不能查看该页内容');
+        window.location.href = "../signin.html";
+    }
     getInfos(catalogueId);
     function getInfos(catalogueId){
         $.ajax({

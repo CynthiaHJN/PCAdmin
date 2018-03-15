@@ -8,6 +8,17 @@ $(function(){
 			$('.sliderBar').hide();
 		}
 	}
+	$('.site-header nav .btn-log,.sliderBar .btn-log').click(function(){
+		window.location.href = "/PCAdmin/html/userPC/signin.html";
+	});
+	$('.site-header nav .showName').click(function(){
+		var user_type = sessionStorage.getItem('user_type');
+		if(user_type==0){
+			window.location.href = "/PCAdmin/html/userPC/student/home.html";
+		}else{
+			window.location.href = "/PCAdmin/html/userPC/teacher/home.html";
+		}
+	});
 });
 
 function load(){

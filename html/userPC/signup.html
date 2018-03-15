@@ -103,6 +103,11 @@
                 $('.password-line .fault').show();
                 return;
             }
+            if(password.length<6||password.length>20){
+                $('.password-line .fault span').html('密码长度6~20');
+                $('.password-line .fault').show();
+                return;
+            }
             if(!type||type==''||type=='undefined'){
                 alert('请选择角色类型');
                 return;

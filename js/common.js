@@ -60,6 +60,9 @@ $(function(){
 			}
 		}
 	});
+	$('.mainCon .leftCon .funcBar li .personalinfo').click(function(){
+		window.location.href = "/PCAdmin/html/manager/personal/mine.html";
+	});
 });
 
 function load(){
@@ -78,6 +81,7 @@ function load(){
 	$('.monthEn').html(month(time,1)+' '+obj[3]);
 	$('.monthCn').html(month(time,0));
 	$('.day em').html(obj[2]);
+	$('.briefInfo .mobile').html(username.substr(0,3)+'****'+username.substr(7,11));
 }
 
 function weekDayCN(time){

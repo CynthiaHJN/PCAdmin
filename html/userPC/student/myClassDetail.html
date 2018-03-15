@@ -133,6 +133,7 @@
                 <li>我要请假</li>
                 <li>课后作业</li>
                 <li class="on">已购课程</li>
+                <li>个人设置</li>
             </ul>
         </div>
         <div class="col-md-9 contentPart">
@@ -149,7 +150,8 @@
                     <span>老师: {{item.teacher_name}}</span>
                     <span>剩余课时: {{item.leftTime}}/{{item.course_hours}}</span>
                 </div>
-                <div>教师等级：{{item.teacher_rank}}</div>
+                <div style="padding-bottom: 20px;">教师等级：{{item.teacher_rank}}</div>
+                <div>课程价格：{{item.price}}</div>
             </div>
         </div>
         <div class="classMenu">
@@ -165,10 +167,6 @@
         </div>
         <div class="content none">
             <h3>课程目录</h3>
-            <p>课时1：乐曲欣赏+学生水平检测</p>
-            <p>课时2：学习《绿腰》</p>
-            <p>课时3：学习《绿腰》</p>
-            <p>课时4：学习《绿腰》</p>
         </div>
         <div class="content none">
             <h3>课程作业</h3>
@@ -216,6 +214,7 @@
                                     $('.courseDetail .content:eq(0)').removeClass('none');
                                 }
                                 else if(index==1){
+                                    getCatalogueList();
                                     $('.courseDetail .content').addClass('none');
                                     $('.courseDetail .content:eq(1)').removeClass('none');
                                 }
@@ -259,6 +258,32 @@
                 }
             }
         })
+    }
+
+    function getCatalogueList(){
+        $.ajax({
+            url: '/PCAdmin/php/getThisCatalogueList.php',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                courseId: courseId
+            },
+            success: function(res){
+                if(res.success){
+                    if(res.list){
+                        var list = res.list;
+                        var html = '<h3>课程目录</h3>';
+                        for(var i=0;i<list.length;i++){
+                            html += '<p class="clearfix">课时'+list[i].sort_line+'：'+list[i].content+'</p>';
+                        }
+                        $('.courseDetail .content:eq(1)').html(html);
+                    }else{
+                        var html = '<h3>课程目录</h3><p>暂未设置课程目录</p>';
+                        $('.courseDetail .content:eq(1)').html(html);
+                    }
+                }
+            }
+        });
     }
 </script>
 </html>

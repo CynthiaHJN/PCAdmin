@@ -65,6 +65,7 @@
                 <li class="on">我要请假</li>
                 <li>课后作业</li>
                 <li>已购课程</li>
+                <li>个人设置</li>
             </ul>
         </div>
         <div class="col-md-9">
@@ -91,7 +92,6 @@
     getOrderToCourseInfo();
     function getOrderToCourseInfo(){
         var userId = sessionStorage.getItem('userId');
-//        var userId = 14;
         $.ajax({
             url:'/PCAdmin/php/orderToCourseInfo.php',
             type:'post',
@@ -121,7 +121,6 @@
             }
             var title =  $('#leaveCourse option:selected').html()+' 请假';
             var userId = sessionStorage.getItem('userId');
-//            var userId = 14;
             var reason = $('.reason textarea').val();
             if(reason==''){
                 alert('请填写请假原因');

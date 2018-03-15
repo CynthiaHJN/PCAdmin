@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="../../../css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/common.css">
+		<script type="text/javascript" src="../../../js/jquery-2.1.1.min.js" ></script>
+		<script type="text/javascript" src="../../../js/public.js" ></script>
+		<script type="text/javascript" src="../../../js/template.js" ></script>
+		<script type="text/javascript" src="../../../js/common.js"></script>
+		<title>主页</title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="sidebar">
+				<div class="title">琴之家</div>
+				<ul class="sidenav">
+					<li>
+						<a href="javascript:;">课程管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">教师管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">学生管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">文章管理</a>
+					</li>
+					<li>
+						<a href="javascript:;">资格审核</a>
+					</li>
+				</ul>
+			</div>
+			<div class="wrapper">
+				<div class="topCon">
+					<button class="fr searchBtn">搜索</button>
+					<input class="searchBar fr"></input>
+				</div>
+				<div class="mainCon">
+					<div class="leftCon">
+						<div class="briefInfo">
+							<div class="avatar"><img src="../../../img/avatar/moren.jpg"></div>
+							<div class="info">
+								<div class="name">administer</div>
+								<div class="mobile">140****0001</div>
+								<i class="modify"></i>
+							</div>
+						</div>
+						<ul class="funcBar">
+							<li><i class="mail">信息</i></li>
+							<li><i class="personalinfo">我的</i></li>
+							<li><i class="rubbish">回收站</i></li>
+						</ul>
+						<div class="timeCon">
+							<p class="clearfix">
+								<span class="weekdayEn fl">Friday 03 Sep</span>
+								<span class="monthEn fr">April 2015</span>
+							</p>
+							<p class="clearfix">
+								<span class="weekdayCn fl">星期五</span>
+								<span class="monthCn fr">四月</span>
+							</p>
+							<div class="dayBox">
+								<span class="day"><em>03</em>日</span>
+							</div>
+							<button class="record">签到</button>
+						</div>
+					</div>
+					<div class="rightCon">
+						<div class="tips" style="margin-top: 20px;">
+							<p class="title">功能介绍</p>
+							<div class="funcIntro">
+								<p>1.此页面为修改个人信息页面，暂时只能修改密码，后续会增加更多功能。</p>
+								<p>2.管理员按照表格要求填写信息。</p>
+								<p>3.修改成功后，会提示“修改成功”。</p>
+							</div>
+						</div>
+						<div class="funcDetail">
+							<p class="title">修改密码</p>
+							<div class="courseInputCon">
+								<div class="clearfix">
+									<label class="fl">旧密码<em>*<em></label>
+									<input type="password" id="oldPwd" class="inputBox fr">
+								</div>
+								<div class="clearfix">
+									<label class="fl">新密码<em>*<em></label>
+									<input type="password" id="newPwd" class="inputBox fr">
+								</div>
+								<div class="clearfix">
+									<label class="fl">确认新密码<em>*<em></label>
+									<input type="password" id="reNewPwd" class="inputBox fr">
+								</div>
+								<div class="clearfix">
+									<button class="submitBtn fr">提交</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		$('.submitBtn').click(function(){
+			var oldPwd = $('#oldPwd').val();
+			var newPwd = $('#newPwd').val();
+			var reNewPwd = $('#reNewPwd').val();
+			if(oldPwd==''){
+				cgtzUtil.showGeneralLayer({
+					'msg':'请输入旧密码',
+					'buttonText':'我知道了'
+				});
+				return;
+			}
+			if(newPwd==''){
+				cgtzUtil.showGeneralLayer({
+					'msg':'请输入新密码',
+					'buttonText':'我知道了'
+				});
+				return;
+			}
+			if(reNewPwd==''){
+				cgtzUtil.showGeneralLayer({
+					'msg':'请再次输入新密码',
+					'buttonText':'我知道了'
+				});
+				return;
+			}
+			if(newPwd.length<6||newPwd.length>20){
+				cgtzUtil.showGeneralLayer({
+					'msg':'请控制密码长度在6~20之间',
+					'buttonText':'我知道了'
+				});
+				return;
+			}
+			if(newPwd != reNewPwd){
+				cgtzUtil.showGeneralLayer({
+					'msg':'两次输入的密码不一样',
+					'buttonText':'我知道了'
+				});
+				return;
+			}
+			$.ajax({
+				url: '/PCAdmin/php/editPassword.php',
+				type: 'post',
+				dataType: 'json',
+				data:{
+					mobile:sessionStorage.getItem('username'),
+					oldPwd:oldPwd,
+					newPwd:newPwd
+				},
+				success: function(res){
+					if(res.success){
+						alert('密码修改成功');
+						window.location.reload();
+					}else{
+						cgtzUtil.showGeneralLayer({
+							'msg': res.errorMsg,
+							'buttonText':'我知道了'
+						});
+						return;
+					}
+				}
+			});
+		});
+	</script>
+</html>

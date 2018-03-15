@@ -43,7 +43,6 @@ function getThisCatalogueList($courseId){
 		}
 	}
 	return json_encode($res);
-	// return get_datas($sql,2);
 }
 function editCatalogue($catalogue,$course_id){
 	if(is_array($catalogue)){
@@ -93,5 +92,17 @@ function useCatalogueToCourseInfo($catalogueId){
 	$res['catalogue_content'] = $catalogue_content;
 	return json_encode($res);
 }
-
+function useCatalogueToHomeworkInfo($catalogueId){
+	$sql = "select * from catalogue where id = '$catalogueId'";
+	$result = get_row($sql);
+	$catalogue_content = $result['content'];
+	$courseId = $result['course_id'];
+	$sql2 = "select * from course where course_id = '$courseId'";
+	$res = get_row($sql2);
+	$sql3 = "select * from homework where catalogue_id = '$catalogueId' limit 1";
+	$r = get_row($sql3);
+	$res['catalogue_content'] = $catalogue_content;
+	$res['homework_content'] = $r['content'];
+	return json_encode($res);
+}
 ?>

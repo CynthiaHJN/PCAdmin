@@ -4,10 +4,10 @@ header('Access-Control-Allow-Origin:*');
 define('IN_TG', true);
 //引入
 require dirname(__FILE__).'/include/common.inc.php';
-$classId = $_POST['classId'];
 $userId = $_POST['userId'];
 $type = $_POST['type'];
-$data =  json_decode(getHomeworkList($classId,$userId,$type));
+$state = $_POST['state'];
+$data =  json_decode(getHomeworkList($userId,$type,$state));
 $res  = array('success' => true, 'data' => $data);
 echo json_encode($res);
 ?>

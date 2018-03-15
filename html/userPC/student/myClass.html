@@ -72,6 +72,7 @@
                 <li>我要请假</li>
                 <li>课后作业</li>
                 <li class="on">已购课程</li>
+                <li>个人设置</li>
             </ul>
         </div>
         <div class="col-md-9">
@@ -106,7 +107,7 @@ function getCourse(state){
                     for(var i=0;i<list.length;i++){
                         html += '<li class="box" classId="'+list[i].course_id+'" left="'+list[i].leftTime+'"><div class="imgBox"><img src="/PCAdmin/img/course/'+list[i].banner+'"></div>' +
                             '<div class="textInfo"><p>'+list[i].course_name+'</p><p class="clearfix">' +
-                            '<span class="fl">课时数：'+list[i].course_hours+'</span><span class="fr">￥'+list[i].price+'</span></p></div></li>';
+                            '<span class="fr">￥'+list[i].price+'</span><span class="fl">剩余课时数：'+list[i].leftTime+'</span></p></div></li>';
                     }
                     $('.classList ul').html(html);
                     $('.classList li.box').click(function() {

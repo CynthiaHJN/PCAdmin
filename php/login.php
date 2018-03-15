@@ -19,9 +19,13 @@ if(!$flag){
     echo json_encode($data);
 }else{
     $password = md5($password);
-    $res = user_login($mobile,$password,$type);
+    $res = user_login2($mobile,$password);
     if($res){
-        $data = array('success'=>$res);
+        if($res==($type+1)){
+            $data = array('success'=>true);
+        }else{
+            $data = array('success'=>false,'errorCode'=>3,'errorMsg'=>'用户名不存在');
+        }
         echo json_encode($data);
     }else{
         $data = array('success'=>false,'errorCode'=>2,'errorMsg'=>'输入的密码不正确');

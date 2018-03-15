@@ -30,7 +30,7 @@ function user_login2($mobile,$password){
     if(get_row($sql)==null){
         return false;
     }
-    return true;
+    return get_row($sql)['user_type']+1;
 }
 // 检查用户是否存在
 function exit_user($mobile){
@@ -156,5 +156,29 @@ function getSomeTeacher($courseType){
 	$sql = "select * from user where user_type=1 and teach_direction like '%$courseType%'";
 	$res = get_datas($sql,2);
 	return $res;
+}
+
+// 修改密码
+function editPassword($mobile,$oldPwd,$newPwd){
+	$sql = "select * from user where mobile = '$mobile'";
+	$res = get_row($sql);
+	$pwd = $res['password'];
+	$oldPwd = md5($oldPwd);
+	$newPwd = md5($newPwd);
+	if($pwd != $oldPwd){
+		return -1;
+	}else{
+		if($oldPwd == $newPwd){
+			return -2;
+		}else{
+			$sql2 = "update user set password = '$newPwd' where mobile = '$mobile'";
+			$flag = insert_datas($sql2);
+			if($flag){
+				return 1;
+			}else{
+				return 0;
+			}
+		}
+	}
 }
 ?>

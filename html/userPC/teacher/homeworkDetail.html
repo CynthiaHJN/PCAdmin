@@ -11,6 +11,7 @@
     <script src="../common/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../common/header.js" ></script>
     <script type="text/javascript" src="/PCAdmin/js/public.js"></script>
+    <script type="text/javascript" src="/PCAdmin/js/template.js"></script>
     <script type="text/javascript" src="teacher.js"></script>
 </head>
 <style>
@@ -26,6 +27,20 @@
         max-width: 1200px;
         margin:0 auto;
         margin-top: 20px;
+    }
+    .homeworkInfo .title{
+        height: 40px;
+        line-height: 40px;
+        font-size: 18px;
+        border-bottom: 1px solid #ddd; 
+        margin-bottom: 20px;
+    }
+    .homeworkInfo .form-group{
+        margin: 10px 0;
+    }
+    .homeworkInfo .form-group label{
+        height:34px;
+        line-height:34px;
     }
 </style>
 <body>
@@ -72,23 +87,63 @@
             </ul>
         </div>
         <div class="col-md-9">
-            <div class="inputList">
-                <div class="name">
-                    <span>课程名称</span>
-                    <select id="leaveCourse">
-                        <option value="-1"></option>
-                    </select>
-                </div>
-                <div class="reason">
-                    <span>作业内容</span>
-                    <textarea rows="5"></textarea>
-                </div>
-                <div class="clearfix">
-                    <button class="submit fr">确认发布</button>
-                </div>
+            <div class="homeworkInfo">
+                <div class="title">查看作业</div>
+                <ul>
+                </ul>
             </div>
         </div>
+        <script id="homeworkItem" type="text/html">
+            <li>
+                <div class="form-group clearfix">
+                    <label class="col-sm-2 control-label">课程名称</label>
+                    <div class="col-sm-8">
+                        <input type="text" data-courseId="{{item.course_id}}" class="form-control course" value="{{item.course_name}}" readonly="readonly">
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="form-group clearfix">
+                    <label class="col-sm-2 control-label">章节名称</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control catalogue" value="{{item.catalogue_content}}" readonly="readonly">
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="form-group clearfix">
+                    <label class="col-sm-2 control-label">作业内容</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control content" rows="5" readonly="readonly">{{item.homework_content}}</textarea>
+                    </div>
+                </div>
+            </li>
+        </script>
     </div>
 </section>
 </body>
+<script>
+var catalogueId = GetQueryString('catalogueId') || '';
+if(catalogueId==''){
+    alert('缺少参数，不能查看该页内容');
+    window.location.href = "../signin.html";
+}
+getInfos(catalogueId);
+function getInfos(catalogueId){
+    $.ajax({
+        url: '/PCAdmin/php/useCatalogueToHomeworkInfo.php',
+        type: 'post',
+        dataType: 'json',
+        data: {
+            catalogueId: catalogueId
+        },
+        success: function(res){
+            if(res.success){
+                var html = template('homeworkItem',{item:res.data});
+                $('.homeworkInfo ul').html(html);
+            }
+        }
+    });
+}
+</script>
 </html>

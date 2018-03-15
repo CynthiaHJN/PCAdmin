@@ -10,6 +10,7 @@
     <script src="../common/jquery-2.1.1.min.js"></script>
     <script src="../common/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../common/header.js" ></script>
+    <script type="text/javascript" src="/PCAdmin/js/template.js"></script>
     <script type="text/javascript" src="student.js"></script>
 </head>
 <style>
@@ -65,6 +66,12 @@
         font-size: 20px;
         color: #999;
     }
+    .classList .class-item ul li p{
+        margin: 0;
+        text-align: center;
+        color: #999;
+        padding: 20px 0;
+    }
 </style>
 <body>
 <header class="site-header">
@@ -105,6 +112,7 @@
                 <li>我要请假</li>
                 <li class="on">课后作业</li>
                 <li>已购课程</li>
+                <li>个人设置</li>
             </ul>
         </div>
         <div class="col-md-9">
@@ -114,119 +122,92 @@
             </ul>
             <div class="contentPart">
                 <ul class="classList">
-                    <!--<li class="class-item">-->
-                        <!--<div class="title">古琴进阶课程</div>-->
-                        <!--<ul class="homeworkList">-->
-                            <!--<li>-->
-                                <!--<div class="content">每天练习古琴乐曲1小时</div>-->
-                                <!--<div class="time">2017-2-2 xxx</div>-->
-                                <!--<button class="finish">确认完成</button>-->
-                            <!--</li>-->
-                            <!--<li>-->
-                                <!--<div class="content">每天练习古琴乐曲1小时</div>-->
-                                <!--<div class="time">2017-2-2 xxx</div>-->
-                                <!--<button class="finish">确认完成</button>-->
-                            <!--</li>-->
-                            <!--<li>-->
-                                <!--<div class="content">每天练习古琴乐曲1小时</div>-->
-                                <!--<div class="time">2017-2-2 xxx</div>-->
-                                <!--<button class="finish">确认完成</button>-->
-                            <!--</li>-->
-                        <!--</ul>-->
-                    <!--</li>-->
+                    <li class="class-item">
+                        <div class="title">古琴进阶课程</div>
+                        <ul class="homeworkList">
+                            <li>
+                                <div class="content">每天练习古琴乐曲1小时</div>
+                                <div class="time">2017-2-2 xxx</div>
+                                <button class="finish">确认完成</button>
+                            </li>
+                            <li>
+                                <div class="content">每天练习古琴乐曲1小时</div>
+                                <div class="time">2017-2-2 xxx</div>
+                                <button class="finish">确认完成</button>
+                            </li>
+                            <li>
+                                <div class="content">每天练习古琴乐曲1小时</div>
+                                <div class="time">2017-2-2 xxx</div>
+                                <button class="finish">确认完成</button>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
+        <script id="homeworkItem" type="text/html">
+            <li class="class-item">
+                <div class="title">{{item.course_name}}</div>
+                <ul class="homeworkList">
+                    {{if item.homework=='[]' || item.homework.length==0}}
+                    <li><p>暂无作业</p></li>
+                    {{/if}}
+                    {{each item.homework as value}}
+                        <li>
+                            <div class="content">{{value.content}}</div>
+                            <div class="time">{{value.create_time}}</div>
+                            {{if value.finish_state==0}}
+                            <button class="finish" data-homeworkId="{{value.homework_id}}">确认完成</button>
+                            {{/if}}
+                        </li>
+                    {{/each}}
+                </ul>
+            </li>
+        </script>
     </div>
 </section>
 </body>
 <script>
     $('.contentPart .classList').html('');
-    getCourse(0,0);
-    getCourse(1,0);
+    getCourse(0);
     $('.subTopNav li').click(function(){
         $('.subTopNav li').removeClass('on');
         $(this).addClass('on');
         var index = $(this).index();
         if(index==0){
             $('.contentPart .classList').html('');
-            getCourse(0,0);
-            getCourse(1,0);
+            getCourse(0);
         }else{
             $('.contentPart .classList').html('');
-            getCourse(0,1);
-            getCourse(1,1);
+            getCourse(1);
         }
     });
-
-    function getCourse(state,flag){
+    function getCourse(state){
         var userId = sessionStorage.getItem('userId');
-//        var userId = 14;
         $.ajax({
-            url:'/PCAdmin/php/orderToCourseInfo.php',
-            type:'post',
-            dataType:'json',
-            async:'false',
-            data:{
-                user_id: userId,
-                state: state
+            url: '/PCAdmin/php/getHomeworkList.php',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                userId:sessionStorage.getItem('userId'),
+                type:0,
+                state:state
             },
-            success:function (res) {
-                if(res.success&&res.list){
-                    var list = res.list;
-                    var html = '';
-                    for(var i=0;i<list.length;i++){
-                        $('.contentPart .classList').append('<li class="class-item '+list[i].course_id+'"><div class="title">'+list[i].course_name+'</div></li>');
-                        var classId = list[i].course_id;
-                        $.ajax({
-                            url: '/PCAdmin/php/getHomeworkList.php',
-                            type: 'post',
-                            async:'false',
-                            dataType: 'json',
-                            data: {
-                                classId: classId,
-                                userId:sessionStorage.getItem('userId'),
-                                type:0
-                            },
-                            success: function(res){
-                                if(res.success){
-                                    if(res.data){
-                                        var list = res.data;
-                                        html+='<ul class="homeworkList">';
-                                        var k=0;
-                                        for(var i=0;i<list.length;i++){
-                                            if(list[i].finish_state==flag){
-                                                k=1;
-                                                if(flag==0){
-                                                    html+='<li><div class="content">'+list[i].content+'</div> <div class="time">'+list[i].create_time+'</div> <button class="finish" homework="'+list[i].homework_id+'">确认完成</button> </li>';
-                                                }
-                                                else{
-                                                    html+='<li><div class="content">'+list[i].content+'</div> <div class="time">'+list[i].create_time+'</div></li>';
-                                                }
-                                            }
-                                        }
-                                        if(k==0){
-                                            html+='<li><div class="content">暂无作业</div></li>';
-                                        }
-                                        html+='</ul>';
-                                        $('.contentPart .classList').find(classId).append(html);
-                                    }
-                                    else{
-                                        html+='<ul class="homeworkList"><li><div class="content">暂无作业</div></li></ul>';
-                                    }
-                                    $('.contentPart .classList .class-item').append(html);
-                                }
-                            }
-                        });
+            success: function(res){
+                if(res.success){
+                    if(res.data&&res.data.length>0){
+                        var list = res.data;
+                        for(var i=0;i<list.length;i++){
+                            var html = template('homeworkItem',{item: list[i]});
+                            $('.contentPart .classList').append(html);
+                        }
                     }
-                }else{
-                    $('.contentPart .classList').html('<p class="tipMsg">暂无作业</p>');
                 }
             }
-        });
+        })
     }
     $(document).delegate('.contentPart .classList button','click',function () {
-       var homework_id = $(this).attr('homework');
+       var homework_id = $(this).attr('data-homeworkId');
        $.ajax({
            url: '/PCAdmin/php/finishHomework.php',
            type: 'post',

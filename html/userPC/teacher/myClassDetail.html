@@ -253,7 +253,7 @@
                         var html = '<h3>课程目录</h3>';
                         for(var i=0;i<list.length;i++){
                             if(list[i].has_homework){
-                                html += '<p class="clearfix">课时'+list[i].sort_line+'：'+list[i].content+'<button data-catalogueId="list[i].id" class="fr homeworkBtn hadHomework">查看作业</button></p>';
+                                html += '<p class="clearfix">课时'+list[i].sort_line+'：'+list[i].content+'<button data-catalogueId="'+list[i].id+'" class="fr homeworkBtn hadHomework">查看作业</button></p>';
                             }else{
                                 html += '<p class="clearfix">课时'+list[i].sort_line+'：'+list[i].content+'<button data-catalogueId="'+list[i].id+'" class="fr homeworkBtn noHomework">添加作业</button></p>';
                             }
