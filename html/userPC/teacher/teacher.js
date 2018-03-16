@@ -20,6 +20,9 @@ $(function () {
         else if(index==4){
             window.location.href = 'myClass.html';
         }
+        else if(index==5){
+            window.location.href = 'personalSet.html';
+        }
    });
 
 });

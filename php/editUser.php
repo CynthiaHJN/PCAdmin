@@ -10,13 +10,21 @@ $name =  $_POST['name'];
 $sex = $_POST['sex'];
 $age = $_POST['age'];
 if($type==0){
-	$userInfo = array('id'=>$id,'name' => $name,'sex'=>$sex,'age'=>$age,'type'=>$type);
-}else{
+	$userInfo = array('id'=>$id,'name' => $name,'sex'=>$sex,'age'=>$age);
+}else if($type==1){
 	$rank = $_POST['rank'];
 	$direction = $_POST['direction'];
-	$userInfo = array('id'=>$id,'name' => $name,'sex'=>$sex,'age'=>$age,'rank'=>$rank,'direction'=>$direction,'type'=>$type);
+	$userInfo = array('id'=>$id,'name' => $name,'sex'=>$sex,'age'=>$age,'teacher_rank'=>$rank,'teach_direction'=>$direction);
+}else if($type==2){
+	$shortIntro = $_POST['shortIntro'];
+	$userInfo = array('id'=>$id,'name' => $name,'sex'=>$sex,'age'=>$age,'short_intro'=>$shortIntro);
+}else if($type==3){
+	$rank = $_POST['rank'];
+	$direction = $_POST['direction'];
+    $shortIntro = $_POST['shortIntro'];
+    $userInfo = array('id'=>$id,'name' => $name,'sex'=>$sex,'age'=>$age,'teacher_rank'=>$rank,'teach_direction'=>$direction,'short_intro'=>$shortIntro);
 }
-$res = editUser($userInfo);
+$res = editUserInfo($userInfo);
 if($res==1){
 	$data = array('success' => true);
 	echo json_encode($data);

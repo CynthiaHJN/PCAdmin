@@ -135,22 +135,59 @@ function getUserInfo($id){
 	return $res;
 }
 
-function editUser($item){
+// function editUser($item){
+// 	$id = $item['id'];
+// 	$type = $item['type'];
+// 	$name = $item['name'];
+// 	$sex = $item['sex'];
+// 	$age = $item['age'];
+// 	if($type==0){
+// 		$sql = "update user set name = '$name', sex = $sex, age = $age where user_id = $id";
+// 	}else{
+// 		$rank = $item['rank'];
+// 		$direction = $item['direction'];
+// 		$sql = "update user set name = '$name', sex = $sex, age = $age, teacher_rank = '$rank', teach_direction = '$direction' where user_id = $id";
+// 	}
+//  	$flag = insert_datas($sql);
+// 	return $flag;
+// }
+
+function editUserInfo($item){
 	$id = $item['id'];
-	$type = $item['type'];
-	$name = $item['name'];
-	$sex = $item['sex'];
-	$age = $item['age'];
-	if($type==0){
-		$sql = "update user set name = '$name', sex = $sex, age = $age where user_id = $id";
-	}else{
-		$rank = $item['rank'];
-		$direction = $item['direction'];
-		$sql = "update user set name = '$name', sex = $sex, age = $age, teacher_rank = '$rank', teach_direction = '$direction' where user_id = $id";
-	}
- 	$flag = insert_datas($sql);
+	$sql = 'update user set '.array_to_sql($item,'update',array('id')).' where user_id='.$id;
+	// echo $sql;
+	$flag = insert_datas($sql);
 	return $flag;
 }
+
+
+function array_to_sql($array, $type='insert', $exclude = array()){
+     
+    $sql = '';
+    if(count($array) > 0){
+      foreach ($exclude as $exkey) {
+        unset($array[$exkey]);//剔除不要的key
+      }
+ 
+      if('insert' == $type){
+        $keys = array_keys($array);
+        $values = array_values($array);
+        $col = implode("`, `", $keys);
+        $val = implode("', '", $values);
+        $sql = "(`$col`) values('$val')";
+      }else if('update' == $type){
+        $tempsql = '';
+        $temparr = array();
+        foreach ($array as $key => $value) {
+          $tempsql = "$key = '$value'";
+          $temparr[] = $tempsql;
+        }
+ 
+        $sql = implode(",", $temparr);
+      }
+    }
+    return $sql;
+  }
 
 function getSomeTeacher($courseType){
 	$sql = "select * from user where user_type=1 and teach_direction like '%$courseType%'";
