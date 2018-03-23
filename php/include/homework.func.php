@@ -22,7 +22,6 @@ function getHomeworkList($userId,$type,$state){
             }
         }
         return json_encode($res);
-        // $sql = "select * from homework where class_id='$classId' and student_id='$userId'";
     }else{
         $sql = "select * from homework where class_id='$classId' and teacher_id='$userId'";
         return get_datas($sql,2);

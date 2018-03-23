@@ -29,8 +29,6 @@ function getCompositionList($limit,$page){
 	$res = get_datas($sql2,2);
 	$arr = array('list'=>json_decode($res),'totalPage'=>$totalPage,'totalSize'=>$totalSize,'currentPage'=>$page);
 	return json_encode($arr);
-	// $sql = "select * from article where type=1 and state=0";
-	// return get_datas($sql,2);
 }
 function getInstrumentList($limit,$page){
 	$sql = "select count(*) as totalSize from article where type=2 and state=0";

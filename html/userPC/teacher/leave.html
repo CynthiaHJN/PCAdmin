@@ -27,6 +27,17 @@
         margin:0 auto;
         margin-top: 20px;
     }
+    div.noData{
+        text-align: center;
+        padding: 100px 0;
+        font-size: 20px;
+        color: #999;
+    }
+    .dataList {margin-top: 30px;}
+    .dataList li{height: 60px;line-height: 60px;background: #fff;padding: 0 20px;border-radius: 5px;margin-bottom: 10px;}
+    .dataList  li div.fl img{width: 50px;border-radius: 50%;margin-right: 20px;}
+    .dataList  li div.fr button{margin-left: 20px;}
+    .nextClassTime{margin-left: 20px;color: #de5f55}
 </style>
 <body>
 <header class="site-header">
@@ -64,7 +75,7 @@
     <div class="row">
         <div class="col-md-3 personalNav">
             <ul>
-                <li>我的课表</li>
+                <!-- <li>我的课表</li> -->
                 <li>我的消息</li>
                 <li class="on">请假调课</li>
                 <li>课程目录</li>
@@ -73,11 +84,58 @@
             </ul>
         </div>
         <div class="col-md-9">
-            <ul>
-                <li class=""></li>
+            <ul class="subTopNav">
+                <li class="on">你的调课列表</li>
             </ul>
+            <ul class="dataList">
+                <li class="clearfix">
+                    <div class="fl">
+                        <img src="/PCAdmin/img/avatar/moren.jpg">
+                        <span>'+list[i].username+'</span>
+                        <span class="nextClassTime">安排的上课时间：'+list[i].leftTime+'</span>
+                    </div>
+                    <div class="fr">
+                        <button data-orderId="'+list[i].order_id+'" data-studentId="'+list[i].user_id+'" class="btn btn-success">请假调课</button>
+                    </div>
+                </li>
+            </ul>
+            <div class="noData none">暂时没有可以请假调课的课程哦~</div>
         </div>
     </div>
 </section>
 </body>
+<script type="text/javascript">
+    function getStudentList(courseId){
+        $.ajax({
+            url: '/PCAdmin/php/teacherGetStudentList.php',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                courseId: courseId
+            },
+            success: function(res){
+                if(res.success){
+                    if(res.data&&res.data.length>0){
+                        var list = res.data;
+                        var html = '';
+                        var flag =0;
+                        for(var i=0;i<list.length;i++){
+                            if(list[i].has_class==1){
+                                flag=1;
+                                html+='<li class="clearfix"><div class="fl"><img src="/PCAdmin/img/avatar/moren.jpg"><span>'+list[i].username+'</span><span class="nextClassTime">上次上课时间：'+list[i].class_time+'</span></div><div class="fr"><span>剩余课时数：'+list[i].leftTime+'</span><button data-orderId="'+list[i].order_id+'" data-studentId="'+list[i].user_id+'" class="btn btn-success">请假调课</button></div></li>';                        
+                            }
+                        }
+                        if(flag){
+                            $('.dataList').html(html);
+                        }else{
+                            $('.noData').show();
+                        }
+                    }
+                }else{
+                    $('.noData').show();
+                }
+            }
+        });
+    }
+</script>
 </html>

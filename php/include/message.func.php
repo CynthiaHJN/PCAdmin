@@ -38,4 +38,11 @@ function deleteMsg($msgId){
     $flag = insert_datas($sql);
     return $flag;
 }
-?>
+
+function sendMessage($send_id,$receive_id,$reason,$title,$type){
+    $publish_time = date("y-m-d h:i:s");
+    $sql = "insert into message (send_id,receive_id,publish_time,title,content,type,state) values ('$send_id','$receive_id','$publish_time','$title','$reason','$type','0')";
+    $flag = insert_datas($sql);
+    return $flag;
+}
+?> 

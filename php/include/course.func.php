@@ -93,4 +93,36 @@ function getTeacherCourseList($userId,$type){
 	}
 	return get_datas($sql,2);
 }
+
+function teacherGetStudentList($courseId){
+	$sql = "select * from orders where class_id = '$courseId'";
+	$res = json_decode(get_datas($sql,2));
+	if(is_array($res)){
+        foreach($res as $item){
+            $userId = $item->user_id;
+            $sql2 = "select * from user where user_id = '$userId'";
+            $student = get_row($sql2);
+            $item->username = $student['name'];
+            $item->avatar = $student['avatar'];
+        }
+    }
+    return $res;
+}
+
+function arrangeCourseTime($orderId,$datetime){
+	$sql = "update orders set has_class='1', class_time='$datetime' where order_id='$orderId'";
+	$res = insert_datas($sql);
+	return $res;
+}
+
+function finishArrangeCourse($orderId){
+	$sql = "update orders set has_class='0' where order_id='$orderId'";
+	$res = insert_datas($sql);
+	return $res;
+}
+function cancelArrangeCourse($orderId){
+	$sql = "update orders set has_class='0', class_time=null where order_id='$orderId'";
+	$res = insert_datas($sql);
+	return $res;
+}
 ?>

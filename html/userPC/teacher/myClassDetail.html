@@ -15,96 +15,28 @@
     <script type="text/javascript" src="teacher.js"></script>
 </head>
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-    }
-    .site-header{
-        min-height: 80px;
-    }
-    section{
-        padding: 0 10px;
-        max-width: 1200px;
-        margin:0 auto;
-        margin-top: 20px;
-    }
-    .topCon {
-        display: flex;
-        height: 300px;
-        padding: 20px;
-        background: #F2F2F2;
-    }
-    .topCon .img {
-        flex: 1;
-    }
-    .topCon .img img {
-        width: 100%;
-        height: 100%;
-    }
-    .topCon .intro {
-        flex: 0 65%;
-        padding-left: 20px;
-    }
-    .topCon .intro .name {
-        font-size: 20px;
-        font-weight: 700;
-        padding-top: 30px;
-        padding-bottom: 20px;
-    }
-    .topCon .intro div:nth-child(2) {
-        padding-bottom: 20px;
-    }
-    .topCon .intro div:nth-child(2) span {
-        margin-right: 10px;
-    }
-    .topCon .intro div:nth-child(2) span {
-        margin-right: 10px;
-    }
-    .topCon .intro .price {
-        padding-bottom: 20px;
-        font-size: 20px;
-        /* font-weight: 700; */
-    }
-    .topCon .intro .book {
-        padding: 5px 15px;
-        border: 0;
-        color: #FFFFFF;
-        background: #BDB76B;
-    }
-    .classMenu {
-        background: #e5e5e5;
-    }
-    .classMenu ul {
-        display: flex;
-        flex-direction: row;
-        padding: 10px 20px;
-    }
-    .classMenu ul li.hover {
-        background: #122B40;
-        color: #fff;
-    }
-    .classMenu ul li {
-        margin-right: 15px;
-        padding: 5px 10px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    .contentPart .content {
-        background: #F2F2F2;
-        padding: 20px;
-    }
-    .homeworkBtn{
-        background: #b9b7b2;
-        border: 0;
-        padding: 3px 5px;
-        border-radius: 3px;
-    }
-    .hadHomework{
-        color: #18901d;
-    }
-    .noHomework{
-        color: #cd3245;
-    }
+    * {margin: 0;padding: 0;}
+    .site-header{min-height: 80px;}
+    section{padding: 0 10px;max-width: 1200px;margin:0 auto;margin-top: 20px;}
+    .topCon {display: flex;height: 300px;padding: 20px;background: #F2F2F2;}
+    .topCon .img {flex: 1;}
+    .topCon .img img {width: 100%;height: 100%;}
+    .topCon .intro {flex: 0 65%;padding-left: 20px;}
+    .topCon .intro .name {font-size: 20px;font-weight: 700;padding-top: 30px;padding-bottom: 20px;}
+    .topCon .intro div:nth-child(2) {padding-bottom: 20px;}
+    .topCon .intro div:nth-child(2) span {margin-right: 10px;}
+    .topCon .intro div:nth-child(2) span {margin-right: 10px;}
+    .topCon .intro .price {padding-bottom: 20px;font-size: 20px;}
+    .topCon .intro .book {padding: 5px 15px;border: 0;color: #FFFFFF;background: #BDB76B;}
+    .classMenu {background: #e5e5e5;}
+    .classMenu ul {display: flex;flex-direction: row;padding: 10px 20px;}
+    .classMenu ul li.hover {background: #122B40;color: #fff;}
+    .classMenu ul li {margin-right: 15px;padding: 5px 10px;border-radius: 5px;cursor: pointer;}
+    .contentPart .content {background: #F2F2F2;padding: 20px;}
+    .studentList li{height: 60px;line-height: 60px;background: #fff;padding: 0 20px;border-radius: 5px;margin-bottom: 10px;}
+    .studentList  li div.fl img{width: 50px;border-radius: 50%;margin-right: 20px;}
+    .studentList  li div.fr button{margin-left: 20px;}
+    .nextClassTime{margin-left: 20px;color: #de5f55}
 </style>
 <body>
 <header class="site-header">
@@ -135,12 +67,11 @@
         <li class="showName"><a href="home.html" class="active">Cynthia</a></li>
     </ul>
 </div>
-
 <section>
     <div class="row">
         <div class="col-md-3 personalNav">
             <ul>
-                <li>我的课表</li>
+                <!-- <li>我的课表</li> -->
                 <li>我的消息</li>
                 <li>请假调课</li>
                 <li>课程目录</li>
@@ -152,6 +83,37 @@
         </div>
     </div>
 </section>
+<div class="alertBk none"></div>
+<div class="alertMain none">
+    <div class="dateChoosePart">
+        <p class="title">请选择上课日期：</p>
+        <p class="tip">注意：只能选择后面七天的时间</p>
+        <ul class="dateList">
+        </ul>
+        <div class="clearfix">
+            <button class="fl btn btn-warning closeBtn">关闭</button>
+            <button class="fr btn nextTab">下一步</button>
+        </div>
+    </div>
+    <div class="timeChoosePart none">
+        <p class="title">请选择上课具体时间：</p>
+        <p class="tip">注意：只能选择规定时间端的时间</p>
+        <ul class="timeList">
+            <li data-time="08:00:00">08:00</li>
+            <li data-time="09:00:00">09:00</li>
+            <li data-time="10:00:00">10:00</li>
+            <li data-time="13:00:00">13:00</li>
+            <li data-time="14:00:00">14:00</li>
+            <li data-time="15:00:00">15:00</li>
+            <li data-time="19:00:00">19:00</li>
+            <li data-time="20:00:00">20:00</li>
+        </ul>
+        <div class="clearfix">
+            <button class="fl btn btn-warning closeBtn">关闭</button>
+            <button class="fr btn confirmTime">确认安排</button>
+        </div>
+    </div>
+</div>
 <script id="courseDetail" type="text/html">
     <div class="courseDetail">
         <div class="topCon">
@@ -168,7 +130,7 @@
             <ul>
                 <li class="hover">介绍</li>
                 <li>目录</li>
-                <!-- <li>作业</li> -->
+                <li>学生名单</li>
             </ul>
         </div>
         <div class="content">
@@ -178,13 +140,16 @@
         <div class="content none">
             <h3>课程目录</h3>
         </div>
-    <!--     <div class="content none">
-            <h3>课程作业</h3>
-        </div> -->
+        <div class="content none">
+            <h3>学生名单</h3>
+            <ul class="studentList">
+            </ul>
+        </div>
     </div>
 </script>
 </body>
 <script>
+    initDateList();
     var courseId = GetQueryString('courseId');
     getCourseInfo();
     function getCourseInfo(){
@@ -226,11 +191,11 @@
                                     $('.courseDetail .content').addClass('none');
                                     $('.courseDetail .content:eq(1)').removeClass('none');
                                 }
-                                // else if(index==2){
-                                //     getHomeworkList();
-                                //     $('.courseDetail .content').addClass('none');
-                                //     $('.courseDetail .content:eq(2)').removeClass('none');
-                                // }
+                                else if(index==2){
+                                    getStudentList(courseId)
+                                    $('.courseDetail .content').addClass('none');
+                                    $('.courseDetail .content:eq(2)').removeClass('none');
+                                }
                             });
                         }
                     });
@@ -254,9 +219,9 @@
                         var html = '<h3>课程目录</h3>';
                         for(var i=0;i<list.length;i++){
                             if(list[i].has_homework){
-                                html += '<p class="clearfix">课时'+list[i].sort_line+'：'+list[i].content+'<button data-catalogueId="'+list[i].id+'" class="fr homeworkBtn hadHomework">查看作业</button></p>';
+                                html += '<p class="clearfix" style="line-height:34px;">课时'+list[i].sort_line+'：'+list[i].content+'<button data-catalogueId="'+list[i].id+'" class="fr btn hadHomework btn-warning">查看作业</button></p>';
                             }else{
-                                html += '<p class="clearfix">课时'+list[i].sort_line+'：'+list[i].content+'<button data-catalogueId="'+list[i].id+'" class="fr homeworkBtn noHomework">添加作业</button></p>';
+                                html += '<p class="clearfix" style="line-height:34px;">课时'+list[i].sort_line+'：'+list[i].content+'<button data-catalogueId="'+list[i].id+'" class="fr btn noHomework btn-success">添加作业</button></p>';
                             }
                         }
                         $('.courseDetail .content:eq(1)').html(html);
@@ -269,7 +234,106 @@
         });
     }
 
-    $(document).delegate('.courseDetail .content:eq(1) .homeworkBtn','click',function () {
+
+    function getStudentList(courseId){
+        $.ajax({
+            url: '/PCAdmin/php/teacherGetStudentList.php',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                courseId: courseId
+            },
+            success: function(res){
+                if(res.success){
+                    if(res.data&&res.data.length>0){
+                        var list = res.data;
+                        var html = '';
+                        for(var i=0;i<list.length;i++){
+                            if(list[i].has_class==0){
+                                if(list[i].class_time){
+                                    html+='<li class="clearfix"><div class="fl"><img src="/PCAdmin/img/avatar/moren.jpg"><span>'+list[i].username+'</span><span class="nextClassTime">上次上课时间：'+list[i].class_time+'</span></div><div class="fr"><span>剩余课时数：'+list[i].leftTime+'</span><button data-orderId="'+list[i].order_id+'" data-studentId="'+list[i].user_id+'" class="btn btn-success">安排上课</button></div></li>';
+                                }else{
+                                    html+='<li class="clearfix"><div class="fl"><img src="/PCAdmin/img/avatar/moren.jpg"><span>'+list[i].username+'</span><span class="nextClassTime">暂无课程安排</span></div><div class="fr"><span>剩余课时数：'+list[i].leftTime+'</span><button data-orderId="'+list[i].order_id+'" data-studentId="'+list[i].user_id+'" class="btn btn-success">安排上课</button></div></li>';
+                                }
+                            }else{
+                                var nowDate = getNowFormatDate();
+                                var classDate = list[i].class_time.split(' ')[0];
+                                if(nowDate<classDate){
+                                    html+='<li class="clearfix"><div class="fl"><img src="/PCAdmin/img/avatar/moren.jpg"><span>'+list[i].username+'</span><span class="nextClassTime">下次上课时间：'+list[i].class_time+'</span></div><div class="fr"><span>剩余课时数：'+list[i].leftTime+'</span><button data-orderId="'+list[i].order_id+'" data-studentId="'+list[i].user_id+'" class="btn btn-warning">取消上课</button></div></li>';
+                                }else{
+                                    html+='<li class="clearfix"><div class="fl"><img src="/PCAdmin/img/avatar/moren.jpg"><span>'+list[i].username+'</span><span class="nextClassTime">本次上课时间：'+list[i].class_time+'</span></div><div class="fr"><span>剩余课时数：'+list[i].leftTime+'</span><button data-orderId="'+list[i].order_id+'" data-studentId="'+list[i].user_id+'" class="btn btn-primary">完成课程</button></div></li>';
+                                }
+                            }
+                        }
+                        $('.courseDetail .content:eq(2) .studentList').html(html);
+                    }
+                }else{
+                    $('.courseDetail .content:eq(2) .studentList').html('<p>暂无购买该门课程的学生</p>');
+                }
+            }
+        });
+    }
+
+    //  通知上课
+    $(document).delegate('.courseDetail .content:eq(2) button.btn-success','click',function(){
+        var orderId = $(this).attr('data-orderId');
+        var studentId = $(this).attr('data-studentId');
+        $('.alertMain').attr('data-orderId',orderId);
+        $('.alertMain').attr('data-studentId',studentId);
+        $('.alertBk').show();
+        $('.alertMain').show();
+    });
+
+    //  取消上课
+    $(document).delegate('.courseDetail .content:eq(2) button.btn-warning','click',function(){
+        var orderId = $(this).attr('data-orderId');
+        var studentId = $(this).attr('data-studentId');
+        $.ajax({
+            url: '/PCAdmin/php/cancelArrangeCourse.php',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                orderId: orderId,
+                teacherId: sessionStorage.getItem('userId'),
+                studentId: studentId,
+                messageCnt: '您好，你的《'+$('.courseDetail .intro .name').html()+'》课程老师由于个人原因取消了下一课时的上课安排，请您谅解，他会尽快为您安排新的上课时间的'
+            },
+            success: function(res){
+                if(res.success){
+                    getStudentList(courseId);
+                }else{
+                    alert('取消失败');
+                }
+            }
+        });
+    });
+
+    //  完成课程
+    $(document).delegate('.courseDetail .content:eq(2) button.btn-primary','click',function(){
+        var orderId = $(this).attr('data-orderId');
+        var studentId = $(this).attr('data-studentId');
+        $.ajax({
+            url: '/PCAdmin/php/finishArrangeCourse.php',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                orderId: orderId,
+                teacherId: sessionStorage.getItem('userId'),
+                studentId: studentId,
+                messageCnt: '你的《'+$('.courseDetail .intro .name').html()+'》已完成一次课时哦，具体课程进度请前往课程详情查看，如有错误请联系老师哦'
+            },
+            success: function(res){
+                if(res.success){
+                    getStudentList(courseId);
+                }else{
+                    alert('设置完成失败，请稍后再试');
+                }
+            }
+        });
+    });
+
+    //  作业
+    $(document).delegate('.courseDetail .content:eq(1) button','click',function () {
        var catalogue_id = $(this).attr('data-catalogueId');
        console.log(catalogue_id); 
        if($(this).hasClass('noHomework')){
@@ -278,5 +342,87 @@
             window.location.href = "homeworkDetail.html?catalogueId="+catalogue_id;
        }
     });
+
+    function initDateList(){
+        var date = new Date();
+        var html = '';
+        for (var i = 1; i <= 7; i++) {
+            date.setDate(date.getDate() + 1);
+            var weekDay = ['日','一','二','三','四','五','六'];
+            var str = date.getDay();
+            var month = ('00'+ (date.getMonth()+1)).slice(-2);
+            showDate = date.getFullYear() + '-' + month + '-' + date.getDate();
+            chiDate = (date.getMonth() + 1) + '月' + date.getDate() +'日';
+            html+='<li data-datetime="'+showDate+'">'+chiDate+'(周'+weekDay[str]+')</li>';
+        }
+        $('.alertMain .dateChoosePart .dateList').html(html);
+    }
+
+
+    //  日期选择弹窗工作
+    $('.alertMain .dateChoosePart .dateList li').click(function(){
+        var $this = $(this);
+        if($this.hasClass('choose')){
+            return;
+        }
+        $('.alertMain .dateChoosePart button').addClass('btn-primary');
+        $this.addClass('choose').siblings().removeClass('choose');
+    });
+    $('.alertMain .timeChoosePart .timeList li').click(function(){
+        var $this = $(this);
+        if($this.hasClass('choose')){
+            return;
+        }
+        $('.alertMain .timeChoosePart button').addClass('btn-primary');
+        $this.addClass('choose').siblings().removeClass('choose');
+    });
+    $('.nextTab').click(function(){
+        if(!$(this).hasClass('btn-primary')){
+            return;
+        }
+        $('.alertMain .dateChoosePart').hide();
+        $('.alertMain .timeChoosePart').show();
+    });
+    $('.confirmTime').click(function(){
+        if(!$(this).hasClass('btn-primary')){
+            return;
+        }
+        var date = $('.alertMain .dateChoosePart .dateList li.choose').attr('data-datetime');
+        var time = $('.alertMain .timeChoosePart .timeList li.choose').attr('data-time');
+        var datetime = date+' '+time;
+        $.ajax({
+            url: '/PCAdmin/php/arrangeCourseTime.php',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                orderId: $('.alertMain').attr('data-orderId'),
+                datetime: datetime,
+                teacherId: sessionStorage.getItem('userId'),
+                studentId: $('.alertMain').attr('data-studentId'),
+                messageCnt: '您好，你的《'+$('.courseDetail .intro .name').html()+'》课程老师为您安排了下一课时的上课时间，上课时间为'+datetime+',请准时到达哦'
+            },
+            success: function(res){
+                if(res.success){
+                    $('.alertBk').hide();
+                    $('.alertMain').hide();
+                    getStudentList(courseId);
+                }else{
+                    $('.alertBk').hide();
+                    $('.alertMain').hide();
+                    alert('安排失败');
+                }
+            }
+        });
+    });
+    $('.closeBtn').click(function(){
+        $('.alertBk').hide();
+        $('.alertMain').hide();
+    });
+    function getNowFormatDate(){
+        var date = new Date();
+        var month = ('00'+ (date.getMonth()+1)).slice(-2);
+        showDate = date.getFullYear() + '-' + month + '-' + date.getDate();
+        return showDate;
+    }
 </script>
 </html>

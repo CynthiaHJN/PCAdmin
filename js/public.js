@@ -213,9 +213,9 @@ function getUserId(mobile,type){
                 sessionStorage.setItem('userId',res.data.user_id);
                 sessionStorage.setItem('name',res.data.name);
                 if(type==0){
-                    window.location.href="/PCAdmin/html/userPC/student/home.html";
+                    window.location.href="/PCAdmin/html/userPC/student/myClass.html";
                 }else{
-                    window.location.href="/PCAdmin/html/userPC/teacher/home.html";
+                    window.location.href="/PCAdmin/html/userPC/teacher/myClass.html";
                 }
             }
         }
