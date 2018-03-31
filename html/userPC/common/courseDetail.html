@@ -72,7 +72,7 @@
 						<span>老师: {{item.teacher_name}}</span>
 					</div>
 					<div class="price">￥{{item.price/item.course_hours}}/课时</div>
-					<button class="book">立即报名</button>
+					<button data-courseHours="{{item.course_hours}}" class="book">立即报名</button>
 				</div>
 			</div>
 			<div class="classMenu">
@@ -90,6 +90,19 @@
 				<p>{{item.short_intro}}</p>
 			</div>
 		</script>
+
+		<div class="alertBk none"></div>
+		<div class="alertMain none">
+			<div class="dateChoosePart">
+				<p class="title">请选择上课日期：</p>
+				<!--<p class="tip"></p>-->
+				<div class="content"></div>
+				<div class="clearfix">
+					<button class="fl btn btn-warning closeBtn">关闭</button>
+					<button class="fr btn nextTab">下一步</button>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
 <script>
@@ -102,10 +115,28 @@
 		$(document).delegate('.contentPart .book','click',function(){
 			var userId = sessionStorage.getItem('userId');
 			var userType = sessionStorage.getItem('user_type');
+			//	1.先判断是否登录
 			if(userId==''||userType==''||userType!=0){
 				window.location.href = "/PCAdmin/html/userPC/signin.html";
 				return;
 			}
+			$.ajax({
+				url: '/PCAdmin/php/purchaseCourse.php',
+				type: 'post',
+				dataType: 'json',
+				data: {
+				    userId: sessionStorage.getItem('userId'),
+					courseId: courseId,
+					courseHours: $(this).attr('data-courseHours')
+				},
+				success: function(res){
+					if(res.success){
+
+					}else{
+
+					}
+				}
+			});
 			console.log(userId+' '+userType);
 		});
 	});

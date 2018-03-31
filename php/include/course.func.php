@@ -161,4 +161,18 @@ function submitLeave($orderId){
     $flag = insert_datas($sql);
 	return $flag;
 }
+
+// 判断用户是否购买过该课程
+function ifPurchase($userId,$courseId){
+    $sql = "select * from orders where class_id = '$courseId' and user_id = '$userId'";
+    $flag = get_datas($sql,1);
+    return $flag;
+}
+
+function purchaseCourse($userId,$courseId,$courseHours){
+    $createTime = date('Y-m-d h:i:s');
+    $sql = "insert into orders (class_id,user_id,create_time,state,leftTime,has_class) values ('$courseId','$userId','$createTime',0,'$courseHours',0)";
+    $flag = insert_datas($sql);
+    return $flag;
+}
 ?>
