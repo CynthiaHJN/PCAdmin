@@ -5,13 +5,13 @@ define('IN_TG', true);
 //引入
 require dirname(__FILE__).'/include/common.inc.php';
 $orderId = $_POST['orderId'];
+$datetime = $_POST['datetime'];
 $teacherId = $_POST['teacherId'];
 $studentId = $_POST['studentId'];
 $messageCnt = $_POST['messageCnt'];
-$leftTime = $_POST['leftTime']-1;
-$res = finishArrangeCourse($orderId,$leftTime);
+$res = modifyArrangeCourseTime($orderId,$datetime);
 if($res){
-	$res = sendMessage($teacherId,$studentId,$messageCnt,'取消上课通知',3);
+	$res = sendMessage($teacherId,$studentId,$messageCnt,'修改上课时间通知',4);
 	$arr = array('success' => true);
 }else{
 	$arr = array('success' => false);

@@ -12,6 +12,8 @@
 		<script src="bootstrap/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="idangerous.swiper.js" ></script>
 		<script type="text/javascript" src="header.js" ></script>
+		<script type="text/javascript" src="/PCAdmin/js/template.js"></script>
+		<script type="text/javascript" src="/PCAdmin/js/public.js"></script>
 	</head>
 	<style>
 		* {
@@ -57,15 +59,19 @@
 			<div class="btn clearfix">
 				<button class="bak fl">返回</button>
 			</div>
+			<div class="contentPart">	
+			</div>
+		</section>
+		<script id="courseDetail" type="text/html">
 			<div class="topCon">
 				<div class="img"><img src="image/bannerClass5.jpg"></div>
 				<div class="intro">
-					<div class="name">基础乐理教程</div>
+					<div class="name">{{item.course_name}}</div>
 					<div>
 						<span>报名人数: 2/10</span>
-						<span>老师: 王意义</span>
+						<span>老师: {{item.teacher_name}}</span>
 					</div>
-					<div class="price">￥100/课时</div>
+					<div class="price">￥{{item.price/item.course_hours}}/课时</div>
 					<button class="book">立即报名</button>
 				</div>
 			</div>
@@ -81,13 +87,59 @@
 				<h3>适用人群</h3>
 				<p>所有人</p>
 				<h3>课程概述</h3>
-				<p>本课程为系列乐理教程，涵盖节奏、认识钢琴键盘、C大调、音程、和弦、五度循环圈、音级、自然大小调、等等全方位的讲解乐理知识，零基础也可轻松易懂，快来和阳光老师一起学习吧！</p>
+				<p>{{item.short_intro}}</p>
 			</div>
-		</section>
+		</script>
 	</body>
 </html>
 <script>
-	$('.bak').click(function(){
-		window.history.go(-1);
-	})
+	var courseId = GetQueryString('courseId');
+	$(function(){
+		getCourseInfo(courseId);
+		$('.bak').click(function(){
+			window.history.go(-1);
+		});
+		$(document).delegate('.contentPart .book','click',function(){
+			var userId = sessionStorage.getItem('userId');
+			var userType = sessionStorage.getItem('user_type');
+			if(userId==''||userType==''||userType!=0){
+				window.location.href = "/PCAdmin/html/userPC/signin.html";
+				return;
+			}
+			console.log(userId+' '+userType);
+		});
+	});
+	
+	function getCourseInfo(courseId){
+		$.ajax({
+            url:'/PCAdmin/php/getCourseInfo.php',
+            type:'post',
+            dataType:'json',
+            data: {
+                id: courseId
+            },
+            success: function(res){
+                if(res.success){
+                    var item = res.data;
+                    $.ajax({
+                        url:'/PCAdmin/php/getUserInfo.php',
+                        type: 'post',
+                        dataType:'json',
+                        aysnc: 'false',
+                        data: {
+                            id: item.teacher_id
+                        },
+                        success: function(result){
+                            if(result.success){
+                                item.teacher_name = result.data.name;
+                                item.teacher_rank = result.data.teacher_rank;
+                                var html = template('courseDetail',{item:item});
+                                $('.contentPart').append(html);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+	}
 </script>

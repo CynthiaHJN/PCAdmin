@@ -50,7 +50,7 @@
                 <li><a href="../common/aboutUs.html">关于我们</a></li>
                 <li class="none"><button class="btn btn-log">登陆</button></li>
                 <li class="none"><button class="btn btn-log">注册</button></li>
-                <li class="showName"><a href="home.html" class="active">Cynthia</a></li>
+                <li class="showName"><a href="myClass.html" class="active">Cynthia</a></li>
             </ul>
             <div class="listNav"><i class="fa fa-bars"></i></div>
         </nav>
@@ -64,7 +64,7 @@
         <li><a href="../common/aboutUs.html">关于我们</a></li>
         <li class="none"><button class="btn btn-log">登陆</button></li>
         <li class="none"><button class="btn btn-log">注册</button></li>
-        <li class="showName"><a href="home.html" class="active">Cynthia</a></li>
+        <li class="showName"><a href="myClass.html" class="active">Cynthia</a></li>
     </ul>
 </div>
 <section>
@@ -111,10 +111,14 @@
         <div class="clearfix">
             <button class="fl btn btn-warning closeBtn">关闭</button>
             <button class="fr btn confirmTime">确认安排</button>
+            <button class="fr btn btn-primary preTab">上一步</button>
         </div>
     </div>
 </div>
 <script id="courseDetail" type="text/html">
+    <div class="row clearfix" style="margin: 10px 0 20px 0;">
+        <button class="fl btn btn-primary goBack" style="background:#cdc9a5;border:0">返回</button>
+    </div>
     <div class="courseDetail">
         <div class="topCon">
             <div class="img"><img src="/PCAdmin/img/course/{{item.banner}}"></div>
@@ -249,6 +253,10 @@
                         var list = res.data;
                         var html = '';
                         for(var i=0;i<list.length;i++){
+                            if(list[i].leftTime==0){
+                                html+='<li class="clearfix"><div class="fl"><img src="/PCAdmin/img/avatar/moren.jpg"><span>'+list[i].username+'</span><span class="nextClassTime">上次上课时间：'+list[i].class_time+'</span></div><div class="fr"><span>已完成全部课时</span></div></li>';
+                                continue;
+                            }
                             if(list[i].has_class==0){
                                 if(list[i].class_time){
                                     html+='<li class="clearfix"><div class="fl"><img src="/PCAdmin/img/avatar/moren.jpg"><span>'+list[i].username+'</span><span class="nextClassTime">上次上课时间：'+list[i].class_time+'</span></div><div class="fr"><span>剩余课时数：'+list[i].leftTime+'</span><button data-orderId="'+list[i].order_id+'" data-studentId="'+list[i].user_id+'" class="btn btn-success">安排上课</button></div></li>';
@@ -261,7 +269,7 @@
                                 if(nowDate<classDate){
                                     html+='<li class="clearfix"><div class="fl"><img src="/PCAdmin/img/avatar/moren.jpg"><span>'+list[i].username+'</span><span class="nextClassTime">下次上课时间：'+list[i].class_time+'</span></div><div class="fr"><span>剩余课时数：'+list[i].leftTime+'</span><button data-orderId="'+list[i].order_id+'" data-studentId="'+list[i].user_id+'" class="btn btn-warning">取消上课</button></div></li>';
                                 }else{
-                                    html+='<li class="clearfix"><div class="fl"><img src="/PCAdmin/img/avatar/moren.jpg"><span>'+list[i].username+'</span><span class="nextClassTime">本次上课时间：'+list[i].class_time+'</span></div><div class="fr"><span>剩余课时数：'+list[i].leftTime+'</span><button data-orderId="'+list[i].order_id+'" data-studentId="'+list[i].user_id+'" class="btn btn-primary">完成课程</button></div></li>';
+                                    html+='<li class="clearfix"><div class="fl"><img src="/PCAdmin/img/avatar/moren.jpg"><span>'+list[i].username+'</span><span class="nextClassTime">本次上课时间：'+list[i].class_time+'</span></div><div class="fr"><span>剩余课时数：'+list[i].leftTime+'</span><button data-orderId="'+list[i].order_id+'" data-leftTime="'+list[i].leftTime+'" data-studentId="'+list[i].user_id+'" class="btn btn-primary">完成课程</button></div></li>';
                                 }
                             }
                         }
@@ -312,6 +320,7 @@
     $(document).delegate('.courseDetail .content:eq(2) button.btn-primary','click',function(){
         var orderId = $(this).attr('data-orderId');
         var studentId = $(this).attr('data-studentId');
+        var leftTime = $(this).attr('data-leftTime');
         $.ajax({
             url: '/PCAdmin/php/finishArrangeCourse.php',
             type: 'post',
@@ -320,6 +329,7 @@
                 orderId: orderId,
                 teacherId: sessionStorage.getItem('userId'),
                 studentId: studentId,
+                leftTime:leftTime,
                 messageCnt: '你的《'+$('.courseDetail .intro .name').html()+'》已完成一次课时哦，具体课程进度请前往课程详情查看，如有错误请联系老师哦'
             },
             success: function(res){
@@ -373,7 +383,7 @@
         if($this.hasClass('choose')){
             return;
         }
-        $('.alertMain .timeChoosePart button').addClass('btn-primary');
+        $('.alertMain .timeChoosePart .confirmTime').addClass('btn-success');
         $this.addClass('choose').siblings().removeClass('choose');
     });
     $('.nextTab').click(function(){
@@ -382,6 +392,10 @@
         }
         $('.alertMain .dateChoosePart').hide();
         $('.alertMain .timeChoosePart').show();
+    });
+    $('.preTab').click(function(){
+        $('.alertMain .dateChoosePart').show();
+        $('.alertMain .timeChoosePart').hide();
     });
     $('.confirmTime').click(function(){
         if(!$(this).hasClass('btn-primary')){
@@ -424,5 +438,9 @@
         showDate = date.getFullYear() + '-' + month + '-' + date.getDate();
         return showDate;
     }
+
+    $(document).delegate('.goBack','click',function(){
+        window.history.go(-1);
+    });
 </script>
 </html>

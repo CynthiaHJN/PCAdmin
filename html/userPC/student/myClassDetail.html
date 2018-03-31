@@ -106,7 +106,7 @@
                 <li><a href="../common/aboutUs.html">关于我们</a></li>
                 <li class="none"><button class="btn btn-log">登陆</button></li>
                 <li class="none"><button class="btn btn-log">注册</button></li>
-                <li class="showName"><a href="home.html" class="active">Cynthia</a></li>
+                <li class="showName"><a href="myClass.html" class="active">Cynthia</a></li>
             </ul>
             <div class="listNav"><i class="fa fa-bars"></i></div>
         </nav>
@@ -120,7 +120,7 @@
         <li><a href="../common/aboutUs.html">关于我们</a></li>
         <li class="none"><button class="btn btn-log">登陆</button></li>
         <li class="none"><button class="btn btn-log">注册</button></li>
-        <li class="showName"><a href="home.html" class="active">Cynthia</a></li>
+        <li class="showName"><a href="myClass.html" class="active">Cynthia</a></li>
     </ul>
 </div>
 
@@ -128,7 +128,7 @@
     <div class="row">
         <div class="col-md-3 personalNav">
             <ul>
-                <li>我的课表</li>
+                <!-- <li>我的课表</li> -->
                 <li>我的消息</li>
                 <li>我要请假</li>
                 <li>课后作业</li>
@@ -141,6 +141,9 @@
     </div>
 </section>
 <script id="courseDetail" type="text/html">
+    <div class="row clearfix" style="margin: 10px 0 20px 0;">
+        <button class="fl btn btn-primary goBack" style="background:#cdc9a5;border:0">返回</button>
+    </div>
     <div class="courseDetail">
         <div class="topCon">
             <div class="img"><img src="/PCAdmin/img/course/{{item.banner}}"></div>
@@ -148,17 +151,17 @@
                 <div class="name">{{item.course_name}}</div>
                 <div>
                     <span>老师: {{item.teacher_name}}</span>
-                    <span>剩余课时: {{item.leftTime}}/{{item.course_hours}}</span>
+                    <span>联系电话：{{item.mobile}}</span>
                 </div>
                 <div style="padding-bottom: 20px;">教师等级：{{item.teacher_rank}}</div>
-                <div>课程价格：{{item.price}}</div>
+                <div style="padding-bottom: 20px;">课程价格：{{item.price}}</div>
+                <div style="color: #b13131">课程进度：{{item.leftTime}}/{{item.course_hours}}</div>
             </div>
         </div>
         <div class="classMenu">
             <ul>
                 <li class="hover">介绍</li>
                 <li>目录</li>
-                <!-- <li>作业</li> -->
             </ul>
         </div>
         <div class="content">
@@ -202,6 +205,7 @@
                             if(result.success){
                                 item.teacher_name = result.data.name;
                                 item.teacher_rank = result.data.teacher_rank;
+                                item.mobile = result.data.mobile;
                                 var html = template('courseDetail',{item:item});
                                 $('.contentPart').append(html);
                             }
@@ -218,11 +222,6 @@
                                     $('.courseDetail .content').addClass('none');
                                     $('.courseDetail .content:eq(1)').removeClass('none');
                                 }
-                                // else if(index==2){
-                                //     getHomeworkList();
-                                //     $('.courseDetail .content').addClass('none');
-                                //     $('.courseDetail .content:eq(2)').removeClass('none');
-                                // }
                             });
                         }
                     });
@@ -285,5 +284,9 @@
             }
         });
     }
+
+    $(document).delegate('.goBack','click',function(){
+        window.history.go(-1);
+    });
 </script>
 </html>

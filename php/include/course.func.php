@@ -74,13 +74,6 @@ function getUserCourse($userId,$state){
     return $list;
 }
 
-function submitLeave($userId,$teacherId,$reason,$title){
-    $publish_time = date("y-m-d h:i:s");
-    $sql = "insert into message (send_id,receive_id,publish_time,title,content,type,state) values ('$userId','$teacherId','$publish_time','$title','$reason','1','0')";
-    $flag = insert_datas($sql);
-	return $flag;
-}
-
 function getTeacherCourseList($userId,$type){
 	if($type==0){
 		$sql = "select * from course where teacher_id = '$userId' and catalogue_id is null";
@@ -115,14 +108,57 @@ function arrangeCourseTime($orderId,$datetime){
 	return $res;
 }
 
-function finishArrangeCourse($orderId){
-	$sql = "update orders set has_class='0' where order_id='$orderId'";
+function finishArrangeCourse($orderId,$leftTime){
+	$sql = "update orders set has_class='0',leftTime='$leftTime' where order_id='$orderId'";
 	$res = insert_datas($sql);
 	return $res;
 }
 function cancelArrangeCourse($orderId){
-	$sql = "update orders set has_class='0', class_time=null where order_id='$orderId'";
+	$sql = "update orders set has_class='0' class_time=null where order_id='$orderId'";
 	$res = insert_datas($sql);
 	return $res;
+}
+
+function modifyArrangeCourseTime($orderId,$datetime){
+	$sql = "update orders set class_time='$datetime' where order_id='$orderId'";
+	$res = insert_datas($sql);
+	return $res;
+}
+
+function getCanLeaveCourseList($userId){
+	$sql = "select * from course where teacher_id='$userId'";
+	$res = get_array($sql);
+	$data = array();
+	if(is_array($res)){
+		foreach ($res as $item) {
+			$course_id = $item['course_id'];
+			$list = teacherGetStudentList($course_id);
+			$item['list'] = $list;
+			array_push($data, $item);
+		}
+		return $data;
+	}
+}
+
+function studentGetArrangeCourse($userId){
+	$sql = "select * from orders where user_id = '$userId' and has_class=1";
+	$res = get_array($sql);
+	$data = array();
+	if(is_array($res)){
+		foreach ($res as $item) {
+			$courseId = $item['class_id'];
+			$sql2 = "select * from course where course_id = '$courseId'";
+			$rs = get_row($sql2);
+			$item['course_intro'] = $rs;
+			array_push($data, $item);
+		}
+		return $data;
+	}
+}
+
+function submitLeave($orderId){
+   	$sql = "update orders set has_class=-1 where order_id = '$orderId'";
+    $flag = insert_datas($sql);
+	return $flag;
 }
 ?>

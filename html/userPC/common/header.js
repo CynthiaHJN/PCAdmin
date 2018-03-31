@@ -14,9 +14,9 @@ $(function(){
 	$('.site-header nav .showName').click(function(){
 		var user_type = sessionStorage.getItem('user_type');
 		if(user_type==0){
-			window.location.href = "/PCAdmin/html/userPC/student/home.html";
+			window.location.href = "/PCAdmin/html/userPC/student/myClass.html";
 		}else{
-			window.location.href = "/PCAdmin/html/userPC/teacher/home.html";
+			window.location.href = "/PCAdmin/html/userPC/teacher/myClass.html";
 		}
 	});
 });

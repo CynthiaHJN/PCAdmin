@@ -28,6 +28,10 @@ section{
 	cursor: pointer;
 	overflow: hidden;
 }
+.content .box .imgBox img{
+	width: 100%;
+	height: 100%;
+}
 .textInfo{
 	width: 250px;
 	margin: 0 auto;

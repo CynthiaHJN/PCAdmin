@@ -9,23 +9,24 @@
     <link rel="stylesheet" href="home.css" />
     <script src="../common/jquery-2.1.1.min.js"></script>
     <script src="../common/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/PCAdmin/js/template.js"></script>
     <script type="text/javascript" src="../common/header.js" ></script>
     <script type="text/javascript" src="student.js"></script>
 </head>
 <style>
-    * {
-        margin: 0;
-        padding: 0;
+    * {margin: 0;padding: 0;}
+    .site-header{min-height: 80px;}
+    section{padding: 0 10px;max-width: 1200px;margin:0 auto;margin-top: 20px;}
+    div.noData{text-align: center;padding: 100px 0;font-size: 20px;color: #999;}
+    .dataList {margin-top: 30px;}
+    .dataList li{background: #fff;padding: 0 20px;border-radius: 5px;margin-bottom: 10px;border-bottom: 1px solid #ccc}
+    .dataList li p{
+        line-height: 30px;
     }
-    .site-header{
-        min-height: 80px;
-    }
-    section{
-        padding: 0 10px;
-        max-width: 1200px;
-        margin:0 auto;
-        margin-top: 20px;
-    }
+    .dataList  li div.fl img{width: 50px;border-radius: 50%;margin-right: 20px;}
+    .dataList  li div.fr button{margin-left: 20px;}
+    .dataList .title{height: 40px;line-height: 40px;margin: 0 20px;display: inline-block;padding: 0 10px;margin-bottom: 10px;font-size: 15px;}
+    .dataList .title i{display: inline-block;height: 10px;width: 10px;margin-right:5px;border-radius: 10px;background: #de5f55;vertical-align: middle;}
 </style>
 <body>
 <header class="site-header">
@@ -39,7 +40,7 @@
                 <li><a href="../common/aboutUs.html">关于我们</a></li>
                 <li class="none"><button class="btn btn-log">登陆</button></li>
                 <li class="none"><button class="btn btn-log">注册</button></li>
-                <li class="showName"><a href="home.html" class="active">Cynthia</a></li>
+                <li class="showName"><a href="myClass.html" class="active">Cynthia</a></li>
             </ul>
             <div class="listNav"><i class="fa fa-bars"></i></div>
         </nav>
@@ -53,14 +54,14 @@
         <li><a href="../common/aboutUs.html">关于我们</a></li>
         <li class="none"><button class="btn btn-log">登陆</button></li>
         <li class="none"><button class="btn btn-log">注册</button></li>
-        <li class="showName"><a href="home.html" class="active">Cynthia</a></li>
+        <li class="showName"><a href="myClass.html" class="active">Cynthia</a></li>
     </ul>
 </div>
 <section>
     <div class="row">
         <div class="col-md-3 personalNav">
             <ul>
-                <li>我的课表</li>
+                <!-- <li>我的课表</li> -->
                 <li>我的消息</li>
                 <li class="on">我要请假</li>
                 <li>课后作业</li>
@@ -69,82 +70,154 @@
             </ul>
         </div>
         <div class="col-md-9">
-             <div class="inputList">
-                 <div class="name">
-                     <span>请假课程</span>
-                     <select id="leaveCourse">
-                         <option value="-1"></option>
-                     </select>
-                 </div>
-                 <div class="reason">
-                     <span>请假原因</span>
-                     <textarea rows="5"></textarea>
-                 </div>
-                 <div class="clearfix">
-                     <button class="submit fr">确认请假</button>
-                 </div>
-             </div>
+            <ul class="subTopNav">
+                <li class="on">你的请假课程列表</li>
+            </ul>
+            <ul class="dataList">
+            </ul>
+            <div class="noData none">暂时没有可以请假调课的课程哦~</div>
         </div>
     </div>
+    <script id="canLeaveList" type="text/html">
+        <li class="clearfix">
+            <div class="fl">
+                <p>{{item.course_intro.course_name}}</p>
+                <p class="nextClassTime">安排的上课时间：{{item.class_time}}</p>
+            </div>
+            <div class="fr">
+                <button data-orderId="{{item.order_id}}" data-teacherId="{{item.course_intro.teacher_id}}" data-courseName="{{item.course_intro.course_name}}" class="btn btn-success leaveBtn">请假调课</button>
+            </div>
+        </li>
+    </script>
 </section>
+<div class="alertBk none"></div>
+<div class="alertMain none">
+    <div class="leaveReason">
+        <p class="title">请填写请假原因：</p>
+        <p class="tip">提醒：必须填写请假原因哦~</p>
+        <textarea class="form-control reason" rows="5" style="margin-bottom: 20px;"></textarea>
+        <div class="clearfix">
+            <button class="fr btn btn-success confirmTime">确认调课</button>
+        </div>
+    </div>
+</div>
 </body>
 <script>
-    getOrderToCourseInfo();
-    function getOrderToCourseInfo(){
-        var userId = sessionStorage.getItem('userId');
+    getMyArrangeCourseList();
+    function getMyArrangeCourseList(){
         $.ajax({
-            url:'/PCAdmin/php/orderToCourseInfo.php',
+            url:'/PCAdmin/php/studentGetArrangeCourse.php',
             type:'post',
             dataType:'json',
             data:{
-                user_id: userId,
-                state: 0
+                userId:sessionStorage.getItem('userId')
             },
-            success:function (res) {
-                if(res.success&&res.list){
-                    var list = res.list;
-                    var nameList = '';
-                    for(var i=0;i<list.length;i++){
-                        nameList += '<option value="'+list[i].teacher_id+'"  data-leftTime="'+list[i].leftTime+'" data-totalTime="'+list[i].course_hours+'">'+list[i].course_name+'</option>';
+            success:function(res){
+                if(res.success&&res.data){
+                    $('.dataList').html('');
+                    for(var i=0;i<res.data.length;i++){
+                        var html = template('canLeaveList',{'item':res.data[i]});
+                        $('.dataList').append(html);
                     }
-                    $('#leaveCourse').append(nameList);
+                }else{
+                    $('.dataList').hide();
+                    $('.noData').show();
                 }
             }
         });
     }
-    $(function () {
-        $('.submit').click(function () {
-            var teacherId = $('#leaveCourse option:selected').val();
-            if(teacherId==-1){
-                alert('您暂未选择可以请假的课程');
-                return;
-            }
-            var title =  $('#leaveCourse option:selected').html()+' 请假';
-            var userId = sessionStorage.getItem('userId');
-            var reason = $('.reason textarea').val();
-            if(reason==''){
-                alert('请填写请假原因');
-                return;
-            }
-            $.ajax({
-                url: '/PCAdmin/php/submitLeave.php',
-                type: 'post',
-                dataType:'json',
-                data: {
-                    userId: userId,
-                    teacherId: teacherId,
-                    reason: reason,
-                    title: title
-                },
-                success: function (res) {
-                    if(res.success){
-                        alert('请假信息发送成功');
-                    }else{
-                        alert('请假失败');
-                    }
+    $(document).delegate('.leaveBtn','click',function(){
+        $('.alertMain').attr('data-orderId',$(this).attr('data-orderId'));
+        $('.alertMain').attr('data-teacherId',$(this).attr('data-teacherId'));
+        $('.alertMain').attr('data-courseName',$(this).attr('data-courseName'));
+        $('.alertBk').show();
+        $('.alertMain').show();
+    });
+    $(document).delegate('.confirmTime','click',function(){
+        var reason = $('.leaveReason .reason').val();
+        var username = sessionStorage.getItem('name');
+        if(reason==''){
+            return;
+        }
+        $.ajax({
+            url:'/PCAdmin/php/submitLeave.php',
+            type:'post',
+            dataType:'json',
+            data:{
+                orderId: $('.alertMain').attr('data-orderId'),
+                userId: sessionStorage.getItem('userId'),
+                teacherId: $('.alertMain').attr('data-teacherId'),
+                messageCnt: username+'同学在'+$('.alertMain').attr('data-courseName')+'当天有事，不能来上课了，请老师尽快调整上课时间或者取消预约哦。请假原因：'+reason
+            },
+            success: function(res){
+                $('.alertBk').hide();
+                $('.alertMain').hide();
+                if(res.success){
+                    alert('请假信息已成功发送哦~');
+                    getMyArrangeCourseList();
+                }else{
+                    alert('网络故障了，信息发送失败~');
                 }
-            });
-        })
-    })
+            }
+        });
+    });
+    // getOrderToCourseInfo();
+    // function getOrderToCourseInfo(){
+    //     var userId = sessionStorage.getItem('userId');
+    //     $.ajax({
+    //         url:'/PCAdmin/php/orderToCourseInfo.php',
+    //         type:'post',
+    //         dataType:'json',
+    //         data:{
+    //             user_id: userId,
+    //             state: 0
+    //         },
+    //         success:function (res) {
+    //             if(res.success&&res.list){
+    //                 var list = res.list;
+    //                 var nameList = '';
+    //                 for(var i=0;i<list.length;i++){
+    //                     nameList += '<option value="'+list[i].teacher_id+'"  data-leftTime="'+list[i].leftTime+'" data-totalTime="'+list[i].course_hours+'">'+list[i].course_name+'</option>';
+    //                 }
+    //                 $('#leaveCourse').append(nameList);
+    //             }
+    //         }
+    //     });
+    // }
+    // $(function () {
+    //     $('.submit').click(function () {
+    //         var teacherId = $('#leaveCourse option:selected').val();
+    //         if(teacherId==-1){
+    //             alert('您暂未选择可以请假的课程');
+    //             return;
+    //         }
+    //         var title =  $('#leaveCourse option:selected').html()+' 请假';
+    //         var userId = sessionStorage.getItem('userId');
+    //         var reason = $('.reason textarea').val();
+    //         if(reason==''){
+    //             alert('请填写请假原因');
+    //             return;
+    //         }
+    //         $.ajax({
+    //             url: '/PCAdmin/php/submitLeave.php',
+    //             type: 'post',
+    //             dataType:'json',
+    //             data: {
+    //                 userId: userId,
+    //                 teacherId: teacherId,
+    //                 reason: reason,
+    //                 title: title
+    //             },
+    //             success: function (res) {
+    //                 if(res.success){
+    //                     alert('请假信息发送成功');
+    //                 }else{
+    //                     alert('请假失败');
+    //                 }
+    //             }
+    //         });
+    //     })
+    // })
+
 </script>
 </html>

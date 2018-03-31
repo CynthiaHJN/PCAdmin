@@ -10,33 +10,21 @@
     <script src="../common/jquery-2.1.1.min.js"></script>
     <script src="../common/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../common/header.js" ></script>
+    <script type="text/javascript" src="/PCAdmin/js/template.js"></script>
     <script type="text/javascript" src="/PCAdmin/js/public.js"></script>
     <script type="text/javascript" src="teacher.js"></script>
 </head>
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-    }
-    .site-header{
-        min-height: 80px;
-    }
-    section{
-        padding: 0 10px;
-        max-width: 1200px;
-        margin:0 auto;
-        margin-top: 20px;
-    }
-    div.noData{
-        text-align: center;
-        padding: 100px 0;
-        font-size: 20px;
-        color: #999;
-    }
+    * { margin: 0;padding: 0;}
+    .site-header{min-height: 80px;}
+    section{padding: 0 10px;max-width: 1200px;margin:0 auto;margin-top: 20px;}
+    div.noData{text-align: center;padding: 100px 0;font-size: 20px;color: #999;}
     .dataList {margin-top: 30px;}
     .dataList li{height: 60px;line-height: 60px;background: #fff;padding: 0 20px;border-radius: 5px;margin-bottom: 10px;}
     .dataList  li div.fl img{width: 50px;border-radius: 50%;margin-right: 20px;}
     .dataList  li div.fr button{margin-left: 20px;}
+    .dataList .title{height: 40px;line-height: 40px;margin: 0 20px;display: inline-block;padding: 0 10px;margin-bottom: 10px;font-size: 15px;}
+    .dataList .title i{display: inline-block;height: 10px;width: 10px;margin-right:5px;border-radius: 10px;background: #de5f55;vertical-align: middle;}
     .nextClassTime{margin-left: 20px;color: #de5f55}
 </style>
 <body>
@@ -51,7 +39,7 @@
                 <li><a href="../common/aboutUs.html">关于我们</a></li>
                 <li class="none"><button class="btn btn-log">登陆</button></li>
                 <li class="none"><button class="btn btn-log">注册</button></li>
-                <li class="showName"><a href="home.html" class="active">Cynthia</a></li>
+                <li class="showName"><a href="myClass.html" class="active">Cynthia</a></li>
             </ul>
             <div class="listNav"><i class="fa fa-bars"></i></div>
         </nav>
@@ -67,7 +55,7 @@
         <li><button class="btn btn-log">注册</button></li>
         <li class="none"><button class="btn btn-log">登陆</button></li>
         <li class="none"><button class="btn btn-log">注册</button></li>
-        <li class="showName"><a href="home.html" class="active">Cynthia</a></li>
+        <li class="showName"><a href="myClass.html" class="active">Cynthia</a></li>
     </ul>
 </div>
 
@@ -88,54 +76,213 @@
                 <li class="on">你的调课列表</li>
             </ul>
             <ul class="dataList">
-                <li class="clearfix">
-                    <div class="fl">
-                        <img src="/PCAdmin/img/avatar/moren.jpg">
-                        <span>'+list[i].username+'</span>
-                        <span class="nextClassTime">安排的上课时间：'+list[i].leftTime+'</span>
-                    </div>
-                    <div class="fr">
-                        <button data-orderId="'+list[i].order_id+'" data-studentId="'+list[i].user_id+'" class="btn btn-success">请假调课</button>
-                    </div>
-                </li>
             </ul>
             <div class="noData none">暂时没有可以请假调课的课程哦~</div>
         </div>
+        <script id="canLeaveList" type="text/html">
+            {{if item.list}}
+            <div class="title"><i></i>{{item.course_name}}</div>
+            {{each item.list as value}}
+            {{if value.has_class==1}}
+            <li class="clearfix">
+                <div class="fl">
+                    <img src="/PCAdmin/img/avatar/moren.jpg">
+                    <span>{{value.username}}</span>
+                    <span class="nextClassTime">安排的上课时间：{{value.class_time}}</span>
+                </div>
+                <div class="fr">
+                    <button data-orderId="{{value.order_id}}" data-courseName="{{item.course_name}}" data-studentId="{{value.user_id}}" class="btn btn-success">请假调课</button>
+                </div>
+            </li>
+            {{/if}}
+            {{/each}}
+            {{/if}}
+        </script>
     </div>
 </section>
+
+<div class="alertBk none"></div>
+<div class="alertMain none">
+    <div class="dateChoosePart">
+        <p class="title">请选择上课日期：</p>
+        <p class="tip">注意：只能选择后面七天的时间</p>
+        <ul class="dateList">
+        </ul>
+        <div class="clearfix">
+            <button class="fl btn btn-warning closeBtn">关闭</button>
+            <button class="fr btn nextTab">下一步</button>
+        </div>
+    </div>
+    <div class="timeChoosePart none">
+        <p class="title">请选择上课具体时间：</p>
+        <p class="tip">注意：只能选择规定时间端的时间</p>
+        <ul class="timeList">
+            <li data-time="08:00:00">08:00</li>
+            <li data-time="09:00:00">09:00</li>
+            <li data-time="10:00:00">10:00</li>
+            <li data-time="13:00:00">13:00</li>
+            <li data-time="14:00:00">14:00</li>
+            <li data-time="15:00:00">15:00</li>
+            <li data-time="19:00:00">19:00</li>
+            <li data-time="20:00:00">20:00</li>
+        </ul>
+        <div class="clearfix">
+            <button class="fl btn btn-warning closeBtn">关闭</button>
+            <button class="fr btn nextTab">下一步</button>
+            <button class="fr btn btn-primary preTab">上一步</button>
+        </div>
+    </div>
+    <div class="leaveReason none">
+        <p class="title">请填写调课原因：</p>
+        <textarea class="form-control" rows="6" style="margin-bottom: 20px;"></textarea>
+        <div class="clearfix">
+            <button class="fl btn btn-warning closeBtn">关闭</button>
+            <button class="fr btn btn-success confirmTime">确认调课</button>
+            <button class="fr btn btn-primary preTab">上一步</button>
+        </div>
+    </div>
+</div>
+
 </body>
 <script type="text/javascript">
-    function getStudentList(courseId){
+    getLeaveList();
+    function getLeaveList(){
+        var userId = sessionStorage.getItem('userId');
         $.ajax({
-            url: '/PCAdmin/php/teacherGetStudentList.php',
-            type: 'post',
-            dataType: 'json',
-            data: {
-                courseId: courseId
+            url:'/PCAdmin/php/getCanLeaveCourseList.php',
+            type:'post',
+            dataType:'json',
+            data:{
+                userId: userId
             },
             success: function(res){
-                if(res.success){
-                    if(res.data&&res.data.length>0){
-                        var list = res.data;
-                        var html = '';
-                        var flag =0;
-                        for(var i=0;i<list.length;i++){
-                            if(list[i].has_class==1){
-                                flag=1;
-                                html+='<li class="clearfix"><div class="fl"><img src="/PCAdmin/img/avatar/moren.jpg"><span>'+list[i].username+'</span><span class="nextClassTime">上次上课时间：'+list[i].class_time+'</span></div><div class="fr"><span>剩余课时数：'+list[i].leftTime+'</span><button data-orderId="'+list[i].order_id+'" data-studentId="'+list[i].user_id+'" class="btn btn-success">请假调课</button></div></li>';                        
-                            }
-                        }
-                        if(flag){
-                            $('.dataList').html(html);
-                        }else{
-                            $('.noData').show();
-                        }
+                if(res.success&&res.data){
+                    for(var i=0;i<res.data.length;i++){
+                        var html = template('canLeaveList',{'item':res.data[i]});
+                        $('.dataList').append(html);
                     }
-                }else{
-                    $('.noData').show();
                 }
             }
         });
+    }
+
+    //  通知上课
+    $(document).delegate('.dataList li button.btn-success','click',function(){
+        var orderId = $(this).attr('data-orderId');
+        var studentId = $(this).attr('data-studentId');
+        var courseName = $(this).attr('data-courseName');
+        initDateList();
+        $('.alertMain').attr('data-orderId',orderId);
+        $('.alertMain').attr('data-studentId',studentId);
+        $('.alertMain').attr('data-courseName',courseName);
+        $('.alertBk').show();
+        $('.alertMain').show();
+    });
+
+
+    function initDateList(){
+        var date = new Date();
+        var html = '';
+        for (var i = 1; i <= 7; i++) {
+            date.setDate(date.getDate() + 1);
+            var weekDay = ['日','一','二','三','四','五','六'];
+            var str = date.getDay();
+            var month = ('00'+ (date.getMonth()+1)).slice(-2);
+            showDate = date.getFullYear() + '-' + month + '-' + date.getDate();
+            chiDate = (date.getMonth() + 1) + '月' + date.getDate() +'日';
+            html+='<li data-datetime="'+showDate+'">'+chiDate+'(周'+weekDay[str]+')</li>';
+        }
+        $('.alertMain .dateChoosePart .dateList').html(html);
+    }
+
+    //  日期选择弹窗工作
+    $(document).delegate('.alertMain .dateChoosePart .dateList li','click',function(){
+        var $this = $(this);
+        if($this.hasClass('choose')){
+            return;
+        }
+        $('.alertMain .dateChoosePart button').addClass('btn-primary');
+        $this.addClass('choose').siblings().removeClass('choose');
+    });
+
+    $(document).delegate('.alertMain .timeChoosePart .timeList li','click',function(){
+        var $this = $(this);
+        if($this.hasClass('choose')){
+            return;
+        }
+        $('.alertMain .timeChoosePart .nextTab').addClass('btn-primary');
+        $this.addClass('choose').siblings().removeClass('choose');
+    });
+
+    $(document).delegate('.nextTab','click',function(){
+        if(!$(this).hasClass('btn-primary')){
+            return;
+        }
+        if($(this).parent().parent().hasClass('dateChoosePart')){
+            $('.alertMain .dateChoosePart').hide();
+            $('.alertMain .timeChoosePart').show();
+        }else{
+            $('.alertMain .timeChoosePart').hide();
+            $('.alertMain .leaveReason').show();
+        } 
+    });
+
+    $(document).delegate('.preTab','click',function(){
+        if($(this).parent().parent().hasClass('timeChoosePart')){
+            $('.alertMain .dateChoosePart').show();
+            $('.alertMain .timeChoosePart').hide();
+        }else{
+            $('.alertMain .leaveReason').hide();
+            $('.alertMain .timeChoosePart').show();
+        }
+        
+    });
+    
+    $(document).delegate('.confirmTime','click',function(){
+        var date = $('.alertMain .dateChoosePart .dateList li.choose').attr('data-datetime');
+        var time = $('.alertMain .timeChoosePart .timeList li.choose').attr('data-time');
+        var datetime = date+' '+time;
+        var reason = $('.alertMain .leaveReason textarea').val();
+        var courseName = $('.alertMain').attr('data-courseName');
+        if(reason==''){
+            reason = '未知';
+        }
+        $.ajax({
+            url: '/PCAdmin/php/modifyArrangeCourseTime.php',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                orderId: $('.alertMain').attr('data-orderId'),
+                datetime: datetime,
+                teacherId: sessionStorage.getItem('userId'),
+                studentId: $('.alertMain').attr('data-studentId'),
+                messageCnt: '您好，你的《'+courseName+'》课程老师调整了您下次上课的时间，现修改上课时间为'+datetime+',调课原因为：'+reason+',如果您在时间上有不便之处，请及时联系老师调整上课时间哦。'
+            },
+            success: function(res){
+                if(res.success){
+                    $('.alertBk').hide();
+                    $('.alertMain').hide();
+                    alert('调课成功，调课信息已发送给学生');
+                    getLeaveList();
+                }else{
+                    $('.alertBk').hide();
+                    $('.alertMain').hide();
+                    alert('调课失败');
+                }
+            }
+        });
+    });
+
+    $(document).delegate('.closeBtn','click',function(){
+        $('.alertBk').hide();
+        $('.alertMain').hide();
+    });
+
+    function getNowFormatDate(){
+        var date = new Date();
+        var month = ('00'+ (date.getMonth()+1)).slice(-2);
+        showDate = date.getFullYear() + '-' + month + '-' + date.getDate();
+        return showDate;
     }
 </script>
 </html>

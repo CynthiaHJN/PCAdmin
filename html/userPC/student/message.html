@@ -29,8 +29,9 @@
     }
     .msgList li{
         padding: 10px;
-        background: #ddd;
+        background: #eae9e0;
         line-height: 25px;
+        margin-bottom: 15px;
     }
     .msgList li .title{
         font-size: 15px;
@@ -72,7 +73,7 @@
                 <li><a href="../common/aboutUs.html">关于我们</a></li>
                 <li class="none"><button class="btn btn-log">登陆</button></li>
                 <li class="none"><button class="btn btn-log">注册</button></li>
-                <li class="showName"><a href="home.html" class="active">Cynthia</a></li>
+                <li class="showName"><a href="myClass.html" class="active">Cynthia</a></li>
             </ul>
             <div class="listNav"><i class="fa fa-bars"></i></div>
         </nav>
@@ -86,14 +87,14 @@
         <li><a href="../common/aboutUs.html">关于我们</a></li>
         <li class="none"><button class="btn btn-log">登陆</button></li>
         <li class="none"><button class="btn btn-log">注册</button></li>
-        <li class="showName"><a href="home.html" class="active">Cynthia</a></li>
+        <li class="showName"><a href="myClass.html" class="active">Cynthia</a></li>
     </ul>
 </div>
 <section>
     <div class="row">
         <div class="col-md-3 personalNav">
             <ul>
-                <li>我的课表</li>
+                <!-- <li>我的课表</li> -->
                 <li class="on">我的消息</li>
                 <li>我要请假</li>
                 <li>课后作业</li>
@@ -104,7 +105,7 @@
         <div class="col-md-9">
             <ul class="subTopNav">
                 <li class="on">未读消息</li>
-                <li>全部消息</li>
+                <li>已读消息</li>
             </ul>
             <div class="msgCnt">
                 <ul class="msgList">
@@ -115,7 +116,7 @@
             <li>
                 <div class="title">{{item.title}}</div>
                 <div class="content">{{item.content}}</div>
-                <div class="time">请假人:{{item.send_name}}&nbsp;&nbsp;&nbsp;&nbsp;发布时间:{{item.publish_time.split(' ')[0]}}</div>
+                <div class="time">发送者:{{item.send_name}}&nbsp;&nbsp;&nbsp;&nbsp;发布时间:{{item.publish_time.split(' ')[0]}}</div>
                 <div class="btnBox">
                     <button class="read" msgId="{{item.id}}">标记为已读</button>
                     <button class="delete" msgId="{{item.id}}">删除</button>
@@ -126,7 +127,7 @@
             <li>
                 <div class="title">{{item.title}}</div>
                 <div class="content">{{item.content}}</div>
-                <div class="time">请假人:{{item.send_name}}&nbsp;&nbsp;&nbsp;&nbsp;发布时间:{{item.publish_time.split(' ')[0]}}</div>
+                <div class="time">发送者:{{item.send_name}}&nbsp;&nbsp;&nbsp;&nbsp;发布时间:{{item.publish_time.split(' ')[0]}}</div>
                 <div class="btnBox">
                     <button class="delete" msgId="{{item.id}}">删除</button>
                 </div>
