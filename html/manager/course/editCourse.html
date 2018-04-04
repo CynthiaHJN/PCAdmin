@@ -157,6 +157,7 @@
 						$('#courseType').val(info.course_type);
 						$('#courseIntro').val(info.short_intro);
 						$('.imgShow').html("<img src='/PCAdmin/img/course" + info.banner + "' alt='Alternate Text' id='target' style='height:150px' />");
+                        courseImg = info.banner;
 						loadTeacherList(info.teacher_id);
 					}
 				}

@@ -93,13 +93,12 @@
 
 		<div class="alertBk none"></div>
 		<div class="alertMain none">
-			<div class="dateChoosePart">
-				<p class="title">请选择上课日期：</p>
-				<!--<p class="tip"></p>-->
-				<div class="content"></div>
-				<div class="clearfix">
-					<button class="fl btn btn-warning closeBtn">关闭</button>
-					<button class="fr btn nextTab">下一步</button>
+			<div class="buySuccess">
+				<p class="title"></p>
+				<div class="content">课程购买成功~<br/>请前往个人中心查看已购课程详情~<br/>感谢您的信任，我们会为您提供优质的服务。</div>
+				<div class="clearfix btnBox">
+					<button class="fl btn btn-warning closeBtn">留在这里</button>
+					<button class="fr btn btn-success nextTab">查看详情</button>
 				</div>
 			</div>
 		</div>
@@ -111,6 +110,13 @@
 		getCourseInfo(courseId);
 		$('.bak').click(function(){
 			window.history.go(-1);
+		});
+		$('.closeBtn').on('click',function(){
+			$('.alertBk').hide();
+			$('.alertMain').hide();
+		});
+		$('.nextTab').on('click',function(){
+			window.location.href = "/PCAdmin/html/userPC/student/myClass.html";
 		});
 		$(document).delegate('.contentPart .book','click',function(){
 			var userId = sessionStorage.getItem('userId');
@@ -131,9 +137,10 @@
 				},
 				success: function(res){
 					if(res.success){
-
+						$('.alertBk').show();
+						$('.alertMain:eq(0)').show();
 					}else{
-
+						alert('课程购买失败，请稍后再试！')
 					}
 				}
 			});

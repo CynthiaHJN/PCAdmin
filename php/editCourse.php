@@ -15,7 +15,8 @@ $courseIntro = $_POST['courseIntro'];
 $courseImg = $_POST['courseImg'];
 $courseHours = $_POST['courseHours'];
 $coursePrice = $_POST['coursePrice'];
-if($courseImg!='moren.jpg'){
+$res = json_decode(getCourseInfo($courseId));
+if($courseImg!=$res->banner){
 	$courseImg = base64_image_content($courseImg,'../img/course');
 }
 $arr = array('courseId'=>$courseId,'courseName' => $courseName, 'startTime' => $startTime, 'endTime' => $endTime, 'limitNum' => $limitNum, 'courseType' => $courseType, 'teacherId' => $teacherId, 'courseIntro' => $courseIntro, 'courseImg' => $courseImg, 'courseHours' => $courseHours, 'coursePrice' => $coursePrice);

@@ -176,6 +176,7 @@
 			var courseIntro = $('#courseIntro').val();
 			var courseHours = $('#courseHours').val();
 			var coursePrice = $('#courseprice').val();
+			console.log(teacherId);
 			$.ajax({
 				url: '../../../php/addCourse.php',
 				type: 'post',
