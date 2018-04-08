@@ -10,51 +10,22 @@
 		<title>登陆</title>
 	</head>
 	<body>
-		<nav class="clearfix nav">
-			<div class="fl active rightShadow">登录</div>
-			<!-- <div class="fr">注册</dv> -->
-		</nav>
 		<div class="wrapper">
+			<p class="title">Welcome to 琴之家·管理端</p>
+			<!--<p class="title">Welcome.Please login.</p>-->
 			<div class="loginCon" id="login">
 				<input id="logName" class="inputBox" placeholder="username" maxlength="11" required="required" />
-				<input id="logPassword" class="inputBox" placeholder="password" required="required"/>
+				<input id="logPassword" type="password" class="inputBox" placeholder="password" required="required"/>
 				<div class="clearfix tipBox">
-					<span class="fl"><a href="javascript:;">忘记密码？</a></span>
-					<!-- <span class="fr"><a href="javascript:;">还没有账号？去注册</a></span> -->
+					<span class="fl lnk"><a href="javascript:;">忘记密码？</a></span>
+					<input class = "fr inputBtn" type="button" id="logBtn" value="登录"/>
 				</div>
-				<input type="button" class="inputBtn" id="logBtn" value="登录"/>
-			</div>
-			<div class="loginCon disNone" id="reg">
-				<input id="regName" class="inputBox" placeholder="username" maxlength="11" required="required" />
-				<input id="regPassword" class="inputBox" placeholder="password" required="required"/>
-				<div class="clearfix tipBox">
-					<span class="fr"><a href="javascript:;">已有账号？去登录</a></span>
-				</div>
-				<input type="button" class="inputBtn" id="regBtn" value="注册"/>
-				<div class="tipBox">
-					<input type="checkbox" checked/>我已阅读并同意<a href="javascript:;">《琴行管理员规范与要求》</a>
-				</div>
+				<!--<input type="button" class="inputBtn" id="logBtn" value="登录"/>-->
 			</div>
 		</div>
 	</body>
 	<script>
 		var type=0;//0:登录,1:注册
-		$('.nav div').click(function(){
-			var $this = $(this);
-			if($this.hasClass('active')){
-				return;
-			}
-			$('.nav div').removeClass('active').removeClass('rightShadow').removeClass('leftShadow');
-			if($this.hasClass('fl')){
-				$this.addClass('active').addClass('rightShadow');
-				$('#reg').addClass('disNone');
-				$('#login').removeClass('disNone');
-			}else{
-				$this.addClass('active').addClass('leftShadow');
-				$('#login').addClass('disNone');
-				$('#reg').removeClass('disNone');
-			}
-		});
 		function login(){
 			var username = $('#logName').val();
 			var password = $('#logPassword').val();
@@ -88,47 +59,8 @@
 				}
 			});
 		};
-		function reg(){
-			var username = $('#regName').val();
-			var password = $('#regPassword').val();
-			if(username==''||password==""){
-				alert('用户名或密码不能为空');
-				return;
-			}
-			if(!(/^1[34578]\d{9}$/.test(username))){ 
-		        alert("手机号码有误，请重填");  
-		        return; 
-		    } 
-		    if(password.length<6||password.length>20){
-		    	alert("手机号码长度应在6~12位之间");
-		    	return;
-		    }
-			$.ajax({
-				type:"post",
-				url:"php/log.php",
-				async:true,
-				dataType:'json',
-				data:{
-					type:1,
-					username: username,
-					password: password
-				},
-				success: function(data){
-					if(data.success){
-						alert("注册成功");
-					}else{
-						if(data.errorMsg){
-							alert(data.errorMsg);
-						}
-					}
-				}
-			});
-		};
 		$('#logBtn').click(function(){
 			login();
-		});
-		$('#regBtn').click(function(){
-			reg();
 		});
 	</script>
 </html>
