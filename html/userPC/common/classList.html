@@ -69,106 +69,6 @@
 		</section>
 		<section class="grade piano clearfix" id="grade0">
 			<div class="content clearfix">
-				<div class="box">
-					<div class="imgBox"><img src="image/bannerClass2.png"/></div>
-					<div class="textInfo">
-						<p>初级钢琴零基础学习</p>
-						<p>
-							<span>课时数：30</span>
-							<span>￥1500</span>
-						</p>
-					</div>
-				</div>
-				<div class="box">
-					<div class="imgBox"><img src="image/bannerClass3.jpg"/></div>
-					<div class="textInfo">
-						<p>初级钢琴零基础学习</p>
-						<p>
-							<span>课时数：30</span>
-							<span>￥1500</span>
-						</p>
-					</div>
-				</div>
-				<div class="box">
-					<div class="imgBox"><img src="image/bannerClass4.jpg"/></div>
-					<div class="textInfo">
-						<p>初级钢琴零基础学习</p>
-						<p>
-							<span>课时数：30</span>
-							<span>￥1500</span>
-						</p>
-					</div>
-				</div>
-				<div class="box">
-					<div class="imgBox"><img src="image/bannerClass5.jpg"/></div>
-					<div class="textInfo">
-						<p>初级钢琴零基础学习</p>
-						<p>
-							<span>课时数：30</span>
-							<span>￥1500</span>
-						</p>
-					</div>
-				</div>
-				<div class="box">
-					<div class="imgBox"><img src="image/bannerClass.jpg"/></div>
-					<div class="textInfo">
-						<p>初级钢琴零基础学习</p>
-						<p>
-							<span>课时数：30</span>
-							<span>￥1500</span>
-						</p>
-					</div>
-				</div>
-				<div class="box">
-					<div class="imgBox"><img src="image/bannerClass6.png"/></div>
-					<div class="textInfo">
-						<p>初级钢琴零基础学习</p>
-						<p>
-							<span>课时数：30</span>
-							<span>￥1500</span>
-						</p>
-					</div>
-				</div>
-				<div class="box">
-					<div class="imgBox"><img src="image/manyViolin.jpg"/></div>
-					<div class="textInfo">
-						<p>初级钢琴零基础学习</p>
-						<p>
-							<span>课时数：30</span>
-							<span>￥1500</span>
-						</p>
-					</div>
-				</div>
-				<div class="box">
-					<div class="imgBox"><img src="image/instrument.jpg"/></div>
-					<div class="textInfo">
-						<p>初级钢琴零基础学习</p>
-						<p>
-							<span>课时数：30</span>
-							<span>￥1500</span>
-						</p>
-					</div>
-				</div>
-				<div class="box">
-					<div class="imgBox"><img src="image/bannerClass4.jpg"/></div>
-					<div class="textInfo">
-						<p>初级钢琴零基础学习</p>
-						<p>
-							<span>课时数：30</span>
-							<span>￥1500</span>
-						</p>
-					</div>
-				</div>
-				<div class="box">
-					<div class="imgBox"><img src="image/bannerClass5.jpg"/></div>
-					<div class="textInfo">
-						<p>初级钢琴零基础学习</p>
-						<p>
-							<span>课时数：30</span>
-							<span>￥1500</span>
-						</p>
-					</div>
-				</div>
 			</div>
 		</section>
 	</body>
@@ -176,5 +76,34 @@
 <script>
 	$('.piano .content .box').click(function(){
  		window.location.href = "courseDetail.html";
- 	})
+ 	});
+
+    $(function(){
+        loadList();
+        $(document).delegate('.grade .content .box','click',function(){
+            var course_id = $(this).attr('data-courseId');
+            window.location.href = "courseDetail.html?courseId="+course_id;
+        });
+    });
+    function loadList(){
+        $.ajax({
+            url:'/PCAdmin/php/getCourseList.php',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                limit: 1000,
+                page: 1
+            },
+            success: function (res) {
+                if(res.success){
+                    var list = res.data.list;
+                    var html = '';
+                    for(var i=0;i<list.length;i++){
+						html += '<div class="box" data-courseId="' + list[i].course_id + '"><div class="imgBox"><img src="/PCAdmin/img/course' + list[i].banner + '"/></div><div class="textInfo"><p>' + list[i].course_name + '</p><p><span>课时数：' + list[i].course_hours + '</span><span>￥' + list[i].price + '</span></p></div></div>';
+                    }
+                    $('.grade .content').html(html);
+                }
+            }
+        });
+    }
 </script>
