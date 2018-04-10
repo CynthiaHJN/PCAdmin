@@ -75,7 +75,7 @@
 						<span>报名人数: 2/10</span>
 						<span>老师: {{item.teacher_name}}</span>
 					</div>
-					<div class="price">￥{{item.price/item.course_hours}}/课时</div>
+					<div class="price">￥{{(item.price/item.course_hours).toFixed(2)}}/课时</div>
 					<button data-courseHours="{{item.course_hours}}" class="book">立即报名</button>
 				</div>
 			</div>
@@ -92,6 +92,17 @@
 				<p>所有人</p>
 				<h3>课程概述</h3>
 				<p>{{item.short_intro}}</p>
+			</div>
+			<div class="content none">
+				<h3>课程目录</h3>
+			</div>
+			<div class="content none">
+				<h3>笔记</h3>
+				<p>该功能暂未实现，敬请期待~</p>
+			</div>
+			<div class="content none">
+				<h3>讨论区</h3>
+				<p>该功能暂未实现，敬请期待~</p>
 			</div>
 		</script>
 
@@ -178,10 +189,63 @@
                                 var html = template('courseDetail',{item:item});
                                 $('.contentPart').append(html);
                             }
+                            $('.classMenu ul li').click(function() {
+                                var index = $(this).index();
+                                $('.classMenu ul li').removeClass('hover');
+                                $(this).addClass('hover');
+                                if(index==0){
+                                    $('.contentPart .content').addClass('none');
+                                    $('.contentPart .content:eq(0)').removeClass('none');
+                                }
+                                else if(index==1){
+                                    $('.contentPart .content').addClass('none');
+                                    $('.contentPart .content:eq(1)').removeClass('none');
+                                    getCatalogueList(courseId);
+                                }
+                                else if(index==2){
+                                    $('.contentPart .content').addClass('none');
+                                    $('.contentPart .content:eq(2)').removeClass('none');
+                                }
+                                else if(index==3){
+                                    $('.contentPart .content').addClass('none');
+                                    $('.contentPart .content:eq(3)').removeClass('none');
+                                }
+                            });
                         }
                     });
                 }
             }
         });
 	}
+
+    function getCatalogueList(courseId){
+        $.ajax({
+            url: '/PCAdmin/php/getThisCatalogueList.php',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                courseId: courseId
+            },
+            success: function(res){
+                if(res.success){
+                    if(res.list){
+                        var list = res.list;
+                        var html = '<h3>课程目录</h3>';
+                        for(var i=0;i<list.length;i++){
+                            if(list[i].has_homework){
+                                html += '<p class="clearfix" style="line-height:34px;">课时'+list[i].sort_line+'：'+list[i].content+'</p>';
+                            }else{
+                                html += '<p class="clearfix" style="line-height:34px;">课时'+list[i].sort_line+'：'+list[i].content+'</p>';
+                            }
+                        }
+                        $('.contentPart .content:eq(1)').html(html);
+                    }else{
+                        var html = '<h3>课程目录</h3><p>暂未设置课程目录</p>';
+                        $('.contentPart .content:eq(1)').html(html);
+                    }
+                }
+            }
+        });
+    }
+
 </script>
