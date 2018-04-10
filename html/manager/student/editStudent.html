@@ -99,6 +99,7 @@
 									<input type="text" id="age" class="inputBox fr">
 								</div>
 								<div class="clearfix">
+									<button class="goBackBtn fl">返回</button>
 									<button class="submitBtn fr">确认修改</button>
 								</div>
 							</div>
@@ -165,5 +166,8 @@
 				}
 			});
 		});
+        $('.goBackBtn').click(function(){
+            window.history.go(-1);
+        });
 	</script>
 </html>

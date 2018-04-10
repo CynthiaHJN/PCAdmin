@@ -40,6 +40,9 @@
 			border-radius: 3px;
 			cursor: pointer;
 		}
+		.goBackBtn{
+			margin-top: 20px;
+		}
 	</style>
 	<body>
 		<div class="container">
@@ -121,6 +124,7 @@
 							<div id='edit' class="editorContent">
   							</div>
   							<div class="btnPart clearfix">
+								<button class="goBackBtn fl">返回</button>
   								<button class="submit fr">修改文章</button>
   							</div>
 						</div>
@@ -202,5 +206,8 @@
 				})
 			});
 		});
+        $('.goBackBtn').click(function(){
+            window.history.go(-1);
+        });
 	</script>
 </html>

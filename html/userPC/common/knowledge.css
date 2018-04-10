@@ -130,6 +130,10 @@ section{
 	height: 70px;
 	background-color: #0044CC;
 }
+.content .img img{
+	width:100%;
+	height:100%;
+}
 .cnt .cnt-tilte{
 	text-align: left;
 	padding-top: 15px;
