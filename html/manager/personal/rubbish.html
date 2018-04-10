@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/common.css">
+    <script type="text/javascript" src="../../../js/jquery-2.1.1.min.js" ></script>
+    <script type="text/javascript" src="../../../js/public.js" ></script>
+    <script type="text/javascript" src="../../../js/template.js" ></script>
+    <script type="text/javascript" src="../../../js/common.js"></script>
+    <title>主页</title>
+</head>
+<style type="text/css">
+    .articleTag{
+        display: inline-block;
+        font-size: 12px;
+        margin-right: 30px;
+    }
+    .articleTag li{
+        display: inline-block;
+        /*float: right;*/
+        padding: 0px 10px;
+        cursor: pointer;
+        color:#999;
+        border-right: 1px solid #ddd;
+    }
+    .articleTag li:nth-child(4){
+        border:0;
+    }
+    .articleTag li.active{
+        color:rgb(88,126,209);
+    }
+</style>
+<body>
+<div class="container">
+    <div class="sidebar">
+        <div class="title">琴之家</div>
+        <ul class="sidenav">
+            <li>
+                <a href="javascript:;">课程管理</a>
+            </li>
+            <li>
+                <a href="javascript:;">教师管理</a>
+            </li>
+            <li>
+                <a href="javascript:;">学生管理</a>
+            </li>
+            <li>
+                <a href="javascript:;">文章管理</a>
+            </li>
+            <li>
+                <a href="javascript:;">资格审核</a>
+            </li>
+        </ul>
+    </div>
+    <div class="wrapper">
+        <div class="topCon">
+            <button class="fr searchBtn">搜索</button>
+            <input class="searchBar fr"></input>
+        </div>
+        <div class="mainCon">
+            <div class="leftCon">
+                <div class="briefInfo">
+                    <div class="avatar"><img src="../../../img/avatar/moren.jpg"></div>
+                    <div class="info">
+                        <div class="name">administer</div>
+                        <div class="mobile">140****0001</div>
+                        <i class="modify"></i>
+                    </div>
+                </div>
+                <ul class="funcBar">
+                    <li><i class="mail">信息</i></li>
+                    <li><i class="personalinfo">我的</i></li>
+                    <li><i class="rubbish">回收站</i></li>
+                </ul>
+                <div class="timeCon">
+                    <p class="clearfix">
+                        <span class="weekdayEn fl">Friday 03 Sep</span>
+                        <span class="monthEn fr">April 2015</span>
+                    </p>
+                    <p class="clearfix">
+                        <span class="weekdayCn fl">星期五</span>
+                        <span class="monthCn fr">四月</span>
+                    </p>
+                    <div class="dayBox">
+                        <span class="day"><em>03</em>日</span>
+                    </div>
+                    <button class="record">签到</button>
+                </div>
+            </div>
+            <div class="rightCon">
+                <div class="tips" style="margin-top: 20px;">
+                    <p class="title">功能介绍</p>
+                    <div class="funcIntro">
+                        <p>1.此页面可以还原被删除的各项信息。</p>
+                        <p>2.只保留7天内的资料。</p>
+                        <p>3.还原成功后，会提示“文件已经还原”并刷新列表。</p>
+                    </div>
+                </div>
+                <div class="funcDetail">
+                    <div class="title clearfix">
+                        <span>回收列表</span>
+                        <ul class="articleTag clearfix fr">
+                            <li class="active">课程</li>
+                            <li>教师</li>
+                            <li>学生</li>
+                            <li>文章</li>
+                        </ul>
+                    </div>
+                </div>
+         </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $('.articleTag li').click(function(){
+        var $this = $(this);
+        var index = $this.index();
+        if($this.hasClass('active')){
+            return;
+        }
+        $('.articleTag li').removeClass('active');
+        $(this).addClass('active');
+//        currentPage=1;
+//        $('.courseList').html(initHtml);
+//        $('.pageList .currentPage').html(currentPage);
+        if(index==0){
+            type=1;
+//            getArticleList(type);
+            return;
+        }
+        if(index==1){
+            type=2;
+//            getArticleList(type);
+            return;
+        }
+        if(index==2){
+            type=3;
+//            getArticleList(type);
+            return;
+        }
+        if(index==3){
+            type=4;
+        }
+    });
+
+    function getRubbishList(type){
+        $.ajax({
+            url: '/PCAdmin/php/getRubbishList.php',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                type: type
+            },
+            success: function(res){
+                if(res.success){
+                    var list = res.list;
+
+                }
+            }
+        });
+    }
+</script>
+</html>

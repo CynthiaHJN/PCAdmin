@@ -63,6 +63,9 @@ $(function(){
 	$('.mainCon .leftCon .funcBar li .personalinfo').click(function(){
 		window.location.href = "/PCAdmin/html/manager/personal/mine.html";
 	});
+    $('.mainCon .leftCon .funcBar li .rubbish').click(function(){
+        window.location.href = "/PCAdmin/html/manager/personal/rubbish.html";
+    });
 });
 
 function load(){
