@@ -6,7 +6,7 @@ if (!defined('IN_TG')) {
 header('Access-Control-Allow-Origin:*');
 // 获取消息列表 state:0未读 1已读 -1 删除
 function getMessageList($receiveId,$state){
-    $sql = "select * from message where receive_id = '$receiveId' and state = '$state'";
+    $sql = "select * from message where receive_id = '$receiveId' and state = '$state' order by publish_time desc";
     $res = json_decode(get_datas($sql,2));
     $list = array();
     if(is_array($res)){

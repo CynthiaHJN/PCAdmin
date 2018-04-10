@@ -39,7 +39,11 @@
                 <li><a href="../common/aboutUs.html">关于我们</a></li>
                 <li class="none"><button class="btn btn-log">登陆</button></li>
                 <li class="none"><button class="btn btn-log">注册</button></li>
-                <li class="showName"><a href="myClass.html" class="active">Cynthia</a></li>
+                <li class="showName none">
+                    <a href="javascript:;" class="active">Cynthia</a>
+                    <div class="logOut none" style="position: absolute;">注销登录</div>
+                </li>
+                <!--<li class="showName"><a href="myClass.html" class="active">Cynthia</a></li>-->
             </ul>
             <div class="listNav"><i class="fa fa-bars"></i></div>
         </nav>
@@ -91,6 +95,19 @@
                     <span class="nextClassTime">安排的上课时间：{{value.class_time}}</span>
                 </div>
                 <div class="fr">
+                    <button data-orderId="{{value.order_id}}" data-courseName="{{item.course_name}}" data-studentId="{{value.user_id}}" class="btn btn-success">请假调课</button>
+                </div>
+            </li>
+            {{/if}}
+            {{if value.has_class==-1}}
+            <li class="clearfix">
+                <div class="fl">
+                    <img src="/PCAdmin/img/avatar/moren.jpg">
+                    <span>{{value.username}}</span>
+                    <span class="nextClassTime">安排的上课时间：{{value.class_time}}</span>
+                </div>
+                <div class="fr">
+                    <span>该学生需要请假，请尽快处理哦！</span>
                     <button data-orderId="{{value.order_id}}" data-courseName="{{item.course_name}}" data-studentId="{{value.user_id}}" class="btn btn-success">请假调课</button>
                 </div>
             </li>
@@ -263,6 +280,7 @@
                     $('.alertBk').hide();
                     $('.alertMain').hide();
                     alert('调课成功，调课信息已发送给学生');
+                    $('.dataList').html('');
                     getLeaveList();
                 }else{
                     $('.alertBk').hide();

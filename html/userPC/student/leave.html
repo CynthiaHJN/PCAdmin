@@ -40,7 +40,11 @@
                 <li><a href="../common/aboutUs.html">关于我们</a></li>
                 <li class="none"><button class="btn btn-log">登陆</button></li>
                 <li class="none"><button class="btn btn-log">注册</button></li>
-                <li class="showName"><a href="myClass.html" class="active">Cynthia</a></li>
+                <li class="showName none">
+                    <a href="javascript:;" class="active">Cynthia</a>
+                    <div class="logOut none" style="position: absolute;">注销登录</div>
+                </li>
+                <!--<li class="showName"><a href="myClass.html" class="active">Cynthia</a></li>-->
             </ul>
             <div class="listNav"><i class="fa fa-bars"></i></div>
         </nav>
@@ -75,7 +79,7 @@
             </ul>
             <ul class="dataList">
             </ul>
-            <div class="noData none">暂时没有可以请假调课的课程哦~</div>
+            <div class="noData none">暂时没有可以请假的课程哦~</div>
         </div>
     </div>
     <script id="canLeaveList" type="text/html">
@@ -85,7 +89,7 @@
                 <p class="nextClassTime">安排的上课时间：{{item.class_time}}</p>
             </div>
             <div class="fr">
-                <button data-orderId="{{item.order_id}}" data-teacherId="{{item.course_intro.teacher_id}}" data-courseName="{{item.course_intro.course_name}}" class="btn btn-success leaveBtn">请假调课</button>
+                <button data-orderId="{{item.order_id}}" data-teacherId="{{item.course_intro.teacher_id}}" data-courseName="{{item.course_intro.course_name}}" class="btn btn-success leaveBtn">我要请假</button>
             </div>
         </li>
     </script>

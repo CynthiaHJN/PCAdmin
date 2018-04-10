@@ -65,7 +65,7 @@ a {
     position: absolute;
     border: 1px solid #cdc9a5;
     width: 80px;
-    left: -23px;
+    left: -17px;
     top: 50px;
     text-align: center;
     border-radius: 3px;
@@ -158,10 +158,6 @@ a {
 .none,.headUL li.none{
 	display: none;
 }
-
-
-
-
 /*footer*/
 footer{
 	position: relative;

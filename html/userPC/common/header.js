@@ -9,9 +9,11 @@ $(function(){
 		}
 	}
 	$('.site-header nav .showName').hover(function(){
-		$(this).find('logout').removeClass('none');
+		$('.site-header nav .showName .logOut').removeClass('none');
+	},function(){
+        $('.site-header nav .showName .logOut').addClass('none');
 	});
-	$('.site-header nav .showName').click(function(){
+	$('.site-header nav .showName .active').click(function(){
 		var user_type = sessionStorage.getItem('user_type');
 		if(user_type==0){
 			window.location.href = "/PCAdmin/html/userPC/student/myClass.html";
@@ -19,12 +21,12 @@ $(function(){
 			window.location.href = "/PCAdmin/html/userPC/teacher/myClass.html";
 		}
 	});
-	$('header .navBar .headUL .logOut').on('click',function(){
-		sessionStorage.remove('mobile');
-		sessionStorage.remove('name');
-		sessionStorage.remove('userId');
-		sessionStorage.remove('userType');
-		window.loaction.reload();
+	$('.site-header nav .showName .logOut').on('click',function(){
+		sessionStorage.removeItem('mobile');
+		sessionStorage.removeItem('name');
+		sessionStorage.removeItem('userId');
+		sessionStorage.removeItem('userType');
+        location.reload();
 	});
 	$('.site-header nav .btn-log,.sliderBar .btn-log').click(function(){
 		window.location.href = "/PCAdmin/html/userPC/signin.html";
