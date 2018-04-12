@@ -29,12 +29,14 @@
     }
     .msgList li{
         padding: 10px;
-        background: #eae9e0;
         line-height: 25px;
         margin-bottom: 15px;
+        padding-bottom: 25px;
+        border-bottom: 1px solid #eee;
     }
     .msgList li .title{
         font-size: 15px;
+        font-weight: bold;
     }
     .msgList li .time{
         font-size: 12px;
@@ -50,15 +52,18 @@
          border:  1px solid #CDC9A5;
          color: #CDC9A5;
          background: #fff;
-         border-radius: 5px;
+         border-radius: 3px;
          padding: 0 10px;
+        margin-right: 20px;
+        margin-top: 5px;
      }
     .msgList li .btnBox .delete{
         border:  1px solid #2aabd2;
         color: #2aabd2;
         background: #fff;
-        border-radius: 5px;
+        border-radius: 3px;
         padding: 0 10px;
+        margin-top: 5px;
     }
 </style>
 <body>
@@ -112,7 +117,9 @@
                 <li>已读消息</li>
             </ul>
             <div class="msgCnt">
-                <ul class="msgList">
+                <ul class="msgList li1">
+                </ul>
+                <ul class="msgList li2">
                 </ul>
             </div>
         </div>
@@ -132,6 +139,16 @@
                 <div class="title">{{item.title}}</div>
                 <div class="content">{{item.content}}</div>
                 <div class="time">发送者:{{item.send_name}}&nbsp;&nbsp;&nbsp;&nbsp;发布时间:{{item.publish_time.split(' ')[0]}}</div>
+                <div class="btnBox">
+                    <button class="delete" msgId="{{item.id}}">删除</button>
+                </div>
+            </li>
+        </script>
+        <script id="managerInfoItem" type="text/html">
+            <li>
+                <div class="title">{{item.title}}</div>
+                <div class="content">{{item.content}}</div>
+                <div class="time">请假人:{{item.send_name}}&nbsp;&nbsp;&nbsp;&nbsp;发布时间:{{item.publish_time.split(' ')[0]}}</div>
                 <div class="btnBox">
                     <button class="delete" msgId="{{item.id}}">删除</button>
                 </div>
@@ -175,20 +192,22 @@
                             }else{
                                 var html = template('hasReadItem',{item: list[i]});
                             }
-                            $('.msgList').append(html);
+                            $('.li1').append(html);
                         }
                     }else{
                         if(state==0){
-                            $('.msgList').html('<p class="tipMsg">暂无未读消息</p>');
+                            $('.li1').html('<p class="tipMsg">暂无未读消息</p>');
                         }else{
-                            $('.msgList').html('<p class="tipMsg">暂无已读消息</p>');
+                            $('.li1').html('<p class="tipMsg">暂无已读消息</p>');
                         }
                     }
                 }
             }
         });
     }
+    function getManagerList(type,state){
 
+    }
     $(document).delegate('.msgList li .read','click',function () {
         var msgId = $(this).attr('msgId');
         $.ajax({

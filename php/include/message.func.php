@@ -45,4 +45,9 @@ function sendMessage($send_id,$receive_id,$reason,$title,$type){
     $flag = insert_datas($sql);
     return $flag;
 }
+
+function getTypeMessage($type,$state){
+    $sql = "select * from message where type='$type' and state='$state'";
+    return get_datas($sql,2);
+}
 ?> 
