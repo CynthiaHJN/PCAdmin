@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/common.css">
+    <script type="text/javascript" src="../../../js/jquery-2.1.1.min.js" ></script>
+    <script type="text/javascript" src="../../../js/public.js" ></script>
+    <script type="text/javascript" src="../../../js/template.js" ></script>
+    <script type="text/javascript" src="../../../js/common.js"></script>
+    <title>主页</title>
+</head>
+<style type="text/css">
+    .articleTag{
+        display: inline-block;
+        font-size: 12px;
+        margin-right: 30px;
+    }
+    .articleTag li{
+        display: inline-block;
+        /*float: right;*/
+        padding: 0px 10px;
+        cursor: pointer;
+        color:#999;
+        border-right: 1px solid #ddd;
+    }
+    .articleTag li:nth-child(4){
+        border:0;
+    }
+    .articleTag li.active{
+        color:rgb(88,126,209);
+    }
+</style>
+<body>
+<div class="container">
+    <div class="sidebar">
+        <div class="title">琴之家</div>
+        <ul class="sidenav">
+            <li>
+                <a href="javascript:;">课程管理</a>
+            </li>
+            <li>
+                <a href="javascript:;">教师管理</a>
+            </li>
+            <li>
+                <a href="javascript:;">学生管理</a>
+            </li>
+            <li>
+                <a href="javascript:;">文章管理</a>
+            </li>
+            <li>
+                <a href="javascript:;">资格审核</a>
+            </li>
+        </ul>
+    </div>
+    <div class="wrapper">
+        <div class="topCon">
+            <button class="fr searchBtn">搜索</button>
+            <input class="searchBar fr"></input>
+        </div>
+        <div class="mainCon">
+            <div class="leftCon">
+                <div class="briefInfo">
+                    <div class="avatar"><img src="../../../img/avatar/moren.jpg"></div>
+                    <div class="info">
+                        <div class="name">administer</div>
+                        <div class="mobile">140****0001</div>
+                        <i class="modify"></i>
+                    </div>
+                </div>
+                <ul class="funcBar">
+                    <li><i class="mail">信息</i></li>
+                    <li><i class="personalinfo">我的</i></li>
+                    <li><i class="rubbish">回收站</i></li>
+                </ul>
+                <div class="timeCon">
+                    <p class="clearfix">
+                        <span class="weekdayEn fl">Friday 03 Sep</span>
+                        <span class="monthEn fr">April 2015</span>
+                    </p>
+                    <p class="clearfix">
+                        <span class="weekdayCn fl">星期五</span>
+                        <span class="monthCn fr">四月</span>
+                    </p>
+                    <div class="dayBox">
+                        <span class="day"><em>03</em>日</span>
+                    </div>
+                    <button class="record">签到</button>
+                </div>
+            </div>
+            <div class="rightCon">
+                <div class="tips" style="margin-top: 20px;">
+                    <p class="title">功能介绍</p>
+                    <div class="funcIntro">
+                        <p>1.此页面为管理员发送信息页面。</p>
+                        <p>2.可以选择发送的人群，教师，学生或者是全员发送。</p>
+                    </div>
+                </div>
+                <div class="funcDetail">
+                    <div class="title clearfix">
+                        <span>发送消息</span>
+                    </div>
+                    <div class="courseInputCon">
+                        <div class="clearfix">
+                            <label class="fl">消息主题<em>*</em></label>
+                            <input type="text" id="title" class="inputBox fr">
+                        </div>
+                        <div class="clearfix">
+                            <label class="fl">发送群体<em>*</em></label>
+                            <ul class="typeList fr">
+                                <li class="typeItem active" data-value="1">全员发送</li>
+                                <li class="typeItem" data-value="2">全体老师</li>
+                                <li class="typeItem" data-value="3">全体学生</li>
+                            </ul>
+                        </div>
+                        <div class="clearfix">
+                            <label class="fl">消息内容<em>*</em></label>
+                            <textarea class="msgCnt inputBox fr" rows="8"></textarea>
+                        </div>
+                        <div class="clearfix">
+                            <button class="submitBtn fr">提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var sendUser = 1;
+    $('.typeList li').click(function(){
+        var $this = $(this);
+        if($this.hasClass('active')){
+            return;
+        }
+        $('.typeList li').removeClass('active');
+        $this.addClass('active');
+        sendUser = $this.attr('data-value');
+    });
+    $('.submitBtn').on('click',function(){
+        var title = $('#title').val();
+        var msgCnt = $('.msgCnt').val();
+        $.ajax({
+            url:'/PCAdmin/php/managerSendMsg.php',
+            type:'post',
+            dataType:'json',
+            data:{
+                sendId: sessionStorage.getItem('username'),
+                title: title,
+                msgCnt: msgCnt,
+                sendUser: sendUser
+            },
+            success: function(res){
+                if(res.success){
+                    alert('发布成功！')
+                }else{
+                    alert('发送失败，请检查是否为网络原因');
+                }
+            }
+        });
+    });
+</script>
+</html>
