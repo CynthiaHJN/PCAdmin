@@ -142,6 +142,9 @@
         $this.addClass('active');
         sendUser = $this.attr('data-value');
     });
+    $('.articleTag li').click(function(){
+        window.location.href = 'msgList.html';
+    });
     $('.submitBtn').on('click',function(){
         var title = $('#title').val();
         var msgCnt = $('.msgCnt').val();

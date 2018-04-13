@@ -69,6 +69,10 @@ $(function(){
     $('.mainCon .leftCon .funcBar li .mail').click(function(){
 		window.location.href = "/PCAdmin/html/manager/personal/message.html";
 	});
+    $('.mainCon .leftCon .timeCon .record').click(function(){
+		sessionStorage.removeItem('username');
+		window.location.href = "/PCAdmin/html/manager/login.html";
+	});
 });
 
 function load(){

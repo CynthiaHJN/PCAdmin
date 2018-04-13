@@ -51,4 +51,20 @@ function getTypeMessage($type,$state){
     $res = get_array($sql);
     return $res;
 }
-?> 
+
+function getMyMessageList($sendId,$limit,$page){
+    $sql = "select count(*) as totalSize from message where send_id=$sendId";
+    $totalSize = get_row($sql)['totalSize'];
+    $totalPage = ceil($totalSize/$limit);
+    $pageSize = ($page-1)*$limit;
+    $sql2 = "select * from message where send_id=$sendId order by publish_time desc limit $pageSize,$limit";
+    $res = get_array($sql2);
+    $arr = array('list'=>$res,'totalPage'=>$totalPage,'totalSize'=>$totalSize,'currentPage'=>$page);
+    return json_encode($arr);
+}
+
+function putMsgOverdue($msgId){
+    $sql = "update message set state=-2 where id='$msgId'";
+    return insert_datas($sql);
+}
+?>
