@@ -15,7 +15,6 @@
         display: inline-block;
         font-size: 12px;
         margin-right: 30px;
-        line-height: 28px;
     }
     .articleTag li{
         display: inline-block;
@@ -86,7 +85,7 @@
                     <div class="dayBox">
                         <span class="day"><em>03</em>日</span>
                     </div>
-                    <button class="record">注销登陆</button>
+                    <button class="record">签到</button>
                 </div>
             </div>
             <div class="rightCon">
@@ -108,10 +107,15 @@
                             <li>文章</li>
                         </ul>
                     </div>
+                    <ul class="dataList"></ul>
                 </div>
          </div>
         </div>
     </div>
+    <script id="articleInfo" type="text/html"></script>
+    <script id="teacherInfo" type="text/html"></script>
+    <script id="studentInfo" type="text/html"></script>
+    <script id="courseInfo" type="text/html"></script>
 </div>
 </body>
 <script>
@@ -128,21 +132,22 @@
 //        $('.pageList .currentPage').html(currentPage);
         if(index==0){
             type=1;
-//            getArticleList(type);
+            getRubbishList(type);
             return;
         }
         if(index==1){
             type=2;
-//            getArticleList(type);
+			getRubbishList(type);
             return;
         }
         if(index==2){
             type=3;
-//            getArticleList(type);
+            getRubbishList(type);
             return;
         }
         if(index==3){
             type=4;
+            getRubbishList(type);
         }
     });
 
@@ -157,7 +162,17 @@
             success: function(res){
                 if(res.success){
                     var list = res.list;
-
+                    var html;
+					if(type==1){
+						html = template('courseInfo',{list:list});
+					}else if(type==2){
+						html = template('teacherInfo',{list:list});
+					}else if(type==3){
+						html = template('studentInfo',{list:list});
+					}else{
+						html = template('articleInfo',{list:list});
+					}
+					$('.dataList').html(html);
                 }
             }
         });
