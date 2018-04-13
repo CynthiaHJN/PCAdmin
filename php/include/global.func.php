@@ -23,4 +23,7 @@ function base64_image_content($base64_image_content,$path){
         return false;
     }
 }
+function getRubbishList($sql){
+	return get_datas($sql,2);
+}
 ?>
