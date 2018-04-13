@@ -8,11 +8,6 @@ $(function(){
 			$('.sliderBar').hide();
 		}
 	}
-	$('.site-header nav .showName').hover(function(){
-		$('.site-header nav .showName .logOut').removeClass('none');
-	},function(){
-        $('.site-header nav .showName .logOut').addClass('none');
-	});
 	$('.site-header nav .showName .active').click(function(){
 		var user_type = sessionStorage.getItem('user_type');
 		if(user_type==0){
@@ -21,7 +16,7 @@ $(function(){
 			window.location.href = "/PCAdmin/html/userPC/teacher/myClass.html";
 		}
 	});
-	$('.site-header nav .showName .logOut').on('click',function(){
+	$('.site-header nav .afterLog .logOut').on('click',function(){
 		sessionStorage.removeItem('mobile');
 		sessionStorage.removeItem('name');
 		sessionStorage.removeItem('userId');
@@ -39,6 +34,7 @@ function load(){
 		$('header .navBar .headUL li,.sidebar .slider-ul li').find('button').parent().addClass('none');
         $('header .navBar .headUL li.showName a,.sidebar .slider-ul li.showName a').html(sessionStorage.getItem('name'));
         $('header .navBar .headUL li.showName,.sidebar .slider-ul li.showName').removeClass('none');
+        $('header .navBar .headUL li.afterLog').removeClass('none');
 	}
 }
 

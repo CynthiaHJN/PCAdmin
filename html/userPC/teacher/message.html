@@ -82,7 +82,9 @@
                 <li class="none"><button class="btn btn-log">注册</button></li>
                 <li class="showName none">
                     <a href="javascript:;" class="active">Cynthia</a>
-                    <div class="logOut none" style="position: absolute;">注销登录</div>
+                </li>
+                <li class="afterLog none">
+                    <a href="javascript:;" class="logOut">退出</a>
                 </li>
                 <!--<li class="showName"><a href="myClass.html" class="active">Cynthia</a></li>-->
             </ul>
@@ -122,7 +124,9 @@
                 <li>全部消息</li>
             </ul>
             <div class="msgCnt">
-                <ul class="msgList">
+                <ul class="msgList li1">
+                </ul>
+                <ul class="msgList li2">
                 </ul>
             </div>
         </div>
@@ -149,12 +153,9 @@
         </script>
         <script id="managerInfoItem" type="text/html">
             <li>
-                <div class="title">{{item.title}}</div>
+                <div class="title"><i class="fa fa-star" style="color: #f44336;margin-right: 5px;"></i>{{item.title}}</div>
                 <div class="content">{{item.content}}</div>
-                <div class="time">请假人:{{item.send_name}}&nbsp;&nbsp;&nbsp;&nbsp;发布时间:{{item.publish_time.split(' ')[0]}}</div>
-                <div class="btnBox">
-                    <button class="delete" msgId="{{item.id}}">删除</button>
-                </div>
+                <div class="time">请假人:管理员&nbsp;&nbsp;&nbsp;&nbsp;发布时间:{{item.publish_time.split(' ')[0]}}</div>
             </li>
         </script>
     </div>
@@ -168,6 +169,8 @@
         if(index==0){
             $('.msgList').html('');
             getMessageList(0);
+            getManagerList(10,0);
+            getManagerList(11,0);
         }
         else if(index==1){
             $('.msgList').html('');
@@ -175,6 +178,8 @@
         }
     });
     getMessageList(0);
+    getManagerList(10,0);
+    getManagerList(11,0);
     function getMessageList(state){
         var userId = sessionStorage.getItem('userId');
         $.ajax({
@@ -195,20 +200,41 @@
                             }else{
                                 var html = template('hasReadItem',{item: list[i]});
                             }
-                            $('.msgList').append(html);
+                            $('.li2').append(html);
                         }
                     }else{
                         if(state==0){
-                            $('.msgList').html('<p class="tipMsg">暂无未读消息</p>');
+                            $('.li2').html('<p class="tipMsg">暂无未读消息</p>');
                         }else{
-                            $('.msgList').html('<p class="tipMsg">暂无已读消息</p>');
+                            $('.li2').html('<p class="tipMsg">暂无已读消息</p>');
                         }
                     }
                 }
             }
         });
     }
-
+    function getManagerList(type,state){
+        $.ajax({
+            url: '/PCAdmin/php/getManagerMsgList.php',
+            type:'post',
+            dataType:'json',
+            data:{
+                type: type,
+                state: state
+            },
+            success: function (res) {
+                if(res.success){
+                    if(res.data&&res.data.length>0){
+                        var list = res.data;
+                        for(var i=0;i<list.length;i++){
+                            var html = template('managerInfoItem',{item: list[i]});
+                            $('.li1').append(html);
+                        }
+                    }
+                }
+            }
+        });
+    }
     $(document).delegate('.msgList li .read','click',function () {
         var msgId = $(this).attr('msgId');
         $.ajax({

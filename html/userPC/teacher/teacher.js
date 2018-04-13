@@ -2,12 +2,9 @@ $(function () {
     isLogin();
     $('header .navBar .headUL li,.sidebar .slider-ul li').find('button').parent().addClass('none');
     $('header .navBar .headUL li.showName a,.sidebar .slider-ul li.showName a').html(sessionStorage.getItem('name'));
-    $('header .navBar .headUL li.showName,.sidebar .slider-ul li.showName').removeClass('none');
+    $('header .navBar .headUL li.showName,.sidebar .slider-ul li.showName,header .navBar .headUL li.afterLog').removeClass('none');
    $('.personalNav ul li').click(function () {
         var index = $(this).index();
-        // if(index==0){
-        //     window.location.href = 'home.html';
-        // }
         if(index==0){
             window.location.href = 'message.html';
         }

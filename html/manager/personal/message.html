@@ -15,6 +15,7 @@
         display: inline-block;
         font-size: 12px;
         margin-right: 30px;
+        line-height: 28px;
     }
     .articleTag li{
         display: inline-block;
@@ -24,7 +25,7 @@
         color:#999;
         border-right: 1px solid #ddd;
     }
-    .articleTag li:nth-child(4){
+    .articleTag li:last-child{
         border:0;
     }
     .articleTag li.active{
@@ -85,7 +86,7 @@
                     <div class="dayBox">
                         <span class="day"><em>03</em>日</span>
                     </div>
-                    <button class="record">签到</button>
+                    <button class="record">注销登陆</button>
                 </div>
             </div>
             <div class="rightCon">
@@ -99,6 +100,9 @@
                 <div class="funcDetail">
                     <div class="title clearfix">
                         <span>发送消息</span>
+                        <ul class="articleTag clearfix fr">
+                            <li>已发消息列表</li>
+                        </ul>
                     </div>
                     <div class="courseInputCon">
                         <div class="clearfix">
@@ -154,8 +158,10 @@
             success: function(res){
                 if(res.success){
                     alert('发布成功！');
+                    location.reload();
                 }else{
                     alert('发送失败，请检查是否为网络原因');
+                    location.reload();
                 }
             }
         });
