@@ -23,6 +23,8 @@ if(!$flag){
     if($res){
         if($res==($type+1)){
             $data = array('success'=>true);
+        }else if($res==-2){
+            $data = array('success'=>false,'errorCode'=>4,'errorMsg'=>'账户异常，请联系管理员');
         }else{
             $data = array('success'=>false,'errorCode'=>3,'errorMsg'=>'用户名不存在');
         }

@@ -27,10 +27,14 @@ function user_login($mobile,$password,$user_type){
 }
 function user_login2($mobile,$password){
     $sql = "select * from user where mobile='$mobile' and password='$password'";
-    if(get_row($sql)==null){
+    $res = get_row($sql);
+    if($res==null){
         return false;
+    }else if($res['state']!=0){
+        return -2;
+    }else{
+        return get_row($sql)['user_type']+1;
     }
-    return get_row($sql)['user_type']+1;
 }
 // 检查用户是否存在
 function exit_user($mobile){

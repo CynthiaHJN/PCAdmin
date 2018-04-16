@@ -106,17 +106,6 @@
                 success: function(res){
                     if(res.success){
                         getUserId(mobile,type);
-//                        if(type==0){
-//                            sessionStorage.setItem('mobile',mobile);
-//                            sessionStorage.setItem('user_type',type);
-//                            getUserId(mobile,type);
-////                            window.location.href = 'student/home.html';
-//                        }else{
-//                            sessionStorage.setItem('mobile',mobile);
-//                            sessionStorage.setItem('user_type',type);
-//                            getUserId(mobile,type);
-////                            window.location.href = 'teacher/home.html';
-//                        }
                     }else{
                         if(res.errorCode==1||res.errorCode==3){
                             $('.mobile-line .fault span').html(res.errorMsg);
@@ -127,13 +116,15 @@
                             $('.password-line  .fault span').html('密码输入有误');
                             $('.password-line .fault').show();
                         }
+                        if(res.errorCode==4){
+                            alert(res.errorMsg);
+						}
                     }
                 }
             });
         });
     });
     $('input').focus(function(){
-    	// console.log('11');
     	$('.fault').hide();
     });
 </script>
