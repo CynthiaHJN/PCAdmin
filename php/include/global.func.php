@@ -24,6 +24,6 @@ function base64_image_content($base64_image_content,$path){
     }
 }
 function getRubbishList($sql){
-	return get_datas($sql,2);
+	return get_array($sql,2);
 }
 ?>

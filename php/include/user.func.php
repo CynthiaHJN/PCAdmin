@@ -94,7 +94,8 @@ function pushTeacherTable($item){
 
 // 管理员删除一个用户
 function deleteUser($userId){
-	$sql = "update user set state=2 where user_id='$userId'";
+    $createTime = date('Y-m-d h:i:s');
+	$sql = "update user set state=2,delete_time='$createTime' where user_id='$userId'";
 	return insert_datas($sql);
 }
 

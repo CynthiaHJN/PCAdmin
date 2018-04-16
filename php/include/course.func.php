@@ -32,7 +32,8 @@ function getCourseList($limit,$page){
 }
 
 function deleteCourse($id){
-	$sql = "update course set state=2 where course_id='$id'";
+    $createTime = date('Y-m-d h:i:s');
+	$sql = "update course set state=2, delete_time='$createTime' where course_id='$id'";
 	return insert_datas($sql);
 }
 

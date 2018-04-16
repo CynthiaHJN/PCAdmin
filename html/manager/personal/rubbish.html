@@ -30,6 +30,12 @@
     .articleTag li.active{
         color:rgb(88,126,209);
     }
+    .dataList .noData{
+        text-align: center;
+        font-size: 16px;
+        padding: 40px 0;
+        color: #999;
+    }
 </style>
 <body>
 <div class="container">
@@ -56,7 +62,7 @@
     <div class="wrapper">
         <div class="topCon">
             <button class="fr searchBtn">搜索</button>
-            <input class="searchBar fr"></input>
+            <input class="searchBar fr" />
         </div>
         <div class="mainCon">
             <div class="leftCon">
@@ -85,7 +91,7 @@
                     <div class="dayBox">
                         <span class="day"><em>03</em>日</span>
                     </div>
-                    <button class="record">签到</button>
+                    <button class="record">注销登陆</button>
                 </div>
             </div>
             <div class="rightCon">
@@ -93,8 +99,7 @@
                     <p class="title">功能介绍</p>
                     <div class="funcIntro">
                         <p>1.此页面可以还原被删除的各项信息。</p>
-                        <p>2.只保留7天内的资料。</p>
-                        <p>3.还原成功后，会提示“文件已经还原”并刷新列表。</p>
+                        <p>2.还原成功后，会提示“文件已经还原”并刷新列表。</p>
                     </div>
                 </div>
                 <div class="funcDetail">
@@ -107,18 +112,103 @@
                             <li>文章</li>
                         </ul>
                     </div>
-                    <ul class="dataList"></ul>
+                    <ul class="dataList courseList"></ul>
                 </div>
          </div>
         </div>
     </div>
-    <script id="articleInfo" type="text/html"></script>
-    <script id="teacherInfo" type="text/html"></script>
-    <script id="studentInfo" type="text/html"></script>
-    <script id="courseInfo" type="text/html"></script>
+    <script id="articleInfo" type="text/html">
+        {{if list && list.length>0}}
+        <li class="title">
+            <div>序号</div>
+            <div>标题</div>
+            <div>发布时间</div>
+            <div>作者</div>
+            <div>操作</div>
+        </li>
+        {{each list as item}}
+        <li data-id="{{list.article_id}}">
+            <div>{{i+1}}</div>
+            <div>{{list.title}}</div>
+            <div>{{list.publish_time.split(' ')[0]}}</div>
+            <div>{{list.author}}</div>
+            <div><a href="javascript:;" class="restore">还原</a></div>
+        </li>
+        {{/each}}
+        {{else}}
+        <p class="noData">暂无可还原的文章信息</p>
+        {{/if}}
+    </script>
+    <script id="teacherInfo" type="text/html">
+        {{if list && list.length>0}}
+        <li class="title">
+            <div>序号</div>
+            <div>教师姓名</div>
+            <div>教师等级</div>
+            <div>授课方向</div>
+            <div>操作</div>
+        </li>
+        {{each list as item i}}
+        <li data-id="{{item.user_id}}">
+            <div>{{i+1}}</div>
+            <div>{{item.name}}</div>
+            <div>{{item.teacher_rank}}</div>
+            <div>{{item.teach_direction}}</div>
+            <div><a href="javascript:;" class="restore">还原</a></div>
+        </li>
+        {{/each}}
+        {{else}}
+        <p class="noData">暂无可还原的教师信息</p>
+        {{/if}}
+    </script>
+    <script id="studentInfo" type="text/html">
+        {{if list && list.length>0}}
+        <li class="title">
+            <div>序号</div>
+            <div>学生姓名</div>
+            <div>学生年龄</div>
+            <div>学生性别</div>
+            <div>操作</div>
+        </li>
+        {{each list as item i}}
+        <li data-id="{{item.user_id}}">
+            <div>{{i+1}}</div>
+            <div>{{item.name}}</div>
+            <div>{{item.age}}</div>
+            <div>{{item.sex}}</div>
+            <div><a href="javascript:;" class="restore">还原</a></div>
+        </li>
+        {{/each}}
+        {{else}}
+        <p class="noData">暂无可还原的学生信息</p>
+        {{/if}}
+    </script>
+    <script id="courseInfo" type="text/html">
+        {{if list && list.length>0}}
+        <li class="title">
+            <div>课程名称</div>
+            <div>开始时间</div>
+            <div>截止时间</div>
+            <div>报名人数</div>
+            <div>操作</div>
+        </li>
+        {{each list as item}}
+        <li data-id="{{item.course_id}}">
+            <div>{{item.course_name}}</div>
+            <div>{{item.start_time.split(' ')[0]}}</div>
+            <div>{{item.end_time.split(' ')[0]}}</div>
+            <div>{{item.limit_members}}</div>
+            <div><a href="javascript:;" class="restore">还原</a></div>
+        </li>
+        {{/each}}
+        {{else}}
+        <p class="noData">暂无可还原的课程信息</p>
+        {{/if}}
+    </script>
 </div>
 </body>
 <script>
+    getRubbishList(1);
     $('.articleTag li').click(function(){
         var $this = $(this);
         var index = $this.index();
@@ -127,9 +217,6 @@
         }
         $('.articleTag li').removeClass('active');
         $(this).addClass('active');
-//        currentPage=1;
-//        $('.courseList').html(initHtml);
-//        $('.pageList .currentPage').html(currentPage);
         if(index==0){
             type=1;
             getRubbishList(type);
@@ -174,6 +261,41 @@
 					}
 					$('.dataList').html(html);
                 }
+                $('.dataList .restore').click(function(){
+                    var id = $(this).parent().parent().attr('data-id');
+                    $.ajax({
+                        url:'/PCAdmin/php/restoreInfo.php',
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            id: id,
+                            type: type
+                        },
+                        success: function(data){
+                            if(data.success){
+                                alert('信息已成功还原，请前往列表页面查看');
+                                window.location.reload();
+                            }
+                        }
+                    });
+                });
+//                $('.dataList .delete').click(function(){
+//                    var id = $(this).parent().parent().attr('data-id');
+//                    $.ajax({
+//                        url:'/PCAdmin/php/deleteArticle.php',
+//                        type: 'post',
+//                        dataType: 'json',
+//                        data: {
+//                            id: id
+//                        },
+//                        success: function(data){
+//                            if(data.success){
+//                                alert('信息已经成功删除');
+//                                window.location.reload();
+//                            }
+//                        }
+//                    });
+//                });
             }
         });
     }

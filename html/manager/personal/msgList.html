@@ -57,7 +57,7 @@
     <div class="wrapper">
         <div class="topCon">
             <button class="fr searchBtn">搜索</button>
-            <input class="searchBar fr"></input>
+            <input class="searchBar fr">
         </div>
         <div class="mainCon">
             <div class="leftCon">
@@ -178,7 +178,7 @@
                     $('.courseList .overdue').click(function(){
                         var msgId = $(this).parent().parent().attr('data-id');
                         $.ajax({
-                            url:'../../../php/putMsgOverdue.php',
+                            url:'/PCAdmin/php/putMsgOverdue.php',
                             type: 'post',
                             dataType: 'json',
                             data: {
@@ -188,6 +188,27 @@
                                 if(data.success){
                                     alert('操作成功');
                                     window.location.reload();
+                                }
+                            }
+                        });
+                    });
+                    $('.courseList .lookDetail').click(function(){
+                        var msgId = $(this).parent().parent().attr('data-id');
+                        $.ajax({
+                            url:'/PCAdmin/php/getMessageInfo.php',
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                id: msgId
+                            },
+                            success: function(data){
+                                if(data.success){
+                                    cgtzUtil.showGeneralLayer({
+                                        'title':'消息详情',
+                                        'msg':data.data.content,
+                                        'buttonText':'关闭'
+                                    });
+                                    return;
                                 }
                             }
                         });
