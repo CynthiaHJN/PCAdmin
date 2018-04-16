@@ -145,7 +145,7 @@
 		function loadTeacherList(){
 			var courseType = $('#courseType').val();
 			$.ajax({
-				url: '../../../php/getSomeTeacher.php',
+				url: '/PCAdmin/php/getSomeTeacher.php',
 				type: 'post',
 				dataType: 'json',
 				data: {
@@ -178,7 +178,7 @@
 			var coursePrice = $('#courseprice').val();
 			console.log(teacherId);
 			$.ajax({
-				url: '../../../php/addCourse.php',
+				url: '/PCAdmin/php/addCourse.php',
 				type: 'post',
 				dataType: 'json',
 				data: {

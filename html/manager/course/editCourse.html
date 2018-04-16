@@ -140,7 +140,7 @@
 		getCourseInfo(id);
 		function getCourseInfo(id){
 			$.ajax({
-				url: '../../../php/getCourseInfo.php',
+				url: '/PCAdmin/php/getCourseInfo.php',
 				type: 'post',
 				dataType: 'json',
 				data: {
@@ -167,7 +167,7 @@
 		function loadTeacherList(id){
 			var courseType = $('#courseType').val();
 			$.ajax({
-				url: '../../../php/getSomeTeacher.php',
+				url: '/PCAdmin/php/getSomeTeacher.php',
 				type: 'post',
 				dataType: 'json',
 				data: {
@@ -203,7 +203,7 @@
 			var courseHours = $('#courseHours').val();
 			var coursePrice = $('#courseprice').val();
 			$.ajax({
-				url: '../../../php/editCourse.php',
+				url: '/PCAdmin/php/editCourse.php',
 				type: 'post',
 				dataType: 'json',
 				data: {

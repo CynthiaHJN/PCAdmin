@@ -141,7 +141,7 @@
 		getArticleInfo();
 		function getArticleInfo(){
 			$.ajax({
-				url:'../../../php/getArticleInfo.php',
+				url:'/PCAdmin/php/getArticleInfo.php',
 				type: 'post',
 				dataType: 'json',
 				data: {
@@ -186,7 +186,7 @@
 				}
 				$.ajax({
 					type:"post",
-					url:"../../../php/editArticle.php",
+					url:"/PCAdmin/php/editArticle.php",
 					async:true,
 					dataType:'json',
 					data: {
