@@ -6,19 +6,19 @@ $(function () {
    $('.personalNav ul li').click(function () {
         var index = $(this).index();
         if(index==0){
-            window.location.href = 'message.html';
+            window.location.href = '../html/userPC/student/message.html';
         }
         else if(index==1){
-            window.location.href = 'leave.html';
+            window.location.href = '../html/userPC/student/leave.html';
         }
         else if(index==2){
-            window.location.href = 'homework.html';
+            window.location.href = '../html/userPC/student/homework.html';
         }
         else if(index==3){
-            window.location.href = 'myClass.html';
+            window.location.href = '../html/userPC/student/myClass.html';
         }
         else if(index==4){
-            window.location.href = "personalSet.html";
+            window.location.href = "../html/userPC/student/personalSet.html";
         }
    });
 });
@@ -27,7 +27,7 @@ function isLogin(){
     var userId = sessionStorage.getItem('userId')||'';
     var type = sessionStorage.getItem('user_type')||'';
     if(userId==''||type==''||type==1){
-        window.location.href = '../signin.html';
+        window.location.href = '../html/userPC/signin.html';
     }
     return;
 }
